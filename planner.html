@@ -3,91 +3,135 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>行程规划 · TrailQuest</title>
+<title>成都3日深度游 · TrailQuest</title>
 <style>
-:root{--bg:#fff;--surface:#f8fafc;--surface2:#f1f5f9;--border:#e2e8f0;--text:#0f172a;--text2:#475569;--text3:#94a3b8;--accent:#0284c7;--scenic:#3B82F6;--food:#F59E0B;--culture:#8B5CF6;--shop:#EC4899;--night:#10B981;--shadow:0 1px 3px rgba(0,0,0,.08);--shadow-lg:0 8px 30px rgba(0,0,0,.12);--radius:12px;--radius-sm:8px;--nav-h:56px}
-[data-theme="dark"]{--bg:#0f172a;--surface:#1e293b;--surface2:#334155;--border:#334155;--text:#f1f5f9;--text2:#94a3b8;--text3:#64748b;--shadow:0 1px 3px rgba(0,0,0,.3);--shadow-lg:0 8px 30px rgba(0,0,0,.4)}
-*{margin:0;padding:0;box-sizing:border-box}html{scroll-behavior:smooth}
-body{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei","Helvetica Neue",sans-serif;background:var(--bg);color:var(--text);line-height:1.6;min-height:100vh;display:flex;flex-direction:column}
+:root{
+  --bg:#fff;--surface:#f8fafc;--surface2:#f1f5f9;--border:#e2e8f0;
+  --text:#0f172a;--text2:#475569;--text3:#94a3b8;
+  --accent:#0284c7;--accent-light:rgba(2,132,199,.1);--accent-glow:rgba(2,132,199,.2);
+  --scenic:#3B82F6;--scenic-bg:rgba(59,130,246,.1);
+  --food:#F59E0B;--food-bg:rgba(245,158,11,.1);
+  --culture:#8B5CF6;--culture-bg:rgba(139,92,246,.1);
+  --shop:#EC4899;--shop-bg:rgba(236,72,153,.1);
+  --night:#10B981;--night-bg:rgba(16,185,129,.1);
+  --shadow-sm:0 1px 2px rgba(0,0,0,.05);--shadow:0 1px 3px rgba(0,0,0,.08),0 1px 2px rgba(0,0,0,.06);
+  --shadow-md:0 4px 6px rgba(0,0,0,.06),0 2px 4px rgba(0,0,0,.04);
+  --shadow-lg:0 10px 25px rgba(0,0,0,.08),0 4px 10px rgba(0,0,0,.04);
+  --shadow-xl:0 20px 50px rgba(0,0,0,.1);
+  --radius-sm:8px;--radius:12px;--radius-lg:16px;--radius-xl:24px;
+  --nav-h:60px;--transition:200ms cubic-bezier(.4,0,.2,1);
+}
+[data-theme="dark"]{
+  --bg:#0b1120;--surface:#111827;--surface2:#1e293b;--border:#1e293b;
+  --text:#f1f5f9;--text2:#94a3b8;--text3:#64748b;
+  --accent-light:rgba(2,132,199,.15);--accent-glow:rgba(2,132,199,.25);
+  --shadow-sm:0 1px 2px rgba(0,0,0,.2);--shadow:0 1px 3px rgba(0,0,0,.3);
+  --shadow-md:0 4px 6px rgba(0,0,0,.3);--shadow-lg:0 10px 25px rgba(0,0,0,.4);
+  --shadow-xl:0 20px 50px rgba(0,0,0,.5);
+}
+
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}
+body{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei","Helvetica Neue",sans-serif;background:var(--bg);color:var(--text);line-height:1.6;min-height:100vh;display:flex;flex-direction:column;transition:background var(--transition),color var(--transition)}
 a{color:inherit;text-decoration:none}
-.nav{position:sticky;top:0;z-index:1000;height:var(--nav-h);background:var(--bg);border-bottom:1px solid var(--border);display:flex;align-items:center;padding:0 24px;gap:32px;backdrop-filter:blur(16px)}
-.nav-logo{font-size:18px;font-weight:700;display:flex;align-items:center;gap:8px}
-.nav-logo span{color:var(--accent)}
-.nav-links{display:flex;gap:4px;flex:1}
-.nav-links a{padding:8px 16px;border-radius:var(--radius-sm);font-size:14px;font-weight:500;color:var(--text2);transition:all .2s}
+
+.nav{position:sticky;top:0;z-index:100;height:var(--nav-h);background:var(--bg);border-bottom:1px solid var(--border);display:flex;align-items:center;padding:0 28px;gap:32px;transition:background var(--transition),border-color var(--transition)}
+.nav-logo{font-size:18px;font-weight:700;display:flex;align-items:center;gap:8px;letter-spacing:-.3px}
+.nav-logo span{background:linear-gradient(135deg,var(--accent),#0ea5e9);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.nav-links{display:flex;gap:2px;flex:1}
+.nav-links a{padding:8px 16px;border-radius:var(--radius-sm);font-size:13.5px;font-weight:500;color:var(--text2);transition:all var(--transition);position:relative}
 .nav-links a:hover{background:var(--surface2);color:var(--text)}
-.nav-links a.active{background:var(--accent);color:#fff}
+.nav-links a.active{background:var(--accent);color:#fff;box-shadow:0 2px 8px var(--accent-glow)}
 .nav-actions{display:flex;gap:8px;align-items:center}
-.nav-btn{width:36px;height:36px;border-radius:50%;border:1px solid var(--border);background:var(--surface);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:16px;transition:all .2s;color:var(--text)}
-.nav-btn:hover{background:var(--surface2)}
+.nav-save{padding:7px 18px;border-radius:20px;border:none;background:var(--accent);color:#fff;font-size:13px;font-weight:600;cursor:pointer;transition:all var(--transition);letter-spacing:-.2px}
+.nav-save:hover{transform:translateY(-1px);box-shadow:0 4px 12px var(--accent-glow)}
+.nav-btn{width:38px;height:38px;border-radius:50%;border:1px solid var(--border);background:var(--surface);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:16px;transition:all var(--transition);color:var(--text)}
+.nav-btn:hover{background:var(--surface2);border-color:var(--text3);transform:scale(1.05)}
 
-.banner{position:relative;height:200px;display:flex;align-items:center;justify-content:space-between;padding:0 48px;overflow:hidden}
-.banner::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 80% 60% at 20% 30%,rgba(56,189,248,.35),transparent),radial-gradient(ellipse 60% 70% at 70% 20%,rgba(6,182,212,.30),transparent),radial-gradient(ellipse 50% 50% at 85% 60%,rgba(99,102,241,.25),transparent),radial-gradient(ellipse 70% 50% at 40% 70%,rgba(14,165,233,.20),transparent),linear-gradient(135deg,#0c4a6e,#0369a1 30%,#0284c7 60%,#0ea5e9);z-index:0}
-.banner::after{content:'';position:absolute;inset:0;background:url("data:image/svg+xml,%3Csvg width='60' height='60' xmlns='http://www.w3.org/2000/svg'%3E%3Cdefs%3E%3Cpattern id='g' width='60' height='60' patternUnits='userSpaceOnUse'%3E%3Cpath d='M30 0L60 30L30 60L0 30Z' fill='none' stroke='rgba(255,255,255,.03)' stroke-width='0.5'/%3E%3C/pattern%3E%3C/defs%3E%3Crect fill='url(%23g)' width='100%25' height='100%25'/%3E%3C/svg%3E");opacity:.5;z-index:1}
+@keyframes bannerFloat{0%,100%{transform:translate(0,0) scale(1)}25%{transform:translate(-2%,1%) scale(1.02)}50%{transform:translate(1%,-1%) scale(1.01)}75%{transform:translate(2%,2%) scale(1.03)}}
+.banner{position:relative;height:220px;display:flex;align-items:center;justify-content:space-between;padding:0 56px;overflow:hidden}
+.banner-bg{position:absolute;inset:0;background:linear-gradient(135deg,#0c4a6e,#0369a1 30%,#0284c7 60%,#0ea5e9);animation:bannerFloat 20s ease-in-out infinite}
+.banner-spot1{position:absolute;width:60vw;height:60vw;border-radius:50%;background:radial-gradient(circle,rgba(56,189,248,.4),transparent 70%);top:-30%;left:10%;animation:bannerFloat 15s ease-in-out infinite reverse}
+.banner-spot2{position:absolute;width:40vw;height:40vw;border-radius:50%;background:radial-gradient(circle,rgba(99,102,241,.3),transparent 70%);top:20%;right:-10%;animation:bannerFloat 18s ease-in-out infinite}
+.banner-spot3{position:absolute;width:30vw;height:30vw;border-radius:50%;background:radial-gradient(circle,rgba(14,165,233,.35),transparent 70%);bottom:-20%;left:40%;animation:bannerFloat 22s ease-in-out infinite}
+.banner-grid{position:absolute;inset:0;background-image:radial-gradient(rgba(255,255,255,.06) 1px,transparent 1px);background-size:40px 40px;opacity:.5}
 .banner-left{position:relative;z-index:2}
-.banner-left h1{font-size:32px;font-weight:700;color:#fff;margin-bottom:4px;letter-spacing:-.5px}
-.banner-left p{color:rgba(255,255,255,.7);font-size:15px}
-.banner-right{position:relative;z-index:2;display:flex;gap:12px}
-.glass-badge{background:rgba(255,255,255,.15);backdrop-filter:blur(20px);border:1px solid rgba(255,255,255,.25);border-radius:16px;padding:12px 20px;text-align:center;min-width:100px}
-.glass-badge .val{font-size:24px;font-weight:700;color:#fff;line-height:1}
-.glass-badge .lbl{font-size:11px;color:rgba(255,255,255,.6);margin-top:4px}
+.banner-left h1{font-size:36px;font-weight:800;color:#fff;letter-spacing:-1px;line-height:1.2;text-shadow:0 2px 20px rgba(0,0,0,.15)}
+.banner-left p{color:rgba(255,255,255,.8);font-size:15px;margin-top:6px;font-weight:400}
+.banner-right{position:relative;z-index:2;display:flex;gap:14px}
+.glass-badge{background:rgba(255,255,255,.12);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);border:1px solid rgba(255,255,255,.2);border-radius:var(--radius-lg);padding:14px 22px;text-align:center;min-width:105px;transition:all .3s;box-shadow:0 4px 24px rgba(0,0,0,.06)}
+.glass-badge:hover{background:rgba(255,255,255,.18);transform:translateY(-2px)}
+.glass-badge .val{font-size:26px;font-weight:800;color:#fff;line-height:1;font-variant-numeric:tabular-nums}
+.glass-badge .lbl{font-size:11px;color:rgba(255,255,255,.65);margin-top:5px;font-weight:500;letter-spacing:.5px;text-transform:uppercase}
 
-.day-tabs{display:flex;gap:4px;padding:16px 24px;border-bottom:1px solid var(--border);background:var(--surface);overflow-x:auto}
-.day-tab{padding:10px 24px;border-radius:20px;font-size:14px;font-weight:500;cursor:pointer;border:1.5px solid transparent;background:transparent;color:var(--text2);transition:all .2s;white-space:nowrap}
-.day-tab:hover{background:var(--surface2);color:var(--text)}
-.day-tab.active{background:var(--accent);color:#fff;border-color:var(--accent)}
+@keyframes slideUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+.day-tabs{display:flex;gap:0;padding:14px 28px;background:var(--surface);border-bottom:1px solid var(--border);overflow-x:auto;position:relative;transition:background var(--transition)}
+.day-tab{padding:10px 28px;border-radius:22px;font-size:14px;font-weight:600;cursor:pointer;border:2px solid transparent;background:transparent;color:var(--text2);transition:all var(--transition);white-space:nowrap;position:relative}
+.day-tab:hover{color:var(--text);background:var(--surface2)}
+.day-tab.active{background:var(--accent);color:#fff;border-color:var(--accent);box-shadow:0 2px 12px var(--accent-glow);animation:slideUp .3s ease-out}
 
-.main-content{display:flex;flex:1;overflow:hidden}
-.timeline-panel{width:45%;min-width:380px;overflow-y:auto;padding:20px;background:var(--surface);border-right:1px solid var(--border);height:calc(100vh - var(--nav-h) - 200px - 60px)}
-.map-panel{width:55%;position:relative}
+.main-content{display:flex;flex:1;overflow:hidden;height:calc(100vh - var(--nav-h) - 220px - 54px - 52px)}
+.timeline-panel{width:42%;min-width:400px;overflow-y:auto;overflow-x:hidden;padding:24px 20px 24px 28px;background:var(--surface);border-right:1px solid var(--border);scroll-behavior:smooth;transition:background var(--transition)}
+.timeline-panel::-webkit-scrollbar{width:6px}
+.timeline-panel::-webkit-scrollbar-track{background:transparent}
+.timeline-panel::-webkit-scrollbar-thumb{background:var(--border);border-radius:3px}
+.map-panel{flex:1;position:relative;transition:background var(--transition)}
 #mapContainer{width:100%;height:100%}
-.map-msg{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;background:var(--surface);z-index:10;text-align:center;padding:24px}
-.map-msg .mm-icon{font-size:48px;margin-bottom:12px}
-.map-msg .mm-title{font-size:16px;font-weight:600;color:var(--text);margin-bottom:4px}
-.map-msg .mm-desc{font-size:13px;color:var(--text3);max-width:320px;line-height:1.6}
-.map-msg .mm-note{font-size:11px;color:var(--text3);margin-top:8px;padding:6px 12px;background:var(--surface2);border-radius:var(--radius-sm);display:inline-block}
-.spinner{width:40px;height:40px;border:3px solid var(--border);border-top-color:var(--accent);border-radius:50%;animation:spin .8s linear infinite;margin-bottom:12px}
+
+.map-overlay{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:5;transition:opacity .5s;pointer-events:none;background:var(--surface)}
+.map-overlay.ready{opacity:0;transition-delay:.3s}
+.map-spinner{width:44px;height:44px;border:3px solid var(--border);border-top-color:var(--accent);border-radius:50%;animation:spin .7s linear infinite}
+.map-msg-title{font-size:15px;font-weight:600;color:var(--text);margin-top:16px}
+.map-msg-desc{font-size:13px;color:var(--text3);margin-top:4px}
 @keyframes spin{to{transform:rotate(360deg)}}
 
-.poi-card{background:var(--bg);border:1px solid var(--border);border-radius:var(--radius);padding:16px;margin-bottom:12px;display:flex;gap:14px;cursor:pointer;transition:all .2s;position:relative}
-.poi-card:hover{box-shadow:var(--shadow-lg);border-color:var(--accent);transform:translateY(-1px)}
-.poi-card.active{border-color:var(--accent);box-shadow:0 0 0 2px rgba(2,132,199,.2)}
-.poi-card .time-dot{display:flex;flex-direction:column;align-items:center;min-width:44px}
-.poi-card .dot{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:#fff;flex-shrink:0}
-.poi-card .dot-line{width:2px;flex:1;min-height:12px;margin:4px 0;border-left:2px dashed var(--border)}
+@keyframes cardIn{from{opacity:0;transform:translateX(-20px)}to{opacity:1;transform:translateX(0)}}
+.poi-card{background:var(--bg);border:1px solid var(--border);border-radius:var(--radius);padding:18px;margin-bottom:14px;display:flex;gap:16px;cursor:pointer;transition:all var(--transition);position:relative;animation:cardIn .4s ease-out backwards}
+.poi-card:nth-child(1){animation-delay:0s}.poi-card:nth-child(2){animation-delay:.05s}.poi-card:nth-child(3){animation-delay:.1s}
+.poi-card:nth-child(4){animation-delay:.15s}.poi-card:nth-child(5){animation-delay:.2s}.poi-card:nth-child(6){animation-delay:.25s}.poi-card:nth-child(7){animation-delay:.3s}
+.poi-card:hover{border-color:var(--accent);box-shadow:var(--shadow-md);transform:translateX(3px)}
+.poi-card.active{border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-glow);background:var(--accent-light)}
+.poi-card .time-dot{display:flex;flex-direction:column;align-items:center;min-width:48px}
+.poi-card .dot{width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;color:#fff;flex-shrink:0;transition:transform var(--transition)}
+.poi-card:hover .dot{transform:scale(1.15)}
+.poi-card .dot-line{width:2px;flex:1;min-height:14px;margin:5px 0;border-left:2px dashed var(--border);transition:border-color var(--transition)}
+.poi-card:hover .dot-line{border-color:var(--accent)}
 .poi-card:last-child .dot-line{display:none}
 .poi-card .card-body{flex:1;min-width:0}
-.poi-card .card-header{display:flex;align-items:center;gap:8px;margin-bottom:4px}
-.poi-card .card-title{font-size:15px;font-weight:600;color:var(--text)}
-.poi-card .tag{font-size:10px;padding:2px 8px;border-radius:10px;font-weight:600}
-.poi-card .card-time{font-size:12px;color:var(--text3);margin-bottom:4px}
-.poi-card .card-desc{font-size:13px;color:var(--text2);line-height:1.5;margin-bottom:6px}
-.poi-card .card-meta{display:flex;gap:12px;align-items:center;font-size:11px;color:var(--text3)}
-.poi-card .card-meta .cost{color:var(--food);font-weight:600}
-.poi-card .card-transport{margin-top:8px;padding:8px 10px;background:var(--surface2);border-radius:var(--radius-sm);font-size:11px;color:var(--text2);display:flex;align-items:center;gap:6px;flex-wrap:wrap}
-.poi-card .card-transport strong{color:var(--accent)}
+.poi-card .card-header{display:flex;align-items:center;gap:8px;margin-bottom:4px;flex-wrap:wrap}
+.poi-card .card-title{font-size:16px;font-weight:600;color:var(--text);letter-spacing:-.2px}
+.poi-card .tag{font-size:10px;padding:3px 10px;border-radius:10px;font-weight:600;letter-spacing:.3px}
+.poi-card .card-time-row{display:flex;align-items:center;gap:12px;margin-bottom:6px;font-size:12px;color:var(--text3)}
+.poi-card .card-desc{font-size:13px;color:var(--text2);line-height:1.55;margin-bottom:8px}
+.poi-card .card-meta{display:flex;gap:14px;align-items:center;font-size:11px;color:var(--text3);flex-wrap:wrap}
+.poi-card .card-cost{color:var(--food);font-weight:700;font-size:13px}
+.poi-card .card-duration{display:flex;align-items:center;gap:4px}
+.poi-card .card-transport{margin-top:10px;padding:10px 12px;background:var(--surface2);border-radius:var(--radius-sm);font-size:11px;color:var(--text2);display:flex;align-items:center;gap:8px;transition:background var(--transition)}
+.poi-card .card-transport strong{color:var(--accent);font-weight:600}
 
 .dot-scenic{background:var(--scenic)}.dot-food{background:var(--food)}.dot-culture{background:var(--culture)}.dot-shop{background:var(--shop)}.dot-night{background:var(--night)}
-.tag-scenic{background:rgba(59,130,246,.12);color:var(--scenic)}
-.tag-food{background:rgba(245,158,11,.12);color:var(--food)}
-.tag-culture{background:rgba(139,92,246,.12);color:var(--culture)}
-.tag-shop{background:rgba(236,72,153,.12);color:var(--shop)}
-.tag-night{background:rgba(16,185,129,.12);color:var(--night)}
+.tag-scenic{background:var(--scenic-bg);color:var(--scenic)}
+.tag-food{background:var(--food-bg);color:var(--food)}
+.tag-culture{background:var(--culture-bg);color:var(--culture)}
+.tag-shop{background:var(--shop-bg);color:var(--shop)}
+.tag-night{background:var(--night-bg);color:var(--night)}
 
-.transport-bar{padding:12px 24px;background:var(--bg);border-top:1px solid var(--border);display:flex;align-items:center;gap:16px;font-size:13px;color:var(--text2);overflow-x:auto}
-.transport-bar .stat{display:flex;align-items:center;gap:6px;white-space:nowrap}
-.transport-bar .stat strong{color:var(--accent)}
+.transport-bar{padding:12px 28px;background:var(--bg);border-top:1px solid var(--border);display:flex;align-items:center;gap:24px;font-size:13px;color:var(--text2);transition:background var(--transition),border-color var(--transition)}
+.transport-bar .stat{display:flex;align-items:center;gap:6px;white-space:nowrap;font-weight:500}
+.transport-bar .stat strong{color:var(--accent);font-weight:700}
 
-.toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:var(--text);color:var(--bg);padding:10px 24px;border-radius:24px;font-size:13px;font-weight:500;z-index:9999;opacity:0;transition:opacity .3s;pointer-events:none}
-.toast.show{opacity:1}
+.toast{position:fixed;bottom:32px;left:50%;transform:translateX(-50%) translateY(20px);background:var(--text);color:var(--bg);padding:12px 28px;border-radius:24px;font-size:13px;font-weight:600;z-index:9999;opacity:0;transition:all .3s cubic-bezier(.4,0,.2,1);pointer-events:none;box-shadow:var(--shadow-xl)}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
 
-@media(max-width:900px){
-  .main-content{flex-direction:column}
-  .timeline-panel{width:100%;min-width:unset;height:50vh;border-right:none;border-bottom:1px solid var(--border)}
-  .map-panel{width:100%;height:50vh}
-  .banner{padding:0 24px;flex-direction:column;justify-content:center;gap:16px;text-align:center}
-  .banner-left h1{font-size:24px}
-  .nav-links{display:none}
+@media(max-width:960px){
+  .nav{padding:0 16px;gap:16px}.nav-links{display:none}
+  .banner{height:auto;padding:32px 24px;flex-direction:column;text-align:center;gap:20px}
+  .banner-left h1{font-size:26px}.banner-right{gap:10px}.glass-badge{padding:10px 16px;min-width:90px}.glass-badge .val{font-size:22px}
+  .day-tabs{padding:10px 16px}.day-tab{padding:8px 20px;font-size:13px}
+  .main-content{flex-direction:column;height:auto}
+  .timeline-panel{width:100%;min-width:unset;height:50vh;border-right:none;border-bottom:1px solid var(--border);padding:16px}
+  .map-panel{height:50vh}
+  .transport-bar{gap:12px;font-size:12px;overflow-x:auto}
 }
 </style>
 </head>
@@ -104,15 +148,20 @@ a{color:inherit;text-decoration:none}
     <a href="my-trips.html">我的行程</a>
   </div>
   <div class="nav-actions">
-    <button style="padding:6px 16px;border-radius:20px;border:none;background:var(--accent);color:#fff;font-size:13px;font-weight:600;cursor:pointer" onclick="saveTrip()">💾 保存行程</button>
+    <button class="nav-save" onclick="saveTrip()">💾 保存行程</button>
     <button class="nav-btn" id="themeBtn">🌓</button>
   </div>
 </nav>
 
 <div class="banner">
+  <div class="banner-bg"></div>
+  <div class="banner-spot1"></div>
+  <div class="banner-spot2"></div>
+  <div class="banner-spot3"></div>
+  <div class="banner-grid"></div>
   <div class="banner-left">
     <h1>探索成都 · 3日深度游</h1>
-    <p>天府之国 · 蜀汉文脉 · 熊猫故乡 · 美食之都</p>
+    <p>📌 天府之国 &nbsp;|&nbsp; 🏛️ 蜀汉文脉 &nbsp;|&nbsp; 🐼 熊猫故乡 &nbsp;|&nbsp; 🍜 美食之都</p>
   </div>
   <div class="banner-right" id="bannerBadges"></div>
 </div>
@@ -123,7 +172,11 @@ a{color:inherit;text-decoration:none}
   <div class="timeline-panel" id="timelinePanel"></div>
   <div class="map-panel">
     <div id="mapContainer"></div>
-    <div class="map-msg" id="mapMsg"><div class="spinner"></div><div class="mm-title" style="font-size:14px;color:var(--text2)">地图加载中...</div></div>
+    <div class="map-overlay" id="mapOverlay">
+      <div class="map-spinner"></div>
+      <div class="map-msg-title" id="mapMsgTitle">地图加载中...</div>
+      <div class="map-msg-desc" id="mapMsgDesc">正在连接高德地图服务</div>
+    </div>
   </div>
 </div>
 
@@ -136,76 +189,76 @@ const catMap={scenic:{n:'景点',c:'scenic',e:'🏔️'},food:{n:'美食',c:'foo
 const tripData={name:'成都3日深度游',city:'成都',center:[104.0668,30.5728],zoom:11,days:3,totalBudget:3500,
   dayPlan:[
   {day:1,label:'DAY 1 · 蜀汉文脉',pois:[
-    {n:'武侯祠',lng:104.0468,lat:30.6458,t:'08:30',cat:'culture',dur:120,cost:60,desc:'三国圣地，纪念诸葛亮的千年祠庙，红墙竹影，蜀汉遗风扑面而来。',notes:'建议请讲解员'},
-    {n:'锦里古街',lng:104.0482,lat:30.6469,t:'10:30',cat:'shop',dur:90,cost:0,desc:'西蜀第一街，明清风格建筑，小吃手工艺琳琅满目，紧邻武侯祠可步行到达。',notes:'可尝三大炮、糖油果子'},
-    {n:'月满大江火锅',lng:104.0500,lat:30.6480,t:'12:30',cat:'food',dur:60,cost:80,desc:'成都地道火锅，麻辣鲜香，九宫格铜锅，毛肚鸭肠必点。',notes:'人均¥80'},
-    {n:'杜甫草堂',lng:104.0261,lat:30.6626,t:'14:00',cat:'culture',dur:120,cost:60,desc:'诗圣杜甫流寓成都时的故居，茅屋秋风，竹林溪径，千古诗意。',notes:'适合拍照打卡'},
-    {n:'宽窄巷子',lng:104.0518,lat:30.6675,t:'16:30',cat:'shop',dur:90,cost:0,desc:'宽巷子怀旧，窄巷子小资，井巷子市井，三条巷子演绎老成都生活。',notes:'伴手礼：张飞牛肉、火锅底料'},
-    {n:'陈麻婆豆腐',lng:104.0530,lat:30.6650,t:'18:30',cat:'food',dur:45,cost:70,desc:'中华老字号，麻婆豆腐发源地，麻辣酥嫩烫香鲜，六味一体。',notes:'必点：麻婆豆腐、宫保鸡丁'},
-    {n:'蜀风雅韵·川剧变脸',lng:104.0535,lat:30.6692,t:'20:00',cat:'culture',dur:90,cost:180,desc:'看川剧变脸喷火，喝盖碗茶，体验最地道的巴蜀文化之夜。',notes:'建议提前订票，VIP位¥180'}
+    {n:'武侯祠',lng:104.0468,lat:30.6458,t:'08:30',cat:'culture',dur:120,cost:60,desc:'三国圣地，纪念诸葛亮的千年祠庙——红墙竹影间，感受蜀汉遗风扑面而来。',notes:'建议请讲解员，深度了解三国文化'},
+    {n:'锦里古街',lng:104.0482,lat:30.6469,t:'10:30',cat:'shop',dur:90,cost:0,desc:'西蜀第一街，明清建筑群中藏着无数地道小吃和手工艺品。步行可达，紧邻武侯祠。',notes:'三大炮、糖油果子、蛋烘糕必尝'},
+    {n:'月满大江火锅',lng:104.0500,lat:30.6480,t:'12:30',cat:'food',dur:60,cost:80,desc:'成都火锅标杆——九宫格铜锅翻滚着牛油红汤，毛肚七上八下，鸭肠爽脆弹牙。',notes:'¥80/人，建议提前半小时排号'},
+    {n:'杜甫草堂',lng:104.0261,lat:30.6626,t:'14:00',cat:'culture',dur:120,cost:60,desc:'诗圣流寓成都时的茅屋故居——"安得广厦千万间"的千古慨叹诞生于此，竹林溪径间诗韵犹存。',notes:'茅屋景区、唐代遗址陈列馆'},
+    {n:'宽窄巷子',lng:104.0518,lat:30.6675,t:'16:30',cat:'shop',dur:90,cost:0,desc:'宽巷子怀旧、窄巷子小资、井巷子市井——三条平行的巷子，演绎三种截然不同的成都生活。',notes:'伴手礼推荐：张飞牛肉、火锅底料'},
+    {n:'陈麻婆豆腐',lng:104.0530,lat:30.6650,t:'18:30',cat:'food',dur:45,cost:70,desc:'中华老字号，麻婆豆腐发源地——"麻、辣、酥、嫩、烫、香、鲜"七味一体，配一碗米饭是绝配。',notes:'必点：麻婆豆腐、宫保鸡丁'},
+    {n:'蜀风雅韵·川剧变脸',lng:104.0535,lat:30.6692,t:'20:00',cat:'culture',dur:90,cost:180,desc:'看川剧变脸喷火绝技，喝一盏盖碗茶——这是最地道的巴蜀文化之夜，成都打卡清单上的第一名。',notes:'VIP位¥180，建议提前3天订票'}
   ]},
   {day:2,label:'DAY 2 · 熊猫都市',pois:[
-    {n:'大熊猫繁育研究基地',lng:104.1446,lat:30.7348,t:'07:30',cat:'scenic',dur:180,cost:55,desc:'全球最大的大熊猫保护机构，近距离看国宝啃竹子、爬树、打滚卖萌。',notes:'早去避开人流，7:30开门'},
-    {n:'龙抄手总店',lng:104.0780,lat:30.6580,t:'12:00',cat:'food',dur:45,cost:50,desc:'成都名小吃集大成者，龙抄手皮薄馅嫩，红油/清汤/酸辣三味。',notes:'春熙路店，人均¥50'},
-    {n:'人民公园·鹤鸣茶社',lng:104.0555,lat:30.6604,t:'13:30',cat:'culture',dur:90,cost:30,desc:'百年鹤鸣茶社，竹椅盖碗茶，掏耳朵看人潮，老成都慢生活精华。',notes:'盖碗茶¥15-30，掏耳朵¥30'},
-    {n:'春熙路步行街',lng:104.0809,lat:30.6567,t:'15:30',cat:'shop',dur:90,cost:0,desc:'成都第一商圈，百年金街，IFS熊猫爬楼打卡，奢侈品与市井并存。',notes:'IFS 7楼熊猫雕塑必拍'},
-    {n:'太古里',lng:104.0835,lat:30.6546,t:'17:00',cat:'shop',dur:90,cost:0,desc:'川西民居风格+现代商业，方所书店、各大品牌旗舰店，潮流打卡地。',notes:'毗邻大慈寺'},
-    {n:'大龙燚火锅',lng:104.0750,lat:30.6500,t:'19:00',cat:'food',dur:60,cost:100,desc:'成都火锅排队王，锅底醇厚，食材新鲜，江湖菜风格环境。',notes:'建议提前排号'},
-    {n:'九眼桥酒吧街',lng:104.0896,lat:30.6435,t:'21:00',cat:'night',dur:120,cost:150,desc:'锦江畔酒吧一条街，民谣Livehouse+精酿啤酒+江景，成都夜生活地标。',notes:'推荐：莲花府邸、二麻酒馆'}
+    {n:'大熊猫繁育研究基地',lng:104.1446,lat:30.7348,t:'07:30',cat:'scenic',dur:180,cost:55,desc:'全球最大熊猫保护机构——看国宝啃竹子、爬树、打滚卖萌，还有刚出生的熊猫幼崽嗷嗷待哺。',notes:'7:30开门趁早去，10点后人多'},
+    {n:'龙抄手总店',lng:104.0780,lat:30.6580,t:'12:00',cat:'food',dur:45,cost:50,desc:'成都名小吃集大成者——龙抄手皮薄馅嫩，红油/清汤/酸辣三味，一碗入魂。春熙路百年老店。',notes:'¥50/人，推荐红油抄手+钟水饺'},
+    {n:'人民公园·鹤鸣茶社',lng:104.0555,lat:30.6604,t:'13:30',cat:'culture',dur:90,cost:30,desc:'百年鹤鸣茶社——竹椅上一躺，盖碗茶一端，掏耳朵一闭眼，这就是老成都人的"巴适"哲学。',notes:'盖碗茶¥15-30，掏耳朵¥30'},
+    {n:'春熙路步行街',lng:104.0809,lat:30.6567,t:'15:30',cat:'shop',dur:90,cost:0,desc:'成都第一商圈，百年金街——IFS熊猫爬楼必须打卡，奢侈品旗舰店与市井烟火气奇妙共存。',notes:'IFS 7楼"翻墙熊猫"雕塑必拍'},
+    {n:'太古里',lng:104.0835,lat:30.6546,t:'17:00',cat:'shop',dur:90,cost:0,desc:'川西民居风格×现代商业的完美融合——方所书店的穹顶令人惊艳，各大品牌旗舰店鳞次栉比。',notes:'毗邻千年古刹大慈寺，古今对话'},
+    {n:'大龙燚火锅',lng:104.0750,lat:30.6500,t:'19:00',cat:'food',dur:60,cost:100,desc:'成都火锅排队王——锅底醇厚绵长，食材极尽新鲜，江湖菜风格的豪爽环境让人吃得过瘾。',notes:'¥100/人，建议下午4点取号'},
+    {n:'九眼桥酒吧街',lng:104.0896,lat:30.6435,t:'21:00',cat:'night',dur:120,cost:150,desc:'锦江畔酒吧一条街——民谣Livehouse的低吟浅唱、精酿啤酒的馥郁麦香、江景夜风的温柔拂面。',notes:'推荐：莲花府邸、二麻酒馆、Jellyfish'}
   ]},
   {day:3,label:'DAY 3 · 古堰问道',pois:[
-    {n:'都江堰',lng:103.6167,lat:30.9984,t:'08:00',cat:'scenic',dur:180,cost:90,desc:'世界文化遗产，两千年前李冰父子修建的水利奇迹，至今灌溉成都平原。',notes:'成都犀浦站乘城际列车40分钟'},
-    {n:'青城山前山',lng:103.5659,lat:30.9007,t:'11:30',cat:'scenic',dur:150,cost:90,desc:'道教发源地，青城天下幽，曲径通幽处，感受道家养生文化。',notes:'建议坐索道上山，步行下山'},
-    {n:'张醪糟',lng:103.6200,lat:30.9930,t:'14:00',cat:'food',dur:30,cost:25,desc:'都江堰百年老字号，红糖醪糟粉子软糯香甜，冰粉清凉解暑。',notes:'都江堰老城，必吃！'},
-    {n:'文殊院',lng:104.0688,lat:30.6766,t:'16:00',cat:'culture',dur:90,cost:0,desc:'千年古刹，闹中取静，禅意十足。文殊院素斋和宫廷糕点不可错过。',notes:'免费，素斋¥10起'},
-    {n:'玉林路·小酒馆',lng:104.0540,lat:30.6280,t:'18:30',cat:'food',dur:60,cost:90,desc:'赵雷《成都》唱红的小酒馆，玉林路巷子里的文艺烟火气。',notes:'小酒馆需排队'},
-    {n:'锦江夜游',lng:104.0830,lat:30.6478,t:'20:30',cat:'night',dur:60,cost:150,desc:'乘船夜游锦江，两岸灯火璀璨，感受成都水韵之夜的浪漫。',notes:'合江亭码头出发，约60分钟'}
+    {n:'都江堰',lng:103.6167,lat:30.9984,t:'08:00',cat:'scenic',dur:180,cost:90,desc:'世界文化遗产——两千年前李冰父子修建的水利奇迹，无坝引水，至今灌溉成都平原千里沃野。',notes:'犀浦站乘城际列车40分钟即达'},
+    {n:'青城山前山',lng:103.5659,lat:30.9007,t:'11:30',cat:'scenic',dur:150,cost:90,desc:'中国道教发源地——"青城天下幽"，曲径通幽处见道观隐于山林，深吸一口负氧离子的清甜。',notes:'建议索道上山(¥35)，步行下山'},
+    {n:'张醪糟',lng:103.6200,lat:30.9930,t:'14:00',cat:'food',dur:30,cost:25,desc:'都江堰百年老字号——红糖醪糟粉子软糯香甜，冰粉凉爽滑嫩，爬山之后来一碗，人间值得。',notes:'都江堰老城区，¥25/人'},
+    {n:'文殊院',lng:104.0688,lat:30.6766,t:'16:00',cat:'culture',dur:90,cost:0,desc:'千年古刹闹中取静——香樟树影婆娑，梵音袅袅，文殊院素斋和宫廷糕点更是不可错过的惊喜。',notes:'免费参观，素斋¥10起'},
+    {n:'玉林路·小酒馆',lng:104.0540,lat:30.6280,t:'18:30',cat:'food',dur:60,cost:90,desc:'赵雷一曲《成都》唱红了它——玉林路巷子深处，小酒馆的暖黄灯光下，是成都最文艺的烟火气。',notes:'小酒馆需排队，建议18:00前到'},
+    {n:'锦江夜游',lng:104.0830,lat:30.6478,t:'20:30',cat:'night',dur:60,cost:150,desc:'乘船夜游锦江——两岸灯火璀璨如星河倒影水中，微风轻拂，这一刻你会明白成都为何让人来了就不想走。',notes:'合江亭码头出发，约60分钟，¥150'}
   ]}
 ]};
 
 let map=null,currentDay=0,markers=[],polyline=null,activePoiIdx=-1,amapReady=false;
-let driving,walking,transfer;
+let driving,walking;
 
 function haversine(lng1,lat1,lng2,lat2){
-  const R=6371;const dLat=(lat2-lat1)*Math.PI/180;const dLng=(lng2-lng1)*Math.PI/180;
-  const a=Math.sin(dLat/2)*Math.sin(dLat/2)+Math.cos(lat1*Math.PI/180)*Math.cos(lat2*Math.PI/180)*Math.sin(dLng/2)*Math.sin(dLng/2);
+  const R=6371,dLat=(lat2-lat1)*Math.PI/180,dLng=(lng2-lng1)*Math.PI/180;
+  const a=Math.sin(dLat/2)**2+Math.cos(lat1*Math.PI/180)*Math.cos(lat2*Math.PI/180)*Math.sin(dLng/2)**2;
   return R*2*Math.atan2(Math.sqrt(a),Math.sqrt(1-a));
 }
 
-function estDriveTime(km){return Math.round(km*3);}
-
 function focusPoi(idx){
-  activePoiIdx=idx;renderTimeline();
+  const prev=activePoiIdx;activePoiIdx=idx;
+  document.querySelectorAll('.poi-card').forEach(c=>c.classList.remove('active'));
+  const card=document.getElementById('poiCard'+idx);
+  if(card){card.classList.add('active');card.scrollIntoView({behavior:'smooth',block:'center'});}
   const p=tripData.dayPlan[currentDay].pois[idx];
   if(map&&amapReady){map.setZoomAndCenter(15,[p.lng,p.lat]);if(markers[idx])markers[idx].openInfoWindow();}
-  else{showToast('坐标: '+p.lng.toFixed(4)+', '+p.lat.toFixed(4)+' — 地图加载后自动定位');}
-  const card=document.getElementById('poiCard'+idx);
-  if(card)card.scrollIntoView({behavior:'smooth',block:'center'});
 }
 
 function renderBannerBadges(){
   let allPois=0;tripData.dayPlan.forEach(d=>allPois+=d.pois.length);
-  document.getElementById('bannerBadges').innerHTML='<div class="glass-badge"><div class="val">'+tripData.days+'</div><div class="lbl">天数</div></div><div class="glass-badge"><div class="val">'+allPois+'</div><div class="lbl">打卡点</div></div><div class="glass-badge"><div class="val">'+tripData.totalBudget.toLocaleString()+'</div><div class="lbl">预算 ¥</div></div>';
+  document.getElementById('bannerBadges').innerHTML=
+    '<div class="glass-badge"><div class="val">'+tripData.days+'</div><div class="lbl">Days</div></div>'+
+    '<div class="glass-badge"><div class="val">'+allPois+'</div><div class="lbl">Spots</div></div>'+
+    '<div class="glass-badge"><div class="val">¥'+(tripData.totalBudget/1000).toFixed(1)+'k</div><div class="lbl">Budget</div></div>';
 }
 
 function renderDayTabs(){
-  document.getElementById('dayTabs').innerHTML=tripData.dayPlan.map((d,i)=>'<button class="day-tab'+(i===currentDay?' active':'')+'" onclick="switchDay('+i+')">'+d.label+'</button>').join('');
+  document.getElementById('dayTabs').innerHTML=tripData.dayPlan.map((d,i)=>
+    '<button class="day-tab'+(i===currentDay?' active':'')+'" onclick="switchDay('+i+')">'+d.label+'</button>').join('');
 }
 
-function switchDay(idx){
-  currentDay=idx;activePoiIdx=-1;renderDayTabs();renderTimeline();renderMap();updateTransportBar();
-  document.getElementById('timelinePanel').scrollTop=0;
-}
+function switchDay(idx){currentDay=idx;activePoiIdx=-1;renderDayTabs();renderTimeline();renderMap();updateTransportBar();document.getElementById('timelinePanel').scrollTop=0;}
 
 function renderTimeline(){
   const plan=tripData.dayPlan[currentDay];let html='';
   plan.pois.forEach((p,i)=>{
     const cat=catMap[p.cat]||catMap.scenic;
-    html+='<div class="poi-card'+(i===activePoiIdx?' active':'')+'" onclick="focusPoi('+i+')" id="poiCard'+i+'">';
+    html+='<div class="poi-card" onclick="focusPoi('+i+')" id="poiCard'+i+'">';
     html+='<div class="time-dot"><div class="dot dot-'+cat.c+'">'+(i+1)+'</div><div class="dot-line"></div></div>';
     html+='<div class="card-body"><div class="card-header"><span class="card-title">'+cat.e+' '+p.n+'</span><span class="tag tag-'+cat.c+'">'+cat.n+'</span></div>';
-    html+='<div class="card-time">⏰ '+p.t+' · ⏱️ '+p.dur+'分钟</div><div class="card-desc">'+p.desc+'</div>';
-    html+='<div class="card-meta"><span class="cost">💰 ¥'+p.cost+'</span></div>';
+    html+='<div class="card-time-row"><span>⏰ '+p.t+'</span><span>·</span><span>⏱️ '+p.dur+'分钟</span></div>';
+    html+='<div class="card-desc">'+p.desc+'</div>';
+    html+='<div class="card-meta"><span class="card-cost">💰 ¥'+p.cost+'</span><span class="card-duration">📝 '+p.notes+'</span></div>';
     html+='<div class="card-transport" id="transport'+i+'">'+calcTransport(i,plan.pois)+'</div>';
     html+='</div></div>';
   });
@@ -214,12 +267,12 @@ function renderTimeline(){
 }
 
 function calcTransport(i,pois){
-  if(i>=pois.length-1)return '<span>📍 终点站</span>';
+  if(i>=pois.length-1)return '<span>🏁 行程终点</span>';
   const from=pois[i],to=pois[i+1];
   const km=haversine(from.lng,from.lat,to.lng,to.lat);
-  if(km<0.5)return '<span>🚶 步行</span>约<strong>'+Math.round(km*1000)+'m</strong> · 步行前往';
-  const mins=estDriveTime(km);
-  return '<span>🚗 驾车</span>约<strong>'+km.toFixed(1)+'km</strong> · 约<strong>'+mins+'</strong>分钟';
+  if(km<0.3)return '<span>🚶 步行可达</span> 约<strong>'+Math.round(km*1000)+'m</strong>';
+  if(km<3)return '<span>🚕 短途</span> 约<strong>'+km.toFixed(1)+'km</strong> · <strong>'+(Math.round(km*3)+5)+'</strong>分钟';
+  return '<span>🚗 驾车</span> 约<strong>'+km.toFixed(1)+'km</strong> · <strong>'+Math.round(km*3)+'</strong>分钟';
 }
 
 function tryFetchAllTransports(pois){
@@ -230,7 +283,7 @@ function tryFetchAllTransports(pois){
       const el=document.getElementById('transport'+idx);if(!el)return;
       if(status==='complete'&&result.routes&&result.routes.length){
         const r=result.routes[0];
-        el.innerHTML='<span>🚗 驾车</span><strong>'+Math.round(r.distance/1000)+'km</strong> · 约<strong>'+Math.round(r.time/60)+'</strong>分钟'+(r.policy?' · '+(r.policy||''):'');
+        el.innerHTML='<span>🚗 高德驾车</span> <strong>'+Math.round(r.distance/1000)+'km</strong> · <strong>'+Math.round(r.time/60)+'</strong>分钟 <span style="color:var(--text3)">'+((r.policy||'').slice(0,20))+'</span>';
       }
     }})(i));
   }
@@ -240,89 +293,82 @@ function renderMap(){
   if(!map||!amapReady)return;
   markers.forEach(m=>m.setMap(null));markers=[];if(polyline){polyline.setMap(null);polyline=null;}
   const plan=tripData.dayPlan[currentDay];
-  const dayColors=['#0284c7','#7C3AED','#059669','#DC2626','#EA580C'];
-  const color=dayColors[currentDay%dayColors.length];
+  const dayColors=['#0284c7','#7C3AED','#059669'];
+  const color=dayColors[currentDay%3];
+  const hexMap={scenic:'#3B82F6',food:'#F59E0B',culture:'#8B5CF6',shop:'#EC4899',night:'#10B981'};
   const bounds=[];
 
-  const hexMap={scenic:'#3B82F6',food:'#F59E0B',culture:'#8B5CF6',shop:'#EC4899',night:'#10B981'};
-
   plan.pois.forEach((p,i)=>{
-    const hexColor=hexMap[p.cat]||'#3B82F6';
-    const marker=new AMap.Marker({
-      position:[p.lng,p.lat],
-      content:'<div style="background:'+hexColor+';color:#fff;width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;border:2px solid #fff;box-shadow:0 2px 6px rgba(0,0,0,.2);">'+(i+1)+'</div>',
-      offset:new AMap.Pixel(-13,-13),zIndex:100-i});
-    marker.setMap(map);markers.push(marker);
-    bounds.push([p.lng,p.lat]);
-
-    const iw=new AMap.InfoWindow({content:'<div style="padding:8px 12px;font-size:13px;"><strong>'+p.n+'</strong><br/><span style="color:#666;font-size:11px;">'+p.t+' · ¥'+p.cost+'</span></div>',offset:new AMap.Pixel(0,-35)});
-    marker.on('mouseover',function(){iw.open(map,this.getPosition());});
-    marker.on('mouseout',function(){iw.close();});
-    marker.openInfoWindow=function(){iw.open(map,this.getPosition());};
-    marker.on('click',function(idx){return function(){focusPoi(idx);}}(i));
+    const hex=hexMap[p.cat]||'#3B82F6';
+    const m=new AMap.Marker({position:[p.lng,p.lat],
+      content:'<div style="background:'+hex+';color:#fff;width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;border:3px solid #fff;box-shadow:0 2px 8px rgba(0,0,0,.25);">'+(i+1)+'</div>',
+      offset:new AMap.Pixel(-14,-14),zIndex:100-i});
+    m.setMap(map);markers.push(m);bounds.push([p.lng,p.lat]);
+    const iw=new AMap.InfoWindow({content:'<div style="padding:8px 14px;font-size:13px;font-weight:600">'+p.n+'</div><div style="padding:0 14px 8px;font-size:11px;color:#666">'+p.t+'</div>',offset:new AMap.Pixel(0,-36)});
+    m.on('mouseover',function(){iw.open(map,this.getPosition());});
+    m.on('mouseout',function(){iw.close();});
+    m.openInfoWindow=function(){iw.open(map,this.getPosition());};
+    m.on('click',function(idx){return function(){focusPoi(idx);}}(i));
   });
 
   if(plan.pois.length>1){
-    polyline=new AMap.Polyline({path:plan.pois.map(p=>[p.lng,p.lat]),strokeColor:color,strokeWeight:3,strokeOpacity:.7,strokeStyle:'solid',lineJoin:'round',showDir:true,dirColor:'#fff'});
+    polyline=new AMap.Polyline({path:plan.pois.map(p=>[p.lng,p.lat]),strokeColor:color,strokeWeight:3.5,strokeOpacity:.75,strokeStyle:'solid',lineJoin:'round',showDir:true});
     polyline.setMap(map);
   }
-  if(bounds.length)map.setBounds(new AMap.Bounds(bounds));
+  if(bounds.length){
+    const b=new AMap.Bounds(bounds);
+    if(b.getNorthEast().toString()!==b.getSouthWest().toString())map.setBounds(b,false,[80,40,200,40]);
+  }
 }
 
 function updateTransportBar(){
   const plan=tripData.dayPlan[currentDay];
-  const pois=plan.pois.length;let totalCost=0,totalDur=0;
+  let totalCost=0,totalDur=0,totalKm=0;
   plan.pois.forEach(p=>{totalCost+=p.cost;totalDur+=p.dur;});
-  document.getElementById('transportBar').innerHTML='<div class="stat">📌 共 <strong>'+pois+'</strong> 个打卡点</div><div class="stat">⏱️ 建议总时长 <strong>'+Math.round(totalDur/60)+'</strong> 小时</div><div class="stat">💰 预估费用 <strong>¥'+totalCost+'</strong></div>';
+  for(let i=0;i<plan.pois.length-1;i++)totalKm+=haversine(plan.pois[i].lng,plan.pois[i].lat,plan.pois[i+1].lng,plan.pois[i+1].lat);
+  document.getElementById('transportBar').innerHTML=
+    '<div class="stat">📌 <strong>'+plan.pois.length+'</strong> 个打卡点</div>'+
+    '<div class="stat">⏱️ 游览 <strong>'+Math.round(totalDur/60)+'</strong> 小时</div>'+
+    '<div class="stat">📏 行程 <strong>'+totalKm.toFixed(0)+'</strong> km</div>'+
+    '<div class="stat">💰 预估 <strong>¥'+totalCost+'</strong></div>';
 }
 
-function showToast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(function(){t.classList.remove('show');},2000);}
-function saveTrip(){let trips=JSON.parse(localStorage.getItem('tq_trips')||'[]');trips.push(tripData);localStorage.setItem('tq_trips',JSON.stringify(trips));showToast('行程已保存！前往「我的行程」查看');}
+function showToast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(function(){t.classList.remove('show');},2200);}
+function saveTrip(){let trips=JSON.parse(localStorage.getItem('tq_trips')||'[]');trips.unshift(tripData);localStorage.setItem('tq_trips',JSON.stringify(trips));showToast('✓ 行程已保存，前往「我的行程」查看');}
 
 document.getElementById('themeBtn').addEventListener('click',function(){
-  const html=document.documentElement;
-  const cur=html.getAttribute('data-theme');
-  html.setAttribute('data-theme',cur==='dark'?'light':'dark');
-  if(map&&amapReady)map.setMapStyle(cur==='dark'?'amap://styles/light':'amap://styles/dark');
-  localStorage.setItem('tq_theme',cur==='dark'?'light':'dark');
+  const html=document.documentElement,cur=html.getAttribute('data-theme'),next=cur==='dark'?'light':'dark';
+  html.setAttribute('data-theme',next);document.getElementById('themeBtn').textContent=next==='dark'?'☀️':'🌓';
+  if(map&&amapReady)map.setMapStyle(next==='dark'?'amap://styles/dark':'amap://styles/light');
+  localStorage.setItem('tq_theme',next);
 });
-(function(){const t=localStorage.getItem('tq_theme');if(t)document.documentElement.setAttribute('data-theme',t);})();
+(function(){const t=localStorage.getItem('tq_theme');if(t){document.documentElement.setAttribute('data-theme',t);document.getElementById('themeBtn').textContent=t==='dark'?'☀️':'🌓';}})();
 
 renderBannerBadges();renderDayTabs();renderTimeline();updateTransportBar();
-</script>
 
+window.initMap=function(){
+  amapReady=true;const overlay=document.getElementById('mapOverlay');
+  if(overlay)overlay.classList.add('ready');
+  map=new AMap.Map('mapContainer',{center:tripData.center,zoom:tripData.zoom,mapStyle:'amap://styles/light',viewMode:'3D',resizeEnable:true});
+  map.addControl(new AMap.ToolBar({position:{top:'12px',right:'12px'}}));
+  map.addControl(new AMap.Scale({position:{bottom:'34px',left:'12px'}}));
+  driving=new AMap.Driving({map:null,panel:null});
+  walking=new AMap.Walking({map:null,panel:null});
+  renderMap();tryFetchAllTransports(tripData.dayPlan[currentDay].pois);
+  const t=localStorage.getItem('tq_theme');if(t==='dark')map.setMapStyle('amap://styles/dark');
+};
+
+setTimeout(function(){
+  if(!amapReady){
+    document.getElementById('mapMsgTitle').textContent='地图加载超时';
+    document.getElementById('mapMsgDesc').textContent='请检查网络连接或高德API Key配置';
+  }
+},12000);
+</script>
 <script>
 window._AMapSecurityConfig={securityJsCode:'4b919753bb76bf1f15a7b189d9e15ed8'};
 </script>
+<script async src="https://webapi.amap.com/maps?v=2.0&key=4afb8b97169fca14cd25a5b5b81fd00e&plugin=AMap.Driving,AMap.Walking,AMap.Transfer,AMap.PlaceSearch,AMap.AutoComplete,AMap.Geocoder,AMap.ToolBar,AMap.Scale&callback=initMap"></script>
 
-<script onerror="handleAmapFailed()">
-var mapLoadStarted=false;
-function initMap(){
-  mapLoadStarted=true;amapReady=true;
-  document.getElementById('mapMsg').style.display='none';
-  map=new AMap.Map('mapContainer',{center:tripData.center,zoom:tripData.zoom,mapStyle:'amap://styles/light',viewMode:'3D'});
-  map.addControl(new AMap.ToolBar({position:{top:'10px',right:'10px'}}));
-  map.addControl(new AMap.Scale({position:{bottom:'30px',left:'10px'}}));
-  driving=new AMap.Driving({map:null,panel:null});
-  walking=new AMap.Walking({map:null,panel:null});
-  transfer=new AMap.Transfer({map:null,panel:null});
-  renderMap();
-  tryFetchAllTransports(tripData.dayPlan[currentDay].pois);
-}
-function handleAmapFailed(){
-  if(mapLoadStarted)return;
-  mapLoadStarted=true;
-  setTimeout(function(){
-    if(!amapReady){showAmapError();}
-  },8000);
-}
-function showAmapError(){
-  document.getElementById('mapMsg').innerHTML='<div class="mm-icon">🗺️</div><div class="mm-title">地图需要高德 API Key</div><div class="mm-desc">当前 API Key 已失效或未配置。请前往 <a href="https://console.amap.com/" target="_blank" style="color:var(--accent);text-decoration:underline">高德开放平台</a> 申请新的 Key，替换 planner.html 中的 <code style="background:var(--surface2);padding:1px 4px;border-radius:3px;font-size:11px">key=xxx</code></div><div class="mm-note">时间轴和行程规划功能可正常使用</div>';
-}
-setTimeout(function(){
-  if(!amapReady&&!mapLoadStarted){handleAmapFailed();}
-},10000);
-</script>
-<script src="https://webapi.amap.com/maps?v=2.0&key=4afb8b97169fca14cd25a5b5b81fd00e&plugin=AMap.Driving,AMap.Walking,AMap.Transfer,AMap.PlaceSearch,AMap.AutoComplete,AMap.Geocoder,AMap.ToolBar,AMap.Scale&callback=initMap"></script>
 </body>
 </html>
