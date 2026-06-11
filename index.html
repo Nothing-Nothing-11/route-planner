@@ -5,110 +5,93 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>TrailQuest · 智能旅游行程规划</title>
 <style>
-:root {
-  --bg:#fff; --surface:#f8fafc; --surface2:#f1f5f9; --border:#e2e8f0;
-  --text:#0f172a; --text2:#475569; --text3:#94a3b8;
-  --accent:#0284c7; --accent2:#0369a1;
-  --scenic:#3B82F6; --food:#F59E0B; --culture:#8B5CF6; --shop:#EC4899; --night:#10B981;
-  --shadow:0 1px 3px rgba(0,0,0,.08); --shadow-lg:0 8px 30px rgba(0,0,0,.12);
-  --radius:12px; --radius-sm:8px; --nav-h:56px;
-}
-[data-theme="dark"] {
-  --bg:#0f172a; --surface:#1e293b; --surface2:#334155; --border:#334155;
-  --text:#f1f5f9; --text2:#94a3b8; --text3:#64748b;
-  --shadow:0 1px 3px rgba(0,0,0,.3); --shadow-lg:0 8px 30px rgba(0,0,0,.4);
-}
-*{margin:0;padding:0;box-sizing:border-box}
-body{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei","Helvetica Neue",sans-serif;background:var(--bg);color:var(--text);line-height:1.6;min-height:100vh}
+:root{--bg:#fff;--surface:#f8fafc;--surface2:#f1f5f9;--border:#e2e8f0;--text:#0f172a;--text2:#475569;--text3:#94a3b8;--accent:#0284c7;--accent-glow:rgba(2,132,199,.2);--scenic:#3B82F6;--food:#F59E0B;--culture:#8B5CF6;--shop:#EC4899;--night:#10B981;--shadow:0 1px 3px rgba(0,0,0,.08);--shadow-lg:0 10px 25px rgba(0,0,0,.08);--shadow-xl:0 20px 50px rgba(0,0,0,.1);--radius:12px;--radius-lg:16px;--radius-sm:8px;--nav-h:60px;--transition:200ms cubic-bezier(.4,0,.2,1)}
+[data-theme="dark"]{--bg:#0b1120;--surface:#111827;--surface2:#1e293b;--border:#1e293b;--text:#f1f5f9;--text2:#94a3b8;--text3:#64748b;--accent-glow:rgba(2,132,199,.25);--shadow:0 1px 3px rgba(0,0,0,.3);--shadow-lg:0 10px 25px rgba(0,0,0,.4);--shadow-xl:0 20px 50px rgba(0,0,0,.5)}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth;-webkit-font-smoothing:antialiased}
+body{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei","Helvetica Neue",sans-serif;background:var(--bg);color:var(--text);line-height:1.6;min-height:100vh;transition:background var(--transition),color var(--transition)}
 a{color:inherit;text-decoration:none}
 
-.nav{position:sticky;top:0;z-index:1000;height:var(--nav-h);background:var(--bg);border-bottom:1px solid var(--border);display:flex;align-items:center;padding:0 24px;gap:32px;backdrop-filter:blur(16px)}
-.nav-logo{font-size:18px;font-weight:700;display:flex;align-items:center;gap:8px}
-.nav-logo span{color:var(--accent)}
-.nav-links{display:flex;gap:4px;flex:1}
-.nav-links a{padding:8px 16px;border-radius:var(--radius-sm);font-size:14px;font-weight:500;color:var(--text2);transition:all .2s}
+.nav{position:sticky;top:0;z-index:100;height:var(--nav-h);background:var(--bg);border-bottom:1px solid var(--border);display:flex;align-items:center;padding:0 28px;gap:32px;transition:background var(--transition),border-color var(--transition);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px)}
+.nav-logo{font-size:18px;font-weight:700;display:flex;align-items:center;gap:8px;letter-spacing:-.3px}
+.nav-logo span{background:linear-gradient(135deg,var(--accent),#0ea5e9);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.nav-links{display:flex;gap:2px;flex:1}
+.nav-links a{padding:8px 16px;border-radius:var(--radius-sm);font-size:13.5px;font-weight:500;color:var(--text2);transition:all var(--transition)}
 .nav-links a:hover{background:var(--surface2);color:var(--text)}
-.nav-links a.active{background:var(--accent);color:#fff}
+.nav-links a.active{background:var(--accent);color:#fff;box-shadow:0 2px 8px var(--accent-glow)}
 .nav-actions{display:flex;gap:8px;align-items:center}
-.nav-btn{width:36px;height:36px;border-radius:50%;border:1px solid var(--border);background:var(--surface);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:16px;transition:all .2s;color:var(--text)}
-.nav-btn:hover{background:var(--surface2)}
+.nav-btn{width:38px;height:38px;border-radius:50%;border:1px solid var(--border);background:var(--surface);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:16px;transition:all var(--transition);color:var(--text)}
+.nav-btn:hover{background:var(--surface2);border-color:var(--text3);transform:scale(1.05)}
 
-/* Hero */
-.hero{position:relative;padding:80px 48px 100px;text-align:center;overflow:hidden}
-.hero::before{content:'';position:absolute;inset:0;background:
-  radial-gradient(ellipse 80% 60% at 20% 30%,rgba(56,189,248,.35),transparent),
-  radial-gradient(ellipse 60% 70% at 70% 20%,rgba(6,182,212,.30),transparent),
-  radial-gradient(ellipse 50% 50% at 85% 60%,rgba(99,102,241,.25),transparent),
-  radial-gradient(ellipse 70% 50% at 40% 70%,rgba(14,165,233,.20),transparent),
-  linear-gradient(135deg,#0c4a6e 0%,#0369a1 30%,#0284c7 60%,#0ea5e9 100%);z-index:0}
-.hero::after{content:'';position:absolute;inset:0;background:url("data:image/svg+xml,%3Csvg width='60' height='60' xmlns='http://www.w3.org/2000/svg'%3E%3Cdefs%3E%3Cpattern id='g' width='60' height='60' patternUnits='userSpaceOnUse'%3E%3Cpath d='M30 0L60 30L30 60L0 30Z' fill='none' stroke='rgba(255,255,255,.03)' stroke-width='0.5'/%3E%3C/pattern%3E%3C/defs%3E%3Crect fill='url(%23g)' width='100%25' height='100%25'/%3E%3C/svg%3E");opacity:.5;z-index:1}
-.hero-content{position:relative;z-index:2}
-.hero h1{font-size:48px;font-weight:800;color:#fff;line-height:1.2;margin-bottom:16px;letter-spacing:-1px}
-.hero p{font-size:18px;color:rgba(255,255,255,.75);margin-bottom:32px;max-width:600px;margin-left:auto;margin-right:auto}
-.hero-search{display:flex;max-width:560px;margin:0 auto;gap:8px}
-.hero-search input{flex:1;padding:14px 20px;border-radius:28px;border:2px solid transparent;font-size:15px;background:rgba(255,255,255,.95);color:#0f172a;outline:none;transition:all .2s}
-.hero-search input:focus{border-color:#0ea5e9;box-shadow:0 0 0 4px rgba(14,165,233,.2)}
-.hero-search button{padding:14px 32px;border-radius:28px;border:none;background:#0f172a;color:#fff;font-size:15px;font-weight:600;cursor:pointer;transition:all .2s}
-.hero-search button:hover{background:#1e293b;transform:translateY(-1px)}
-.hero-tags{display:flex;gap:8px;justify-content:center;margin-top:20px;flex-wrap:wrap}
-.hero-tags span{padding:6px 16px;border-radius:20px;background:rgba(255,255,255,.15);color:rgba(255,255,255,.85);font-size:13px;cursor:pointer;transition:all .2s;border:1px solid rgba(255,255,255,.1)}
-.hero-tags span:hover{background:rgba(255,255,255,.25)}
+@keyframes bannerFloat{0%,100%{transform:translate(0,0) scale(1)}25%{transform:translate(-2%,1%) scale(1.02)}50%{transform:translate(1%,-1%) scale(1.01)}75%{transform:translate(2%,2%) scale(1.03)}}
+.hero{position:relative;padding:100px 56px 120px;text-align:center;overflow:hidden}
+.hero-bg{position:absolute;inset:0;background:linear-gradient(135deg,#0c4a6e,#0369a1 30%,#0284c7 60%,#0ea5e9);animation:bannerFloat 20s ease-in-out infinite}
+.hero-spot1{position:absolute;width:70vw;height:70vw;border-radius:50%;background:radial-gradient(circle,rgba(56,189,248,.35),transparent 70%);top:-30%;left:5%;animation:bannerFloat 16s ease-in-out infinite reverse}
+.hero-spot2{position:absolute;width:50vw;height:50vw;border-radius:50%;background:radial-gradient(circle,rgba(99,102,241,.25),transparent 70%);top:30%;right:-15%;animation:bannerFloat 19s ease-in-out infinite}
+.hero-spot3{position:absolute;width:35vw;height:35vw;border-radius:50%;background:radial-gradient(circle,rgba(14,165,233,.3),transparent 70%);bottom:-10%;left:45%;animation:bannerFloat 22s ease-in-out infinite}
+.hero-grid{position:absolute;inset:0;background-image:radial-gradient(rgba(255,255,255,.05) 1px,transparent 1px);background-size:40px 40px;opacity:.4}
+.hero-content{position:relative;z-index:2;max-width:720px;margin:0 auto}
+.hero h1{font-size:52px;font-weight:800;color:#fff;line-height:1.15;letter-spacing:-1.5px;text-shadow:0 2px 20px rgba(0,0,0,.12)}
+.hero h1 span{background:linear-gradient(135deg,#f0f9ff,#bae6fd);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hero p{font-size:18px;color:rgba(255,255,255,.78);margin:16px 0 36px;font-weight:400}
+.hero-search{display:flex;max-width:560px;margin:0 auto;gap:10px}
+.hero-search input{flex:1;padding:15px 22px;border-radius:28px;border:2px solid transparent;font-size:15px;background:rgba(255,255,255,.95);color:#0f172a;outline:none;transition:all var(--transition);box-shadow:0 4px 20px rgba(0,0,0,.1)}
+.hero-search input:focus{border-color:#0ea5e9;box-shadow:0 4px 20px rgba(14,165,233,.3)}
+.hero-search button{padding:15px 34px;border-radius:28px;border:none;background:#0f172a;color:#fff;font-size:15px;font-weight:600;cursor:pointer;transition:all var(--transition);letter-spacing:-.2px}
+.hero-search button:hover{background:#1e293b;transform:translateY(-1px);box-shadow:0 4px 16px rgba(0,0,0,.25)}
+.hero-tags{display:flex;gap:10px;justify-content:center;margin-top:24px;flex-wrap:wrap}
+.hero-tags span{padding:7px 20px;border-radius:22px;background:rgba(255,255,255,.12);color:rgba(255,255,255,.88);font-size:13px;cursor:pointer;transition:all var(--transition);border:1px solid rgba(255,255,255,.12);font-weight:500}
+.hero-tags span:hover{background:rgba(255,255,255,.22);transform:translateY(-1px)}
 
-/* Sections */
-.section{padding:48px 48px 32px}
-.section-title{font-size:22px;font-weight:700;margin-bottom:4px}
-.section-sub{font-size:14px;color:var(--text3);margin-bottom:24px}
+.quick-actions{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px;padding:48px 56px 0;max-width:1200px;margin:0 auto}
+.quick-card{background:var(--bg);border:1px solid var(--border);border-radius:var(--radius-lg);padding:24px;cursor:pointer;transition:all var(--transition);display:flex;align-items:center;gap:16px;position:relative;overflow:hidden}
+.quick-card:hover{box-shadow:var(--shadow-lg);border-color:var(--accent);transform:translateY(-3px)}
+.quick-card::after{content:'';position:absolute;top:0;left:0;right:0;height:3px;opacity:0;transition:opacity var(--transition)}
+.quick-card:hover::after{opacity:1}
+.quick-card:nth-child(1)::after{background:var(--scenic)}.quick-card:nth-child(2)::after{background:var(--food)}
+.quick-card:nth-child(3)::after{background:var(--culture)}.quick-card:nth-child(4)::after{background:var(--night)}
+.quick-card .qc-icon{width:52px;height:52px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:24px;flex-shrink:0}
+.qc-scenic{background:rgba(59,130,246,.1);color:var(--scenic)}.qc-food{background:rgba(245,158,11,.1);color:var(--food)}
+.qc-culture{background:rgba(139,92,246,.1);color:var(--culture)}.qc-night{background:rgba(16,185,129,.1);color:var(--night)}
+.quick-card .qc-title{font-size:15px;font-weight:600;letter-spacing:-.2px}
+.quick-card .qc-desc{font-size:12px;color:var(--text3);margin-top:2px}
 
-/* Quick Actions */
-.quick-actions{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px;padding:0 48px 32px}
-.quick-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:24px;cursor:pointer;transition:all .2s;display:flex;align-items:center;gap:14px}
-.quick-card:hover{box-shadow:var(--shadow-lg);border-color:var(--accent);transform:translateY(-2px)}
-.quick-card .qc-icon{width:48px;height:48px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0}
-.quick-card .qc-title{font-size:15px;font-weight:600}
-.quick-card .qc-desc{font-size:12px;color:var(--text3)}
-.qc-scenic{background:rgba(59,130,246,.12);color:var(--scenic)}
-.qc-food{background:rgba(245,158,11,.12);color:var(--food)}
-.qc-culture{background:rgba(139,92,246,.12);color:var(--culture)}
-.qc-night{background:rgba(16,185,129,.12);color:var(--night)}
+.section{padding:56px 56px 32px;max-width:1200px;margin:0 auto;width:100%}
+.section-header{margin-bottom:28px}
+.section-title{font-size:24px;font-weight:700;letter-spacing:-.5px;margin-bottom:4px}
+.section-sub{font-size:14px;color:var(--text3)}
 
-/* Route Cards */
-.route-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:20px}
-.route-card{background:var(--bg);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;cursor:pointer;transition:all .2s}
-.route-card:hover{box-shadow:var(--shadow-lg);transform:translateY(-3px)}
-.route-card .rc-img{height:160px;position:relative;overflow:hidden}
-.rc-img-chengdu{background:linear-gradient(135deg,#0369a1,#0ea5e9)}
-.rc-img-xian{background:linear-gradient(135deg,#92400e,#d97706)}
-.rc-img-yunnan{background:linear-gradient(135deg,#065f46,#10b981)}
-.rc-img-jiangnan{background:linear-gradient(135deg,#1e40af,#60a5fa)}
-.rc-img-beijing{background:linear-gradient(135deg,#991b1b,#ef4444)}
-.rc-img-chongqing{background:linear-gradient(135deg,#4c1d95,#a855f7)}
-.rc-img::after{content:attr(data-city);position:absolute;bottom:0;left:0;right:0;padding:40px 16px 12px;background:linear-gradient(transparent,rgba(0,0,0,.6));color:#fff;font-size:20px;font-weight:700}
-.rc-img .rc-tag{position:absolute;top:12px;right:12px;padding:4px 12px;border-radius:12px;font-size:11px;font-weight:600;background:rgba(255,255,255,.2);backdrop-filter:blur(8px);color:#fff}
-.rc-body{padding:16px}
-.rc-body .rc-name{font-size:16px;font-weight:600;margin-bottom:6px}
-.rc-body .rc-info{font-size:13px;color:var(--text2);margin-bottom:8px}
-.rc-meta{display:flex;gap:16px;font-size:12px;color:var(--text3)}
-.rc-meta span{display:flex;align-items:center;gap:4px}
+.route-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:20px}
+.route-card{background:var(--bg);border:1px solid var(--border);border-radius:var(--radius-lg);overflow:hidden;cursor:pointer;transition:all var(--transition);box-shadow:var(--shadow)}
+.route-card:hover{box-shadow:var(--shadow-lg);transform:translateY(-4px)}
+.route-card .rc-img{height:170px;position:relative;overflow:hidden}
+.rc-img-inner{width:100%;height:100%;position:relative;display:flex;align-items:flex-end}
+.rc-img-inner::after{content:'';position:absolute;inset:0}
+.rc-card-city{position:relative;z-index:1;padding:16px 20px;color:#fff;font-size:22px;font-weight:700;letter-spacing:-.3px}
+.rc-card-badge{position:absolute;top:14px;right:14px;padding:5px 14px;border-radius:14px;font-size:11px;font-weight:600;background:rgba(255,255,255,.2);backdrop-filter:blur(10px);color:#fff;z-index:2}
+.bg-chengdu{background:linear-gradient(135deg,#0369a1,#0ea5e9)}.bg-xian{background:linear-gradient(135deg,#92400e,#d97706)}
+.bg-yunnan{background:linear-gradient(135deg,#065f46,#10b981)}.bg-jiangnan{background:linear-gradient(135deg,#1e40af,#60a5fa)}
+.bg-beijing{background:linear-gradient(135deg,#991b1b,#ef4444)}.bg-chongqing{background:linear-gradient(135deg,#4c1d95,#a855f7)}
+.rc-body{padding:18px 20px 20px}
+.rc-body .rc-name{font-size:15px;font-weight:600;margin-bottom:6px;letter-spacing:-.2px}
+.rc-body .rc-info{font-size:13px;color:var(--text2);margin-bottom:10px;line-height:1.5}
+.rc-meta{display:flex;gap:18px;font-size:12px;color:var(--text3);font-weight:500}
 
-/* Featured */
-.featured-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px}
-.feature-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:24px;transition:all .2s}
-.feature-card:hover{border-color:var(--accent)}
-.feature-card h4{font-size:16px;font-weight:600;margin-bottom:8px}
-.feature-card p{font-size:13px;color:var(--text2)}
+.feature-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:16px}
+.feature-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:24px;transition:all var(--transition)}
+.feature-card:hover{border-color:var(--accent);box-shadow:var(--shadow)}
+.feature-card h4{font-size:15px;font-weight:600;margin-bottom:8px;display:flex;align-items:center;gap:8px}
+.feature-card p{font-size:13px;color:var(--text2);line-height:1.55}
 
-/* Footer */
-.footer{padding:32px 48px;border-top:1px solid var(--border);text-align:center;font-size:13px;color:var(--text3);margin-top:auto}
+.footer{padding:28px 56px;border-top:1px solid var(--border);text-align:center;font-size:12px;color:var(--text3);margin-top:auto;transition:border-color var(--transition)}
+.toast{position:fixed;bottom:32px;left:50%;transform:translateX(-50%) translateY(20px);background:var(--text);color:var(--bg);padding:12px 28px;border-radius:24px;font-size:13px;font-weight:600;z-index:9999;opacity:0;transition:all .3s cubic-bezier(.4,0,.2,1);pointer-events:none;box-shadow:var(--shadow-xl)}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
 
-.toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:var(--text);color:var(--bg);padding:10px 24px;border-radius:24px;font-size:13px;font-weight:500;z-index:9999;opacity:0;transition:opacity .3s;pointer-events:none}
-.toast.show{opacity:1}
-
-@media(max-width:900px){
-  .hero{padding:48px 24px 60px}
-  .hero h1{font-size:32px}
-  .nav-links{display:none}
-  .section{padding:32px 24px 24px}
-  .quick-actions{padding:0 24px 24px}
+@media(max-width:960px){
+  .nav{padding:0 16px;gap:16px}.nav-links{display:none}
+  .hero{padding:60px 24px 80px}.hero h1{font-size:34px}.hero p{font-size:16px}
+  .hero-search{flex-direction:column;gap:10px}.hero-search button{width:100%}
+  .quick-actions,.section{padding-left:24px;padding-right:24px}
   .route-grid{grid-template-columns:1fr}
 }
 </style>
@@ -131,47 +114,46 @@ a{color:inherit;text-decoration:none}
 </nav>
 
 <div class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-spot1"></div>
+  <div class="hero-spot2"></div>
+  <div class="hero-spot3"></div>
+  <div class="hero-grid"></div>
   <div class="hero-content">
-    <h1>探索世界 · 智在旅途</h1>
-    <p>AI 智能规划 + 高德地图驱动，一站式行程设计、路线推荐、周边探索、交通规划</p>
+    <h1>探索世界<span>，智在旅途</span></h1>
+    <p>AI 智能规划 × 高德地图驱动 — 一站式行程设计 · 路线推荐 · 周边探索 · 交通规划</p>
     <div class="hero-search">
-      <input type="text" id="heroSearch" placeholder="搜索目的地城市、景点或路线..." onkeydown="if(event.key==='Enter')searchDest()">
-      <button onclick="searchDest()">🔍 开始规划</button>
+      <input type="text" id="heroSearch" placeholder="输入目的地城市、景点或路线名称..." onkeydown="if(event.key==='Enter')goSearch()">
+      <button onclick="goSearch()">🔍 开始规划</button>
     </div>
     <div class="hero-tags">
-      <span onclick="quickSearch('成都')">成都</span>
-      <span onclick="quickSearch('西安')">西安</span>
-      <span onclick="quickSearch('北京')">北京</span>
-      <span onclick="quickSearch('杭州')">杭州</span>
-      <span onclick="quickSearch('重庆')">重庆</span>
-      <span onclick="quickSearch('云南')">云南</span>
+      <span onclick="goQuick('成都')">成都</span><span onclick="goQuick('西安')">西安</span><span onclick="goQuick('北京')">北京</span>
+      <span onclick="goQuick('杭州')">杭州</span><span onclick="goQuick('重庆')">重庆</span><span onclick="goQuick('大理')">大理</span>
     </div>
   </div>
 </div>
 
-<div class="quick-actions">
-  <a href="planner.html" class="quick-card"><div class="qc-icon qc-scenic">🏔️</div><div><div class="qc-title">新建行程</div><div class="qc-desc">从零开始规划旅行</div></div></a>
-  <a href="routes.html" class="quick-card"><div class="qc-icon qc-food">🔥</div><div><div class="qc-title">热门路线</div><div class="qc-desc">精选经典行程模板</div></div></a>
-  <a href="explore.html" class="quick-card"><div class="qc-icon qc-culture">📍</div><div><div class="qc-title">周边探索</div><div class="qc-desc">发现附近吃喝玩乐</div></div></a>
-  <a href="my-trips.html" class="quick-card"><div class="qc-icon qc-night">💾</div><div><div class="qc-title">我的行程</div><div class="qc-desc">管理已保存的规划</div></div></a>
+<div class="quick-actions" style="padding-bottom:0">
+  <a href="planner.html" class="quick-card"><div class="qc-icon qc-scenic">🏔️</div><div><div class="qc-title">自由定制行程</div><div class="qc-desc">从零规划你的专属旅行</div></div></a>
+  <a href="routes.html" class="quick-card"><div class="qc-icon qc-food">🔥</div><div><div class="qc-title">热门路线模板</div><div class="qc-desc">一键套用经典行程</div></div></a>
+  <a href="explore.html" class="quick-card"><div class="qc-icon qc-culture">📍</div><div><div class="qc-title">周边探索发现</div><div class="qc-desc">地图雷达搜吃喝玩乐</div></div></a>
+  <a href="my-trips.html" class="quick-card"><div class="qc-icon qc-night">💾</div><div><div class="qc-title">管理我的行程</div><div class="qc-desc">编辑收藏的路线规划</div></div></a>
 </div>
 
-<div class="section" id="hotRoutes">
-  <div class="section-title">🔥 热门推荐路线</div>
-  <div class="section-sub">精选经典行程模板，一键套用到你的旅行</div>
+<div class="section">
+  <div class="section-header"><div class="section-title">🔥 热门推荐路线</div><div class="section-sub">精选经典行程模板，支持一键套用与自由修改</div></div>
   <div class="route-grid" id="routeGrid"></div>
 </div>
 
 <div class="section">
-  <div class="section-title">✨ 为什么选择 TrailQuest</div>
-  <div class="section-sub">不只是行程规划，更是你的全能旅行助手</div>
-  <div class="featured-grid">
-    <div class="feature-card"><h4>🗺️ 高德地图驱动</h4><p>精准路线导航、实时路况、公交换乘，中国境内全覆盖</p></div>
-    <div class="feature-card"><h4>🎨 智能行程设计</h4><p>按地理位置智能排序 POI，减少绕路，行程更高效</p></div>
-    <div class="feature-card"><h4>📊 预算精细管理</h4><p>门票/餐饮/住宿/交通分项预算，可视化费用构成</p></div>
-    <div class="feature-card"><h4>🌤️ 天气实时联动</h4><p>出行前查看目的地天气，智能推荐出行装备</p></div>
-    <div class="feature-card"><h4>🔍 周边雷达探索</h4><p>以任何 POI 为中心搜周边美食/酒店/停车场</p></div>
-    <div class="feature-card"><h4>💾 云端+本地</h4><p>行程自动保存本地，收藏路线永不丢失</p></div>
+  <div class="section-header"><div class="section-title">✨ 为什么选择 TrailQuest</div><div class="section-sub">不只是行程规划工具，更是你的全能旅行助手</div></div>
+  <div class="feature-grid">
+    <div class="feature-card"><h4>🗺️ 高德地图全驱动</h4><p>精准路线导航、实时路况、公交换乘、驾车步行骑行全覆盖</p></div>
+    <div class="feature-card"><h4>🎨 智能行程设计</h4><p>按地理位置自动排序POI减少绕路，分段规划交通耗时</p></div>
+    <div class="feature-card"><h4>📊 预算精细管理</h4><p>门票·餐饮·住宿·交通·购物分项预算，实时可视化</p></div>
+    <div class="feature-card"><h4>🌤️ 天气实时联动</h4><p>出行前查看目的地天气，智能推荐出行装备清单</p></div>
+    <div class="feature-card"><h4>🔍 周边雷达探索</h4><p>以任意POI为中心搜索周边美食、酒店、停车场</p></div>
+    <div class="feature-card"><h4>💾 本地持久化</h4><p>行程自动保存本地，收藏路线永不丢失</p></div>
   </div>
 </div>
 
@@ -179,35 +161,28 @@ a{color:inherit;text-decoration:none}
 <div class="toast" id="toast"></div>
 
 <script>
-const routes=[
-  {id:'chengdu',city:'成都',name:'天府3日经典游',days:3,budget:3500,theme:'文化·美食·自然·夜生活',img:'rc-img-chengdu',tags:['文化','美食']},
-  {id:'xian',city:'西安',name:'古都4日探秘',days:4,budget:4200,theme:'历史·古迹·美食',img:'rc-img-xian',tags:['历史','古迹']},
-  {id:'yunnan',city:'云南',name:'7日环线之旅',days:7,budget:6800,theme:'昆明·大理·丽江·香格里拉',img:'rc-img-yunnan',tags:['自然','民俗']},
-  {id:'jiangnan',city:'江南',name:'5日水乡漫游',days:5,budget:5500,theme:'苏州·杭州·乌镇·周庄',img:'rc-img-jiangnan',tags:['水乡','园林']},
-  {id:'beijing',city:'北京',name:'皇城3日精华',days:3,budget:3800,theme:'故宫·长城·胡同·美食',img:'rc-img-beijing',tags:['历史','古迹']},
-  {id:'chongqing',city:'重庆',name:'魔幻山城3日',days:3,budget:2800,theme:'洪崖洞·轻轨·火锅·夜景',img:'rc-img-chongqing',tags:['都市','美食']},
+const routesList=[
+  {id:'chengdu',city:'成都',name:'天府3日经典游',days:3,budget:3500,theme:'文化·美食·自然·夜生活',bg:'bg-chengdu',tags:'文化·美食'},
+  {id:'xian',city:'西安',name:'古都4日探秘',days:4,budget:4200,theme:'兵马俑·华清池·回民街·城墙',bg:'bg-xian',tags:'历史·古迹'},
+  {id:'yunnan',city:'云南',name:'7日环线之旅',days:7,budget:6800,theme:'昆明·大理·丽江·香格里拉',bg:'bg-yunnan',tags:'自然·民俗'},
+  {id:'jiangnan',city:'江南',name:'5日水乡漫游',days:5,budget:5500,theme:'苏州·杭州·乌镇·周庄',bg:'bg-jiangnan',tags:'园林·水乡'},
+  {id:'beijing',city:'北京',name:'皇城3日精华',days:3,budget:3800,theme:'故宫·长城·胡同·烤鸭',bg:'bg-beijing',tags:'历史·古迹'},
+  {id:'chongqing',city:'重庆',name:'魔幻山城3日',days:3,budget:2800,theme:'洪崖洞·轻轨·火锅·夜景',bg:'bg-chongqing',tags:'都市·美食'},
 ];
-(function renderRoutes(){
-  document.getElementById('routeGrid').innerHTML=routes.map(r=>
-    '<a href="planner.html" class="route-card">'+
-    '<div class="rc-img '+r.img+'" data-city="'+r.city+'"><span class="rc-tag">'+r.tags.join(' · ')+'</span></div>'+
-    '<div class="rc-body"><div class="rc-name">'+r.name+'</div>'+
-    '<div class="rc-info">'+r.theme+'</div>'+
-    '<div class="rc-meta"><span>📅 '+r.days+'天</span><span>💰 ¥'+r.budget.toLocaleString()+'</span></div></div></a>'
-  ).join('');
-})();
+document.getElementById('routeGrid').innerHTML=routesList.map(r=>
+  '<a href="planner.html" class="route-card"><div class="rc-img '+r.bg+'"><div class="rc-img-inner"><span class="rc-card-badge">'+r.tags+'</span><div class="rc-card-city">'+r.city+'</div></div></div><div class="rc-body"><div class="rc-name">'+r.name+'</div><div class="rc-info">'+r.theme+'</div><div class="rc-meta"><span>📅 '+r.days+' 天</span><span>💰 ¥'+r.budget.toLocaleString()+'</span></div></div></a>'
+).join('');
 
-function searchDest(){ const q=document.getElementById('heroSearch').value.trim(); if(q){window.location.href='planner.html?q='+encodeURIComponent(q);}else{showToast('请输入目的地');}}
-function quickSearch(q){window.location.href='planner.html?q='+encodeURIComponent(q);}
+function goSearch(){const q=document.getElementById('heroSearch').value.trim();if(q){window.location.href='planner.html?q='+encodeURIComponent(q);}else{showToast('请输入目的地');}}
+function goQuick(q){window.location.href='planner.html?q='+encodeURIComponent(q);}
+function showToast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(function(){t.classList.remove('show');},2200);}
 
 document.getElementById('themeBtn').addEventListener('click',function(){
-  const html=document.documentElement;
-  const cur=html.getAttribute('data-theme');
-  html.setAttribute('data-theme',cur==='dark'?'light':'dark');
-  localStorage.setItem('tq_theme',cur==='dark'?'light':'dark');
+  const html=document.documentElement,cur=html.getAttribute('data-theme'),next=cur==='dark'?'light':'dark';
+  html.setAttribute('data-theme',next);document.getElementById('themeBtn').textContent=next==='dark'?'☀️':'🌓';
+  localStorage.setItem('tq_theme',next);
 });
-(function(){const t=localStorage.getItem('tq_theme');if(t)document.documentElement.setAttribute('data-theme',t);})();
-function showToast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(function(){t.classList.remove('show');},2000);}
+(function(){const t=localStorage.getItem('tq_theme');if(t){document.documentElement.setAttribute('data-theme',t);document.getElementById('themeBtn').textContent=t==='dark'?'☀️':'🌓';}})();
 </script>
 </body>
 </html>
