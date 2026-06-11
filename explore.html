@@ -45,13 +45,13 @@ a{color:inherit;text-decoration:none}
 .map-overlay{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;background:var(--surface);z-index:5;transition:opacity .5s;pointer-events:none;text-align:center;padding:24px}
 .map-spinner{width:44px;height:44px;border:3px solid var(--border);border-top-color:var(--accent);border-radius:50%;animation:spin .7s linear infinite;margin-bottom:16px}
 @keyframes spin{to{transform:rotate(360deg)}}
-.result-panel{width:380px;min-width:340px;overflow-y:auto;padding:16px;background:var(--surface);border-left:1px solid var(--border);transition:background var(--transition),border-color var(--transition)}
+.result-panel{width:380px;min-width:340px;overflow-y:auto;padding:16px;background:linear-gradient(180deg,var(--surface),var(--bg));border-left:1px solid var(--border);transition:background var(--transition),border-color var(--transition)}
 .result-panel::-webkit-scrollbar{width:6px}
 .result-panel::-webkit-scrollbar-thumb{background:var(--border);border-radius:3px}
-.result-header{font-size:13px;font-weight:600;color:var(--text2);margin-bottom:14px;padding-bottom:10px;border-bottom:1px solid var(--border)}
+.result-header{font-size:13px;font-weight:700;color:var(--text2);margin-bottom:14px;padding:12px 12px 10px;border:1px solid var(--border);border-radius:var(--radius-sm);background:var(--bg);display:flex;align-items:center;justify-content:space-between}.result-header::after{content:'AMap POI';font-size:10px;color:var(--accent);background:var(--surface2);border-radius:999px;padding:3px 8px}
 .result-card{background:var(--bg);border:1px solid var(--border);border-radius:var(--radius-sm);padding:14px;margin-bottom:10px;cursor:pointer;transition:all var(--transition);display:flex;gap:12px;align-items:flex-start;animation:fadeIn .3s ease-out backwards}
 @keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
-.result-card:hover{border-color:var(--accent);box-shadow:var(--shadow);transform:translateY(-1px)}
+.result-card:hover{border-color:var(--accent);box-shadow:var(--shadow);transform:translateY(-1px)}.result-card.active{border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-glow)}
 .result-num{width:28px;height:28px;border-radius:50%;background:var(--accent);color:#fff;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;flex-shrink:0}
 .result-info{flex:1;min-width:0}
 .result-name{font-size:14px;font-weight:600;margin-bottom:3px}
@@ -76,7 +76,7 @@ a{color:inherit;text-decoration:none}
   <a href="index.html" class="nav-logo">📍 <span>TrailQuest</span></a>
   <div class="nav-links">
     <a href="index.html">首页</a><a href="planner.html">行程规划</a><a href="routes.html">热门路线</a>
-    <a href="explore.html" class="active">周边探索</a><a href="dashboard.html">仪表盘</a><a href="my-trips.html">我的行程</a>
+    <a href="explore.html" class="active">周边探索</a><a href="qa.html">智能问答</a><a href="dashboard.html">仪表盘</a><a href="my-trips.html">我的行程</a>
   </div>
   <div class="nav-actions"><button class="nav-btn" id="themeBtn">🌓</button></div>
 </nav>
@@ -161,7 +161,7 @@ function searchPoi(){
   });
 }
 
-function focusResult(lng,lat,name){map.setZoomAndCenter(17,[lng,lat]);}
+function focusResult(lng,lat,name){map.setZoomAndCenter(17,[lng,lat]);showToast('已定位到 '+name);}
 function clearMarkers(){searchMarkers.forEach(m=>m.setMap(null));searchMarkers=[];}
 function showToast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(function(){t.classList.remove('show');},2200);}
 

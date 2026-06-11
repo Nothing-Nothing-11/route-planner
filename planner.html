@@ -3,47 +3,23 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>成都3日深度游 · TrailQuest</title>
+<title>行程规划 · TrailQuest</title>
 <style>
-:root{
-  --bg:#fff;--surface:#f8fafc;--surface2:#f1f5f9;--border:#e2e8f0;
-  --text:#0f172a;--text2:#475569;--text3:#94a3b8;
-  --accent:#0284c7;--accent-light:rgba(2,132,199,.1);--accent-glow:rgba(2,132,199,.2);
-  --scenic:#3B82F6;--scenic-bg:rgba(59,130,246,.1);
-  --food:#F59E0B;--food-bg:rgba(245,158,11,.1);
-  --culture:#8B5CF6;--culture-bg:rgba(139,92,246,.1);
-  --shop:#EC4899;--shop-bg:rgba(236,72,153,.1);
-  --night:#10B981;--night-bg:rgba(16,185,129,.1);
-  --shadow-sm:0 1px 2px rgba(0,0,0,.05);--shadow:0 1px 3px rgba(0,0,0,.08),0 1px 2px rgba(0,0,0,.06);
-  --shadow-md:0 4px 6px rgba(0,0,0,.06),0 2px 4px rgba(0,0,0,.04);
-  --shadow-lg:0 10px 25px rgba(0,0,0,.08),0 4px 10px rgba(0,0,0,.04);
-  --shadow-xl:0 20px 50px rgba(0,0,0,.1);
-  --radius-sm:8px;--radius:12px;--radius-lg:16px;--radius-xl:24px;
-  --nav-h:60px;--transition:200ms cubic-bezier(.4,0,.2,1);
-}
-[data-theme="dark"]{
-  --bg:#0b1120;--surface:#111827;--surface2:#1e293b;--border:#1e293b;
-  --text:#f1f5f9;--text2:#94a3b8;--text3:#64748b;
-  --accent-light:rgba(2,132,199,.15);--accent-glow:rgba(2,132,199,.25);
-  --shadow-sm:0 1px 2px rgba(0,0,0,.2);--shadow:0 1px 3px rgba(0,0,0,.3);
-  --shadow-md:0 4px 6px rgba(0,0,0,.3);--shadow-lg:0 10px 25px rgba(0,0,0,.4);
-  --shadow-xl:0 20px 50px rgba(0,0,0,.5);
-}
-
+:root{--bg:#fff;--surface:#f8fafc;--surface2:#f1f5f9;--border:#e2e8f0;--text:#0f172a;--text2:#475569;--text3:#94a3b8;--accent:#0284c7;--accent-glow:rgba(2,132,199,.2);--scenic:#3B82F6;--scenic-bg:rgba(59,130,246,.1);--food:#F59E0B;--food-bg:rgba(245,158,11,.1);--culture:#8B5CF6;--culture-bg:rgba(139,92,246,.1);--shop:#EC4899;--shop-bg:rgba(236,72,153,.1);--night:#10B981;--night-bg:rgba(16,185,129,.1);--shadow-sm:0 1px 2px rgba(0,0,0,.05);--shadow:0 1px 3px rgba(0,0,0,.08);--shadow-md:0 4px 6px rgba(0,0,0,.06);--shadow-lg:0 10px 25px rgba(0,0,0,.08);--shadow-xl:0 20px 50px rgba(0,0,0,.1);--radius:12px;--radius-lg:16px;--radius-sm:8px;--radius-xl:24px;--nav-h:60px;--transition:200ms cubic-bezier(.4,0,.2,1)}
+[data-theme="dark"]{--bg:#0b1120;--surface:#111827;--surface2:#1e293b;--border:#1e293b;--text:#f1f5f9;--text2:#94a3b8;--text3:#64748b;--accent-glow:rgba(2,132,199,.25);--shadow-sm:0 1px 2px rgba(0,0,0,.2);--shadow:0 1px 3px rgba(0,0,0,.3);--shadow-md:0 4px 6px rgba(0,0,0,.3);--shadow-lg:0 10px 25px rgba(0,0,0,.4);--shadow-xl:0 20px 50px rgba(0,0,0,.5)}
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
-html{scroll-behavior:smooth;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}
+html{scroll-behavior:smooth;-webkit-font-smoothing:antialiased}
 body{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei","Helvetica Neue",sans-serif;background:var(--bg);color:var(--text);line-height:1.6;min-height:100vh;display:flex;flex-direction:column;transition:background var(--transition),color var(--transition)}
 a{color:inherit;text-decoration:none}
-
-.nav{position:sticky;top:0;z-index:100;height:var(--nav-h);background:var(--bg);border-bottom:1px solid var(--border);display:flex;align-items:center;padding:0 28px;gap:32px;transition:background var(--transition),border-color var(--transition)}
+.nav{position:sticky;top:0;z-index:100;height:var(--nav-h);background:var(--bg);border-bottom:1px solid var(--border);display:flex;align-items:center;padding:0 28px;gap:32px;transition:background var(--transition),border-color var(--transition);backdrop-filter:blur(16px)}
 .nav-logo{font-size:18px;font-weight:700;display:flex;align-items:center;gap:8px;letter-spacing:-.3px}
 .nav-logo span{background:linear-gradient(135deg,var(--accent),#0ea5e9);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
 .nav-links{display:flex;gap:2px;flex:1}
-.nav-links a{padding:8px 16px;border-radius:var(--radius-sm);font-size:13.5px;font-weight:500;color:var(--text2);transition:all var(--transition);position:relative}
+.nav-links a{padding:8px 16px;border-radius:var(--radius-sm);font-size:13.5px;font-weight:500;color:var(--text2);transition:all var(--transition)}
 .nav-links a:hover{background:var(--surface2);color:var(--text)}
 .nav-links a.active{background:var(--accent);color:#fff;box-shadow:0 2px 8px var(--accent-glow)}
 .nav-actions{display:flex;gap:8px;align-items:center}
-.nav-save{padding:7px 18px;border-radius:20px;border:none;background:var(--accent);color:#fff;font-size:13px;font-weight:600;cursor:pointer;transition:all var(--transition);letter-spacing:-.2px}
+.nav-save{padding:7px 18px;border-radius:20px;border:none;background:var(--accent);color:#fff;font-size:13px;font-weight:600;cursor:pointer;transition:all var(--transition)}
 .nav-save:hover{transform:translateY(-1px);box-shadow:0 4px 12px var(--accent-glow)}
 .nav-btn{width:38px;height:38px;border-radius:50%;border:1px solid var(--border);background:var(--surface);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:16px;transition:all var(--transition);color:var(--text)}
 .nav-btn:hover{background:var(--surface2);border-color:var(--text3);transform:scale(1.05)}
@@ -56,41 +32,39 @@ a{color:inherit;text-decoration:none}
 .banner-spot3{position:absolute;width:30vw;height:30vw;border-radius:50%;background:radial-gradient(circle,rgba(14,165,233,.35),transparent 70%);bottom:-20%;left:40%;animation:bannerFloat 22s ease-in-out infinite}
 .banner-grid{position:absolute;inset:0;background-image:radial-gradient(rgba(255,255,255,.06) 1px,transparent 1px);background-size:40px 40px;opacity:.5}
 .banner-left{position:relative;z-index:2}
-.banner-left h1{font-size:36px;font-weight:800;color:#fff;letter-spacing:-1px;line-height:1.2;text-shadow:0 2px 20px rgba(0,0,0,.15)}
-.banner-left p{color:rgba(255,255,255,.8);font-size:15px;margin-top:6px;font-weight:400}
+.banner-left h1{font-size:36px;font-weight:800;color:#fff;letter-spacing:-1px;line-height:1.2}
+.banner-left p{color:rgba(255,255,255,.8);font-size:15px;margin-top:6px}
+.banner-left .city-select{display:flex;gap:6px;margin-top:10px;flex-wrap:wrap}
+.banner-left .city-chip{padding:5px 14px;border-radius:16px;font-size:12px;font-weight:500;cursor:pointer;border:1.5px solid rgba(255,255,255,.25);background:rgba(255,255,255,.08);color:rgba(255,255,255,.85);transition:all var(--transition)}
+.banner-left .city-chip:hover{background:rgba(255,255,255,.2);border-color:rgba(255,255,255,.5)}
+.banner-left .city-chip.active{background:rgba(255,255,255,.9);color:#0c4a6e;border-color:rgba(255,255,255,.9);font-weight:700}
 .banner-right{position:relative;z-index:2;display:flex;gap:14px}
-.glass-badge{background:rgba(255,255,255,.12);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);border:1px solid rgba(255,255,255,.2);border-radius:var(--radius-lg);padding:14px 22px;text-align:center;min-width:105px;transition:all .3s;box-shadow:0 4px 24px rgba(0,0,0,.06)}
+.glass-badge{background:rgba(255,255,255,.12);backdrop-filter:blur(24px);border:1px solid rgba(255,255,255,.2);border-radius:var(--radius-lg);padding:14px 22px;text-align:center;min-width:105px;transition:all .3s}
 .glass-badge:hover{background:rgba(255,255,255,.18);transform:translateY(-2px)}
-.glass-badge .val{font-size:26px;font-weight:800;color:#fff;line-height:1;font-variant-numeric:tabular-nums}
-.glass-badge .lbl{font-size:11px;color:rgba(255,255,255,.65);margin-top:5px;font-weight:500;letter-spacing:.5px;text-transform:uppercase}
-
+.glass-badge .val{font-size:26px;font-weight:800;color:#fff;line-height:1}
+.glass-badge .lbl{font-size:11px;color:rgba(255,255,255,.65);margin-top:5px;font-weight:500;letter-spacing:.5px}
 @keyframes slideUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
-.day-tabs{display:flex;gap:0;padding:14px 28px;background:var(--surface);border-bottom:1px solid var(--border);overflow-x:auto;position:relative;transition:background var(--transition)}
-.day-tab{padding:10px 28px;border-radius:22px;font-size:14px;font-weight:600;cursor:pointer;border:2px solid transparent;background:transparent;color:var(--text2);transition:all var(--transition);white-space:nowrap;position:relative}
+.day-tabs{display:flex;gap:0;padding:14px 28px;background:var(--surface);border-bottom:1px solid var(--border);overflow-x:auto}
+.day-tab{padding:10px 28px;border-radius:22px;font-size:14px;font-weight:600;cursor:pointer;border:2px solid transparent;background:transparent;color:var(--text2);transition:all var(--transition);white-space:nowrap}
 .day-tab:hover{color:var(--text);background:var(--surface2)}
 .day-tab.active{background:var(--accent);color:#fff;border-color:var(--accent);box-shadow:0 2px 12px var(--accent-glow);animation:slideUp .3s ease-out}
-
 .main-content{display:flex;flex:1;overflow:hidden;height:calc(100vh - var(--nav-h) - 220px - 54px - 52px)}
-.timeline-panel{width:42%;min-width:400px;overflow-y:auto;overflow-x:hidden;padding:24px 20px 24px 28px;background:var(--surface);border-right:1px solid var(--border);scroll-behavior:smooth;transition:background var(--transition)}
-.timeline-panel::-webkit-scrollbar{width:6px}
-.timeline-panel::-webkit-scrollbar-track{background:transparent}
-.timeline-panel::-webkit-scrollbar-thumb{background:var(--border);border-radius:3px}
-.map-panel{flex:1;position:relative;transition:background var(--transition)}
+.timeline-panel{width:42%;min-width:400px;overflow-y:auto;overflow-x:hidden;padding:24px 20px 24px 28px;background:var(--surface);border-right:1px solid var(--border)}
+.timeline-panel::-webkit-scrollbar{width:6px}.timeline-panel::-webkit-scrollbar-track{background:transparent}.timeline-panel::-webkit-scrollbar-thumb{background:var(--border);border-radius:3px}
+.map-panel{flex:1;position:relative}
 #mapContainer{width:100%;height:100%}
-
 .map-overlay{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:5;transition:opacity .5s;pointer-events:none;background:var(--surface)}
 .map-overlay.ready{opacity:0;transition-delay:.3s}
-.map-spinner{width:44px;height:44px;border:3px solid var(--border);border-top-color:var(--accent);border-radius:50%;animation:spin .7s linear infinite}
-.map-msg-title{font-size:15px;font-weight:600;color:var(--text);margin-top:16px}
-.map-msg-desc{font-size:13px;color:var(--text3);margin-top:4px}
+.map-spinner{width:44px;height:44px;border:3px solid var(--border);border-top-color:var(--accent);border-radius:50%;animation:spin .7s linear infinite;margin-bottom:12px}
 @keyframes spin{to{transform:rotate(360deg)}}
+.map-msg-title{font-size:14px;font-weight:600;color:var(--text)}
+.map-msg-desc{font-size:12px;color:var(--text3);margin-top:4px}
 
 @keyframes cardIn{from{opacity:0;transform:translateX(-20px)}to{opacity:1;transform:translateX(0)}}
 .poi-card{background:var(--bg);border:1px solid var(--border);border-radius:var(--radius);padding:18px;margin-bottom:14px;display:flex;gap:16px;cursor:pointer;transition:all var(--transition);position:relative;animation:cardIn .4s ease-out backwards}
-.poi-card:nth-child(1){animation-delay:0s}.poi-card:nth-child(2){animation-delay:.05s}.poi-card:nth-child(3){animation-delay:.1s}
-.poi-card:nth-child(4){animation-delay:.15s}.poi-card:nth-child(5){animation-delay:.2s}.poi-card:nth-child(6){animation-delay:.25s}.poi-card:nth-child(7){animation-delay:.3s}
+.poi-card:nth-child(1){animation-delay:0s}.poi-card:nth-child(2){animation-delay:.05s}.poi-card:nth-child(3){animation-delay:.1s}.poi-card:nth-child(4){animation-delay:.15s}.poi-card:nth-child(5){animation-delay:.2s}.poi-card:nth-child(6){animation-delay:.25s}.poi-card:nth-child(7){animation-delay:.3s}
 .poi-card:hover{border-color:var(--accent);box-shadow:var(--shadow-md);transform:translateX(3px)}
-.poi-card.active{border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-glow);background:var(--accent-light)}
+.poi-card.active{border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-glow);background:var(--accent-light, rgba(2,132,199,.04))}
 .poi-card .time-dot{display:flex;flex-direction:column;align-items:center;min-width:48px}
 .poi-card .dot{width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;color:#fff;flex-shrink:0;transition:transform var(--transition)}
 .poi-card:hover .dot{transform:scale(1.15)}
@@ -100,38 +74,24 @@ a{color:inherit;text-decoration:none}
 .poi-card .card-body{flex:1;min-width:0}
 .poi-card .card-header{display:flex;align-items:center;gap:8px;margin-bottom:4px;flex-wrap:wrap}
 .poi-card .card-title{font-size:16px;font-weight:600;color:var(--text);letter-spacing:-.2px}
-.poi-card .tag{font-size:10px;padding:3px 10px;border-radius:10px;font-weight:600;letter-spacing:.3px}
+.poi-card .tag{font-size:10px;padding:3px 10px;border-radius:10px;font-weight:600}
 .poi-card .card-time-row{display:flex;align-items:center;gap:12px;margin-bottom:6px;font-size:12px;color:var(--text3)}
 .poi-card .card-desc{font-size:13px;color:var(--text2);line-height:1.55;margin-bottom:8px}
 .poi-card .card-meta{display:flex;gap:14px;align-items:center;font-size:11px;color:var(--text3);flex-wrap:wrap}
 .poi-card .card-cost{color:var(--food);font-weight:700;font-size:13px}
-.poi-card .card-duration{display:flex;align-items:center;gap:4px}
-.poi-card .card-transport{margin-top:10px;padding:10px 12px;background:var(--surface2);border-radius:var(--radius-sm);font-size:11px;color:var(--text2);display:flex;align-items:center;gap:8px;transition:background var(--transition)}
+.poi-card .card-transport{margin-top:10px;padding:10px 12px;background:var(--surface2);border-radius:var(--radius-sm);font-size:11px;color:var(--text2);display:flex;align-items:center;gap:8px}
 .poi-card .card-transport strong{color:var(--accent);font-weight:600}
-
 .dot-scenic{background:var(--scenic)}.dot-food{background:var(--food)}.dot-culture{background:var(--culture)}.dot-shop{background:var(--shop)}.dot-night{background:var(--night)}
-.tag-scenic{background:var(--scenic-bg);color:var(--scenic)}
-.tag-food{background:var(--food-bg);color:var(--food)}
-.tag-culture{background:var(--culture-bg);color:var(--culture)}
-.tag-shop{background:var(--shop-bg);color:var(--shop)}
-.tag-night{background:var(--night-bg);color:var(--night)}
-
-.transport-bar{padding:12px 28px;background:var(--bg);border-top:1px solid var(--border);display:flex;align-items:center;gap:24px;font-size:13px;color:var(--text2);transition:background var(--transition),border-color var(--transition)}
-.transport-bar .stat{display:flex;align-items:center;gap:6px;white-space:nowrap;font-weight:500}
-.transport-bar .stat strong{color:var(--accent);font-weight:700}
-
+.tag-scenic{background:var(--scenic-bg);color:var(--scenic)}.tag-food{background:var(--food-bg);color:var(--food)}.tag-culture{background:var(--culture-bg);color:var(--culture)}.tag-shop{background:var(--shop-bg);color:var(--shop)}.tag-night{background:var(--night-bg);color:var(--night)}
+.transport-bar{padding:12px 28px;background:var(--bg);border-top:1px solid var(--border);display:flex;align-items:center;gap:24px;font-size:13px;color:var(--text2)}.transport-bar .stat{display:flex;align-items:center;gap:6px;white-space:nowrap;font-weight:500}.transport-bar .stat strong{color:var(--accent);font-weight:700}
 .toast{position:fixed;bottom:32px;left:50%;transform:translateX(-50%) translateY(20px);background:var(--text);color:var(--bg);padding:12px 28px;border-radius:24px;font-size:13px;font-weight:600;z-index:9999;opacity:0;transition:all .3s cubic-bezier(.4,0,.2,1);pointer-events:none;box-shadow:var(--shadow-xl)}
 .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
 
 @media(max-width:960px){
   .nav{padding:0 16px;gap:16px}.nav-links{display:none}
-  .banner{height:auto;padding:32px 24px;flex-direction:column;text-align:center;gap:20px}
-  .banner-left h1{font-size:26px}.banner-right{gap:10px}.glass-badge{padding:10px 16px;min-width:90px}.glass-badge .val{font-size:22px}
-  .day-tabs{padding:10px 16px}.day-tab{padding:8px 20px;font-size:13px}
-  .main-content{flex-direction:column;height:auto}
-  .timeline-panel{width:100%;min-width:unset;height:50vh;border-right:none;border-bottom:1px solid var(--border);padding:16px}
-  .map-panel{height:50vh}
-  .transport-bar{gap:12px;font-size:12px;overflow-x:auto}
+  .banner{height:auto;padding:24px 20px;flex-direction:column;text-align:center;gap:16px}.banner-left h1{font-size:24px}.banner-right{gap:8px}.glass-badge{padding:10px 16px;min-width:85px}.glass-badge .val{font-size:20px}
+  .day-tabs{padding:10px 16px}.day-tab{padding:8px 18px;font-size:13px}
+  .main-content{flex-direction:column;height:auto}.timeline-panel{width:100%;min-width:unset;height:50vh;border-right:none;border-bottom:1px solid var(--border);padding:16px}.map-panel{height:50vh}
 }
 </style>
 </head>
@@ -140,12 +100,8 @@ a{color:inherit;text-decoration:none}
 <nav class="nav">
   <a href="index.html" class="nav-logo">📍 <span>TrailQuest</span></a>
   <div class="nav-links">
-    <a href="index.html">首页</a>
-    <a href="planner.html" class="active">行程规划</a>
-    <a href="routes.html">热门路线</a>
-    <a href="explore.html">周边探索</a>
-    <a href="dashboard.html">仪表盘</a>
-    <a href="my-trips.html">我的行程</a>
+    <a href="index.html">首页</a><a href="planner.html" class="active">行程规划</a><a href="routes.html">热门路线</a>
+    <a href="explore.html">周边探索</a><a href="qa.html">智能问答</a><a href="dashboard.html">仪表盘</a><a href="my-trips.html">我的行程</a>
   </div>
   <div class="nav-actions">
     <button class="nav-save" onclick="saveTrip()">💾 保存行程</button>
@@ -154,221 +110,119 @@ a{color:inherit;text-decoration:none}
 </nav>
 
 <div class="banner">
-  <div class="banner-bg"></div>
-  <div class="banner-spot1"></div>
-  <div class="banner-spot2"></div>
-  <div class="banner-spot3"></div>
-  <div class="banner-grid"></div>
+  <div class="banner-bg"></div><div class="banner-spot1"></div><div class="banner-spot2"></div><div class="banner-spot3"></div><div class="banner-grid"></div>
   <div class="banner-left">
-    <h1>探索成都 · 3日深度游</h1>
-    <p>📌 天府之国 &nbsp;|&nbsp; 🏛️ 蜀汉文脉 &nbsp;|&nbsp; 🐼 熊猫故乡 &nbsp;|&nbsp; 🍜 美食之都</p>
+    <h1 id="bannerTitle">探索成都 · 3日深度游</h1>
+    <p id="bannerSub">天府之国 · 蜀汉文脉 · 熊猫故乡 · 美食之都</p>
+    <div class="city-select" id="cityChips"></div>
   </div>
   <div class="banner-right" id="bannerBadges"></div>
 </div>
 
 <div class="day-tabs" id="dayTabs"></div>
-
 <div class="main-content">
   <div class="timeline-panel" id="timelinePanel"></div>
   <div class="map-panel">
     <div id="mapContainer"></div>
-    <div class="map-overlay" id="mapOverlay">
-      <div class="map-spinner"></div>
-      <div class="map-msg-title" id="mapMsgTitle">地图加载中...</div>
-      <div class="map-msg-desc" id="mapMsgDesc">正在连接高德地图服务</div>
-    </div>
+    <div class="map-overlay" id="mapOverlay"><div class="map-spinner"></div><div class="map-msg-title" id="mapMsgTitle">地图加载中...</div><div class="map-msg-desc" id="mapMsgDesc">正在连接高德地图服务</div></div>
   </div>
 </div>
-
 <div class="transport-bar" id="transportBar"></div>
 <div class="toast" id="toast"></div>
 
 <script>
 const catMap={scenic:{n:'景点',c:'scenic',e:'🏔️'},food:{n:'美食',c:'food',e:'🍜'},culture:{n:'文化',c:'culture',e:'🏛️'},shop:{n:'购物',c:'shop',e:'🛍️'},night:{n:'夜生活',c:'night',e:'🌃'}};
 
-const tripData={name:'成都3日深度游',city:'成都',center:[104.0668,30.5728],zoom:11,days:3,totalBudget:3500,
-  dayPlan:[
-  {day:1,label:'DAY 1 · 蜀汉文脉',pois:[
-    {n:'武侯祠',lng:104.0468,lat:30.6458,t:'08:30',cat:'culture',dur:120,cost:60,desc:'三国圣地，纪念诸葛亮的千年祠庙——红墙竹影间，感受蜀汉遗风扑面而来。',notes:'建议请讲解员，深度了解三国文化'},
-    {n:'锦里古街',lng:104.0482,lat:30.6469,t:'10:30',cat:'shop',dur:90,cost:0,desc:'西蜀第一街，明清建筑群中藏着无数地道小吃和手工艺品。步行可达，紧邻武侯祠。',notes:'三大炮、糖油果子、蛋烘糕必尝'},
-    {n:'月满大江火锅',lng:104.0500,lat:30.6480,t:'12:30',cat:'food',dur:60,cost:80,desc:'成都火锅标杆——九宫格铜锅翻滚着牛油红汤，毛肚七上八下，鸭肠爽脆弹牙。',notes:'¥80/人，建议提前半小时排号'},
-    {n:'杜甫草堂',lng:104.0261,lat:30.6626,t:'14:00',cat:'culture',dur:120,cost:60,desc:'诗圣流寓成都时的茅屋故居——"安得广厦千万间"的千古慨叹诞生于此，竹林溪径间诗韵犹存。',notes:'茅屋景区、唐代遗址陈列馆'},
-    {n:'宽窄巷子',lng:104.0518,lat:30.6675,t:'16:30',cat:'shop',dur:90,cost:0,desc:'宽巷子怀旧、窄巷子小资、井巷子市井——三条平行的巷子，演绎三种截然不同的成都生活。',notes:'伴手礼推荐：张飞牛肉、火锅底料'},
-    {n:'陈麻婆豆腐',lng:104.0530,lat:30.6650,t:'18:30',cat:'food',dur:45,cost:70,desc:'中华老字号，麻婆豆腐发源地——"麻、辣、酥、嫩、烫、香、鲜"七味一体，配一碗米饭是绝配。',notes:'必点：麻婆豆腐、宫保鸡丁'},
-    {n:'蜀风雅韵·川剧变脸',lng:104.0535,lat:30.6692,t:'20:00',cat:'culture',dur:90,cost:180,desc:'看川剧变脸喷火绝技，喝一盏盖碗茶——这是最地道的巴蜀文化之夜，成都打卡清单上的第一名。',notes:'VIP位¥180，建议提前3天订票'}
-  ]},
-  {day:2,label:'DAY 2 · 熊猫都市',pois:[
-    {n:'大熊猫繁育研究基地',lng:104.1446,lat:30.7348,t:'07:30',cat:'scenic',dur:180,cost:55,desc:'全球最大熊猫保护机构——看国宝啃竹子、爬树、打滚卖萌，还有刚出生的熊猫幼崽嗷嗷待哺。',notes:'7:30开门趁早去，10点后人多'},
-    {n:'龙抄手总店',lng:104.0780,lat:30.6580,t:'12:00',cat:'food',dur:45,cost:50,desc:'成都名小吃集大成者——龙抄手皮薄馅嫩，红油/清汤/酸辣三味，一碗入魂。春熙路百年老店。',notes:'¥50/人，推荐红油抄手+钟水饺'},
-    {n:'人民公园·鹤鸣茶社',lng:104.0555,lat:30.6604,t:'13:30',cat:'culture',dur:90,cost:30,desc:'百年鹤鸣茶社——竹椅上一躺，盖碗茶一端，掏耳朵一闭眼，这就是老成都人的"巴适"哲学。',notes:'盖碗茶¥15-30，掏耳朵¥30'},
-    {n:'春熙路步行街',lng:104.0809,lat:30.6567,t:'15:30',cat:'shop',dur:90,cost:0,desc:'成都第一商圈，百年金街——IFS熊猫爬楼必须打卡，奢侈品旗舰店与市井烟火气奇妙共存。',notes:'IFS 7楼"翻墙熊猫"雕塑必拍'},
-    {n:'太古里',lng:104.0835,lat:30.6546,t:'17:00',cat:'shop',dur:90,cost:0,desc:'川西民居风格×现代商业的完美融合——方所书店的穹顶令人惊艳，各大品牌旗舰店鳞次栉比。',notes:'毗邻千年古刹大慈寺，古今对话'},
-    {n:'大龙燚火锅',lng:104.0750,lat:30.6500,t:'19:00',cat:'food',dur:60,cost:100,desc:'成都火锅排队王——锅底醇厚绵长，食材极尽新鲜，江湖菜风格的豪爽环境让人吃得过瘾。',notes:'¥100/人，建议下午4点取号'},
-    {n:'九眼桥酒吧街',lng:104.0896,lat:30.6435,t:'21:00',cat:'night',dur:120,cost:150,desc:'锦江畔酒吧一条街——民谣Livehouse的低吟浅唱、精酿啤酒的馥郁麦香、江景夜风的温柔拂面。',notes:'推荐：莲花府邸、二麻酒馆、Jellyfish'}
-  ]},
-  {day:3,label:'DAY 3 · 古堰问道',pois:[
-    {n:'都江堰',lng:103.6167,lat:30.9984,t:'08:00',cat:'scenic',dur:180,cost:90,desc:'世界文化遗产——两千年前李冰父子修建的水利奇迹，无坝引水，至今灌溉成都平原千里沃野。',notes:'犀浦站乘城际列车40分钟即达'},
-    {n:'青城山前山',lng:103.5659,lat:30.9007,t:'11:30',cat:'scenic',dur:150,cost:90,desc:'中国道教发源地——"青城天下幽"，曲径通幽处见道观隐于山林，深吸一口负氧离子的清甜。',notes:'建议索道上山(¥35)，步行下山'},
-    {n:'张醪糟',lng:103.6200,lat:30.9930,t:'14:00',cat:'food',dur:30,cost:25,desc:'都江堰百年老字号——红糖醪糟粉子软糯香甜，冰粉凉爽滑嫩，爬山之后来一碗，人间值得。',notes:'都江堰老城区，¥25/人'},
-    {n:'文殊院',lng:104.0688,lat:30.6766,t:'16:00',cat:'culture',dur:90,cost:0,desc:'千年古刹闹中取静——香樟树影婆娑，梵音袅袅，文殊院素斋和宫廷糕点更是不可错过的惊喜。',notes:'免费参观，素斋¥10起'},
-    {n:'玉林路·小酒馆',lng:104.0540,lat:30.6280,t:'18:30',cat:'food',dur:60,cost:90,desc:'赵雷一曲《成都》唱红了它——玉林路巷子深处，小酒馆的暖黄灯光下，是成都最文艺的烟火气。',notes:'小酒馆需排队，建议18:00前到'},
-    {n:'锦江夜游',lng:104.0830,lat:30.6478,t:'20:30',cat:'night',dur:60,cost:150,desc:'乘船夜游锦江——两岸灯火璀璨如星河倒影水中，微风轻拂，这一刻你会明白成都为何让人来了就不想走。',notes:'合江亭码头出发，约60分钟，¥150'}
-  ]}
-]};
+var allTrips={};
 
-let map=null,currentDay=0,markers=[],polyline=null,activePoiIdx=-1,amapReady=false;
-let driving,walking;
-
-function haversine(lng1,lat1,lng2,lat2){
-  const R=6371,dLat=(lat2-lat1)*Math.PI/180,dLng=(lng2-lng1)*Math.PI/180;
-  const a=Math.sin(dLat/2)**2+Math.cos(lat1*Math.PI/180)*Math.cos(lat2*Math.PI/180)*Math.sin(dLng/2)**2;
-  return R*2*Math.atan2(Math.sqrt(a),Math.sqrt(1-a));
+function initTripData(){
+allTrips={
+chengdu:{name:'成都3日深度游',city:'成都',center:[104.0668,30.5728],zoom:11,sub:'天府之国 · 蜀汉文脉 · 熊猫故乡 · 美食之都',totalBudget:3500,dayPlan:[{day:1,label:'DAY 1 · 蜀汉文脉',pois:[{n:'武侯祠',lng:104.0468,lat:30.6458,t:'08:30',cat:'culture',dur:120,cost:60,desc:'三国圣地，纪念诸葛亮的千年祠庙——红墙竹影间，感受蜀汉遗风。',notes:'建议请讲解员'},{n:'锦里古街',lng:104.0482,lat:30.6469,t:'10:30',cat:'shop',dur:90,cost:0,desc:'西蜀第一街，明清建筑群中藏着无数地道小吃和手工艺品。紧邻武侯祠。',notes:'三大炮、糖油果子必尝'},{n:'月满大江火锅',lng:104.0500,lat:30.6480,t:'12:30',cat:'food',dur:60,cost:80,desc:'成都火锅标杆——九宫格铜锅牛油红汤，毛肚七上八下，鸭肠爽脆弹牙。',notes:'¥80/人，提前排号'},{n:'杜甫草堂',lng:104.0261,lat:30.6626,t:'14:00',cat:'culture',dur:120,cost:60,desc:'诗圣流寓成都时的茅屋故居，"安得广厦千万间"诞生于此。',notes:'茅屋景区、唐代遗址馆'},{n:'宽窄巷子',lng:104.0518,lat:30.6675,t:'16:30',cat:'shop',dur:90,cost:0,desc:'宽巷子怀旧、窄巷子小资、井巷子市井——三条巷子演绎三种成都生活。',notes:'伴手礼：张飞牛肉、火锅底料'},{n:'陈麻婆豆腐',lng:104.0530,lat:30.6650,t:'18:30',cat:'food',dur:45,cost:70,desc:'中华老字号，麻婆豆腐发源地，麻辣酥嫩烫香鲜七味一体。',notes:'必点：麻婆豆腐、宫保鸡丁'},{n:'蜀风雅韵·川剧变脸',lng:104.0535,lat:30.6692,t:'20:00',cat:'culture',dur:90,cost:180,desc:'看川剧变脸喷火绝技，喝盖碗茶——最地道的巴蜀文化之夜。',notes:'VIP位¥180，提前3天订'}]},{day:2,label:'DAY 2 · 熊猫都市',pois:[{n:'大熊猫繁育基地',lng:104.1446,lat:30.7348,t:'07:30',cat:'scenic',dur:180,cost:55,desc:'全球最大熊猫保护机构，近距离看国宝啃竹子、爬树、打滚卖萌。',notes:'7:30开门趁早，10点后人多'},{n:'龙抄手总店',lng:104.0780,lat:30.6580,t:'12:00',cat:'food',dur:45,cost:50,desc:'成都名小吃集大成者，皮薄馅嫩，红油/清汤/酸辣三味一碗入魂。',notes:'¥50/人，推荐红油抄手'},{n:'人民公园·鹤鸣茶社',lng:104.0555,lat:30.6604,t:'13:30',cat:'culture',dur:90,cost:30,desc:'百年鹤鸣茶社——竹椅上一躺，盖碗茶一端，老成都的"巴适"哲学。',notes:'盖碗茶¥15-30，掏耳朵¥30'},{n:'春熙路步行街',lng:104.0809,lat:30.6567,t:'15:30',cat:'shop',dur:90,cost:0,desc:'成都第一商圈百年金街，IFS熊猫爬楼必打卡，奢侈品与市井奇妙共存。',notes:'IFS 7楼翻墙熊猫必拍'},{n:'太古里',lng:104.0835,lat:30.6546,t:'17:00',cat:'shop',dur:90,cost:0,desc:'川西民居×现代商业完美融合，方所书店穹顶惊艳，毗邻千年大慈寺。',notes:'古今对话，拍照圣地'},{n:'大龙燚火锅',lng:104.0750,lat:30.6500,t:'19:00',cat:'food',dur:60,cost:100,desc:'成都火锅排队王，锅底醇厚绵长，食材极尽新鲜，江湖菜风格环境。',notes:'¥100/人，下午4点取号'},{n:'九眼桥酒吧街',lng:104.0896,lat:30.6435,t:'21:00',cat:'night',dur:120,cost:150,desc:'锦江畔酒吧一条街——民谣Livehouse低吟浅唱，精酿啤酒馥郁麦香。',notes:'推荐：莲花府邸、二麻酒馆'}]},{day:3,label:'DAY 3 · 古堰问道',pois:[{n:'都江堰',lng:103.6167,lat:30.9984,t:'08:00',cat:'scenic',dur:180,cost:90,desc:'世界文化遗产，两千年前李冰父子修建的水利奇迹，至今灌溉成都平原。',notes:'犀浦站乘城际列车40分钟'},{n:'青城山前山',lng:103.5659,lat:30.9007,t:'11:30',cat:'scenic',dur:150,cost:90,desc:'中国道教发源地，"青城天下幽"，曲径通幽处道观隐于山林。',notes:'索道上山¥35，步行下山'},{n:'张醪糟',lng:103.6200,lat:30.9930,t:'14:00',cat:'food',dur:30,cost:25,desc:'都江堰百年老字号，红糖醪糟粉子软糯香甜，冰粉凉爽滑嫩。',notes:'¥25/人，都江堰老城区'},{n:'文殊院',lng:104.0688,lat:30.6766,t:'16:00',cat:'culture',dur:90,cost:0,desc:'千年古刹闹中取静，香樟树影婆娑，素斋和宫廷糕点不可错过。',notes:'免费参观，素斋¥10起'},{n:'玉林路·小酒馆',lng:104.0540,lat:30.6280,t:'18:30',cat:'food',dur:60,cost:90,desc:'赵雷一曲唱红了它——玉林路巷子深处，小酒馆暖黄灯光文艺烟火气。',notes:'建议18:00前排队'},{n:'锦江夜游',lng:104.0830,lat:30.6478,t:'20:30',cat:'night',dur:60,cost:150,desc:'乘船夜游锦江，两岸灯火璀璨如星河倒影——成都不舍离去的理由。',notes:'合江亭码头，¥150/约60分钟'}]}]},
+xian:{name:'西安4日古都探秘',city:'西安',center:[108.9402,34.2611],zoom:12,sub:'十三朝古都 · 兵马俑 · 华清池 · 古城墙 · 回民街',totalBudget:4200,dayPlan:[{day:1,label:'DAY 1 · 秦风唐韵',pois:[{n:'秦始皇兵马俑',lng:109.2733,lat:34.3853,t:'08:30',cat:'culture',dur:180,cost:120,desc:'世界第八大奇迹——八千陶俑军阵气势磅礴，每一个面孔都独一无二，震撼千年。',notes:'建议找官方讲解员¥100'},{n:'华清宫·华清池',lng:109.2786,lat:34.3656,t:'13:00',cat:'scenic',dur:150,cost:120,desc:'唐玄宗与杨贵妃的爱情见证，"温泉水滑洗凝脂"，骊山脚下千年温泉行宫。',notes:'建议路线：九龙湖→芙蓉园→骊山'},{n:'回民街',lng:108.9413,lat:34.2631,t:'17:00',cat:'food',dur:90,cost:80,desc:'西安美食宇宙中心——肉夹馍、羊肉泡馍、biangbiang面、柿子饼琳琅满目。',notes:'推荐：老米家泡馍、贾三灌汤包'},{n:'钟鼓楼·回民街夜市',lng:108.9428,lat:34.2615,t:'19:30',cat:'night',dur:90,cost:35,desc:'登钟楼俯瞰古城夜景，回民街夜市烟火缭绕，感受长安十二时辰的繁华。',notes:'钟楼门票¥35'}]},{day:2,label:'DAY 2 · 古都文脉',pois:[{n:'陕西历史博物馆',lng:108.9529,lat:34.2248,t:'08:30',cat:'culture',dur:180,cost:0,desc:'中国第一座大型现代化博物馆——何家村窖藏、唐代壁画，件件国宝惊艳。',notes:'提前7天预约，免费但极难抢'},{n:'大雁塔·大慈恩寺',lng:108.9606,lat:34.2194,t:'12:30',cat:'culture',dur:90,cost:50,desc:'玄奘法师译经之地，七层浮屠矗立千年，登塔眺望长安中轴线。',notes:'登塔¥25，大慈恩寺¥50'},{n:'大唐不夜城',lng:108.9615,lat:34.2150,t:'15:00',cat:'shop',dur:120,cost:0,desc:'盛唐风貌步行街，不倒翁小姐姐、石头人行为艺术，一秒穿越回大唐长安。',notes:'免费，晚上灯光秀更震撼'},{n:'西安饭庄',lng:108.9450,lat:34.2600,t:'18:30',cat:'food',dur:60,cost:100,desc:'中华老字号陕菜名店——葫芦鸡、烩三鲜、金线油塔，品味正宗三秦风味。',notes:'¥100/人，建议提前订位'}]},{day:3,label:'DAY 3 · 城墙遗韵',pois:[{n:'西安古城墙',lng:108.9364,lat:34.2556,t:'08:30',cat:'scenic',dur:180,cost:54,desc:'中国现存最完整的古代城垣，租一辆自行车绕城骑行，感受千年古都的脉搏。',notes:'全长13.7km，骑行约2小时'},{n:'碑林博物馆',lng:108.9485,lat:34.2550,t:'12:00',cat:'culture',dur:90,cost:65,desc:'书法爱好者的圣地——颜真卿、柳公权、王羲之等名家真迹石刻荟萃。',notes:'¥65，建议请讲解'},{n:'洒金桥美食街',lng:108.9325,lat:34.2680,t:'14:00',cat:'food',dur:60,cost:50,desc:'本地人私藏美食街——马二酸汤水饺、刘信牛羊肉小炒、志亮灌汤蒸饺。',notes:'比回民街更地道、更实惠'},{n:'永兴坊',lng:108.9620,lat:34.2680,t:'16:00',cat:'shop',dur:90,cost:0,desc:'陕西非遗美食街区——摔碗酒、子长煎饼、汉中热米皮，沉浸式唐风市集。',notes:'摔碗酒¥5/碗，拍照绝佳'},{n:'长安大排档',lng:108.9500,lat:34.2500,t:'19:00',cat:'food',dur:60,cost:90,desc:'沉浸式唐风餐厅——毛笔酥、妃子笑、麻将十三幺，吃的是创意更是文化。',notes:'¥90/人，大悦城店排队较长'}]},{day:4,label:'DAY 4 · 华山论剑',pois:[{n:'华山（西峰索道上）',lng:110.0896,lat:34.4899,t:'06:00',cat:'scenic',dur:480,cost:360,desc:'奇险天下第一山——长空栈道贴崖而行，鹞子翻身倒悬绝壁，论剑华山之巅！',notes:'¥360(门票+西峰索道)，西安北站高铁30分钟'},{n:'华山脚下农家乐',lng:110.0950,lat:34.4950,t:'15:00',cat:'food',dur:45,cost:50,desc:'下山后山脚农家土菜——华山大刀面、野菜团子、锅盔辣子，补充体力。',notes:'¥50/人，推荐华阴市老城区'}]}]},
+beijing:{name:'北京3日皇城精华',city:'北京',center:[116.3972,39.9075],zoom:11,sub:'皇家气派 · 故宫红墙 · 万里长城 · 胡同烟火 · 烤鸭飘香',totalBudget:3800,dayPlan:[{day:1,label:'DAY 1 · 皇城中轴',pois:[{n:'天安门广场·故宫',lng:116.3972,lat:39.9075,t:'08:00',cat:'culture',dur:240,cost:60,desc:'穿越天安门进入紫禁城——太和殿金碧辉煌，乾清宫龙椅威严，珍宝馆璀璨夺目。',notes:'提前7天预约！故宫¥60，珍宝馆+¥10'},{n:'景山公园',lng:116.3967,lat:39.9225,t:'13:00',cat:'scenic',dur:60,cost:2,desc:'登万春亭俯瞰故宫全景——中轴线尽收眼底，是拍故宫全景的最佳机位。',notes:'门票¥2，日落时分最美'},{n:'四季民福烤鸭店',lng:116.4100,lat:39.9200,t:'14:30',cat:'food',dur:60,cost:150,desc:'故宫观景位吃烤鸭——皮酥肉嫩卷薄饼，窗外就是东华门，视觉味觉双重享受。',notes:'¥150/人，故宫店排队2小时+'},{n:'南锣鼓巷·什刹海',lng:116.4030,lat:39.9370,t:'16:30',cat:'shop',dur:120,cost:0,desc:'老北京胡同文化精华——南锣鼓巷文创小店、什刹海银锭桥看夕阳、后海酒吧街。',notes:'免费，可坐人力三轮车逛胡同'},{n:'簋街夜宵',lng:116.4280,lat:39.9340,t:'20:00',cat:'night',dur:90,cost:100,desc:'北京夜宵第一街——胡大麻小龙虾排队神话、馋嘴蛙、烤鱼，夜生活从这里开始。',notes:'¥100/人，胡大排队2小时'}]},{day:2,label:'DAY 2 · 长城雄关',pois:[{n:'八达岭长城',lng:116.0180,lat:40.3540,t:'07:00',cat:'scenic',dur:300,cost:40,desc:'万里长城最精华段——北八楼好汉坡登顶，"不到长城非好汉"在此兑现。',notes:'¥40，德胜门乘877路直达'},{n:'全聚德烤鸭(和平门店)',lng:116.3850,lat:39.8980,t:'14:00',cat:'food',dur:60,cost:180,desc:'中华老字号烤鸭鼻祖——挂炉烤鸭皮酥肉嫩、果木飘香，国宴级别的美味。',notes:'¥180/人，建议提前订位'},{n:'颐和园',lng:116.2750,lat:39.9990,t:'16:00',cat:'scenic',dur:150,cost:30,desc:'皇家园林博物馆——昆明湖碧波万顷，万寿山佛香阁巍峨，长廊彩绘惊艳。',notes:'¥30，建议请讲解了解慈禧往事'},{n:'三里屯太古里',lng:116.4540,lat:39.9330,t:'19:30',cat:'night',dur:120,cost:100,desc:'北京时尚地标——潮流品牌、精酿酒吧、网红餐厅，感受帝都的国际范儿。',notes:'推荐：那里花园、Cinker Pictures'}]},{day:3,label:'DAY 3 · 天坛胡同',pois:[{n:'天坛公园',lng:116.4106,lat:39.8822,t:'08:00',cat:'culture',dur:120,cost:34,desc:'明清皇帝祭天之所——祈年殿蓝瓦金顶举世闻名，回音壁三音石巧妙绝伦。',notes:'¥34联票，清晨可看大爷踢毽子'},{n:'牛街清真美食',lng:116.3630,lat:39.8850,t:'11:00',cat:'food',dur:60,cost:60,desc:'北京最地道的美食街——聚宝源涮肉、奶酪魏、洪记小吃，市井烟火气十足。',notes:'¥60/人，聚宝源排队严重'},{n:'798艺术区',lng:116.4940,lat:39.9840,t:'13:30',cat:'culture',dur:120,cost:0,desc:'老工廠改造的当代艺术圣地——UCCA尤伦斯、佩斯北京，工业风与艺术的碰撞。',notes:'免费，部分展览收费'},{n:'恭王府',lng:116.3840,lat:39.9360,t:'16:30',cat:'culture',dur:90,cost:40,desc:'和珅的豪宅——"一座恭王府，半部清代史"，后花园福字碑摸了沾福气。',notes:'¥40，建议请讲解'}]}]},
+chongqing:{name:'重庆3日魔幻山城',city:'重庆',center:[106.5516,29.5630],zoom:12,sub:'8D魔幻 · 洪崖洞千寻 · 轻轨穿楼 · 麻辣火锅 · 百万夜景',totalBudget:2800,dayPlan:[{day:1,label:'DAY 1 · 魔幻都市',pois:[{n:'解放碑',lng:106.5778,lat:29.5583,t:'09:00',cat:'culture',dur:60,cost:0,desc:'重庆精神地标——抗战胜利纪功碑，如今是重庆最繁华的商业中心核心。',notes:'免费，周边八一好吃街'},{n:'李子坝轻轨穿楼',lng:106.5400,lat:29.5480,t:'10:30',cat:'scenic',dur:30,cost:0,desc:'2号线轻轨穿楼而过——抖音爆火的重庆名场面，专设观景台近距离感受震撼。',notes:'免费，建议上午光线好'},{n:'洪崖洞',lng:106.5835,lat:29.5630,t:'12:00',cat:'scenic',dur:90,cost:0,desc:'千与千寻现实版——悬崖上的吊脚楼群，白天看建筑、夜晚看灯光，魔幻十足。',notes:'免费，最好傍晚去拍夜景'},{n:'珮姐老火锅',lng:106.5800,lat:29.5600,t:'18:00',cat:'food',dur:60,cost:100,desc:'重庆火锅扛把子——九宫格牛油红汤翻滚，毛肚鹅肠酥肉，辣到灵魂出窍。',notes:'¥100/人，排队2小时正常'},{n:'南山一棵树',lng:106.6080,lat:29.5460,t:'20:30',cat:'night',dur:90,cost:30,desc:'重庆百万夜景最佳观景台——渝中半岛灯火璀璨，两江交汇尽收眼底。',notes:'¥30，建议打车上下山'}]},{day:2,label:'DAY 2 · 山城烟火',pois:[{n:'磁器口古镇',lng:106.4950,lat:29.5800,t:'09:00',cat:'shop',dur:120,cost:0,desc:'千年古镇——陈麻花、毛血旺、盖碗茶，青石板路上寻老重庆的市井记忆。',notes:'免费，陈麻花排队半小时'},{n:'渣滓洞·白公馆',lng:106.4900,lat:29.5850,t:'12:00',cat:'culture',dur:120,cost:0,desc:'红岩精神发源地——江姐等革命烈士被关押之地，触目惊心的历史现场。',notes:'免费，需提前预约'},{n:'洞子火锅',lng:106.5600,lat:29.5550,t:'15:00',cat:'food',dur:45,cost:60,desc:'重庆特色——防空洞里吃火锅，冬暖夏凉别具一格，体验真正的老重庆味道。',notes:'¥60/人，推荐：洞子李毛肚火锅'},{n:'长江索道',lng:106.5850,lat:29.5550,t:'17:00',cat:'scenic',dur:30,cost:20,desc:'万里长江第一条空中走廊——4分钟横跨长江，俯瞰两江四岸绝美景色。',notes:'¥20单程，黄昏时分最美'},{n:'观音桥九街',lng:106.5300,lat:29.5750,t:'20:00',cat:'night',dur:120,cost:120,desc:'重庆夜生活新地标——酒吧、Livehouse、精酿、美食，年轻人的不夜天堂。',notes:'¥120/人，推荐：坚果Livehouse'}]},{day:3,label:'DAY 3 · 武隆天坑',pois:[{n:'武隆天生三桥',lng:107.7970,lat:29.4340,t:'07:00',cat:'scenic',dur:300,cost:125,desc:'《变形金刚4》《满城尽带黄金甲》取景地——三座天然石桥横跨天坑，壮观至极。',notes:'¥125，重庆北站乘火车2小时'},{n:'武隆羊肉馆',lng:107.7950,lat:29.4320,t:'13:00',cat:'food',dur:45,cost:50,desc:'武隆特色碗碗羊肉——红汤羊肉软烂入味，配一碗米饭，爬完天坑的完美补给。',notes:'¥50/人，当地特色'},{n:'朝天门广场',lng:106.5850,lat:29.5680,t:'18:00',cat:'scenic',dur:60,cost:0,desc:'嘉陵江与长江交汇处——看两江汇流的"鸳鸯锅"奇观，重庆零公里起点。',notes:'免费，来福士广场顶层视野绝佳'}]}]},
+hangzhou:{name:'杭州3日人间天堂',city:'杭州',center:[120.1551,30.2741],zoom:12,sub:'西湖十景 · 灵隐禅寺 · 龙井茶园 · 清河坊街 · 江南韵味',totalBudget:3000,dayPlan:[{day:1,label:'DAY 1 · 西湖寻梦',pois:[{n:'西湖·断桥·白堤',lng:120.1490,lat:30.2580,t:'08:00',cat:'scenic',dur:180,cost:0,desc:'西湖十景精华——断桥残雪、平湖秋月、苏堤春晓，骑行或漫步皆可入画。',notes:'免费，建议租自行车环湖'},{n:'楼外楼',lng:120.1380,lat:30.2530,t:'12:00',cat:'food',dur:60,cost:150,desc:'百年老店孤山脚下——西湖醋鱼、东坡肉、叫花鸡，吃的是风景更是文化。',notes:'¥150/人，临窗位需预订'},{n:'雷峰塔',lng:120.1500,lat:30.2380,t:'14:00',cat:'culture',dur:90,cost:40,desc:'白娘子传说——登塔俯瞰西湖全景，塔内藏有珍贵的佛经和文物。',notes:'¥40，日落时最美'},{n:'清河坊·南宋御街',lng:120.1720,lat:30.2410,t:'17:00',cat:'shop',dur:120,cost:0,desc:'南宋皇城根下——青石板路两旁老字号林立，定胜糕、葱包烩、叫花鸡香气四溢。',notes:'免费，胡庆余堂中药博物馆值得看'},{n:'西湖音乐喷泉',lng:120.1680,lat:30.2490,t:'19:30',cat:'night',dur:40,cost:0,desc:'亚洲最大音乐喷泉——水柱随音乐起舞，灯光变幻，西湖之夜最浪漫的打开方式。',notes:'免费，每晚19:30、20:30两场'}]},{day:2,label:'DAY 2 · 灵隐禅茶',pois:[{n:'灵隐寺',lng:120.1010,lat:30.2440,t:'08:00',cat:'culture',dur:150,cost:75,desc:'江南禅宗五山之首——飞来峰石刻精美绝伦，大雄宝殿庄严恢弘，香火千年不灭。',notes:'¥75(飞来峰45+灵隐寺30)，上午人少'},{n:'龙井村·茶园',lng:120.1160,lat:30.2220,t:'11:30',cat:'scenic',dur:90,cost:0,desc:'西湖龙井原产地——满山茶园层层叠叠，到农家品一杯明前龙井，听茶农讲茶经。',notes:'免费，可体验采茶'},{n:'绿茶餐厅(龙井路店)',lng:120.1220,lat:30.2280,t:'14:00',cat:'food',dur:45,cost:80,desc:'茶园里的网红餐厅——面包诱惑、绿茶烤鸡、火焰虾，环境如诗如画。',notes:'¥80/人，建议错峰就餐'},{n:'西溪湿地',lng:120.0700,lat:30.2720,t:'16:00',cat:'scenic',dur:150,cost:80,desc:'城市里的湿地天堂——乘摇橹船穿行芦苇荡，电影《非诚勿扰》拍摄地。',notes:'¥80，建议坐船游览'}]},{day:3,label:'DAY 3 · 宋城穿越',pois:[{n:'杭州宋城',lng:120.0800,lat:30.1800,t:'09:00',cat:'culture',dur:240,cost:320,desc:'给我一天还你千年——《宋城千古情》演出震撼人心，穿越回南宋临安的繁华盛景。',notes:'¥320含演出，建议提前订票'},{n:'知味观·湖滨总店',lng:120.1650,lat:30.2510,t:'14:00',cat:'food',dur:45,cost:70,desc:'杭州百年老字号——猫耳朵、片儿川、荷花酥，在一楼外卖窗口排队也要吃到。',notes:'¥70/人，推荐猫耳朵和荷花酥'},{n:'中国丝绸博物馆',lng:120.1530,lat:30.2320,t:'16:00',cat:'culture',dur:90,cost:0,desc:'丝路起点——从蚕宝宝到锦绣华服，了解五千年丝绸文化，还能体验织造工艺。',notes:'免费，建筑设计本身就很美'},{n:'钱江新城灯光秀',lng:120.2130,lat:30.2440,t:'19:30',cat:'night',dur:45,cost:0,desc:'G20峰会主会场——钱塘江畔35幢摩天大楼联动灯光秀，大气磅礴的视觉盛宴。',notes:'免费，周二五六19:30、20:30'}]}]},
+dali:{name:'大理4日风花雪月',city:'大理',center:[100.1640,25.5950],zoom:10,sub:'苍山洱海 · 风花雪月 · 古城石板路 · 白族扎染 · 有风的地方',totalBudget:3800,dayPlan:[{day:1,label:'DAY 1 · 古城初见',pois:[{n:'大理古城',lng:100.1650,lat:25.6860,t:'10:00',cat:'culture',dur:180,cost:0,desc:'南诏国古都——人民路洋人街、复兴路白族民居、五华楼俯瞰古城全景。',notes:'免费，建议住在古城内'},{n:'古城飘香酒馆',lng:100.1630,lat:25.6850,t:'13:00',cat:'food',dur:45,cost:60,desc:'古城网红餐厅——玫瑰酿、雕梅扣肉、乳扇，白族特色美食配古城慢时光。',notes:'¥60/人'},{n:'崇圣寺三塔',lng:100.1450,lat:25.7050,t:'15:00',cat:'culture',dur:120,cost:75,desc:'大理国皇家寺院——三座千年古塔倒映水中，苍山为屏洱海为镜，绝美构图。',notes:'¥75，三塔倒影公园必去'},{n:'古城人民路夜市',lng:100.1660,lat:25.6850,t:'19:00',cat:'night',dur:120,cost:80,desc:'大理最有故事的夜市——地摊文化、流浪歌手、手工艺品，每个摊位都有故事。',notes:'¥80/人，推荐：深夜食堂'}]},{day:2,label:'DAY 2 · 洱海骑行',pois:[{n:'洱海环湖骑行',lng:100.1850,lat:25.7400,t:'08:00',cat:'scenic',dur:360,cost:50,desc:'中国最美骑行路线——从才村出发沿海西线骑行，S弯网红公路、喜洲古镇稻香。',notes:'¥50租电动车/自行车，环海西路'},{n:'喜洲古镇·破酥粑粑',lng:100.1060,lat:25.8580,t:'12:00',cat:'food',dur:45,cost:40,desc:'白族第一古镇——喜洲破酥粑粑酥脆香甜，转角楼圆角楼美如画，麦田风吹浪。',notes:'¥40/人，去有风的地方取景地'},{n:'周城扎染体验',lng:100.0870,lat:25.8750,t:'14:00',cat:'culture',dur:90,cost:50,desc:'白族扎染之乡——亲手做一块扎染方巾，板蓝根染出的蓝白之美独一无二。',notes:'¥50含一块方巾体验'},{n:'双廊古镇·海景晚餐',lng:100.1950,lat:25.9360,t:'18:00',cat:'food',dur:60,cost:120,desc:'苍洱风光第一镇——杨丽萍太阳宫、海景露台餐厅日落晚餐，洱海最美时分。',notes:'¥120/人，提前订海景位'}]},{day:3,label:'DAY 3 · 苍山问道',pois:[{n:'苍山·洗马潭索道',lng:100.1630,lat:25.6900,t:'08:00',cat:'scenic',dur:240,cost:290,desc:'登苍山之巅——洗马潭高山冰蚀湖，海拔3920米看洱海如蓝宝石镶嵌大地。',notes:'¥290索道往返，注意高反'},{n:'寂照庵·最美尼姑庵',lng:100.1530,lat:25.7000,t:'13:00',cat:'culture',dur:60,cost:0,desc:'不烧香只种花的最美寺庙——满院多肉植物，素斋¥20吃到饱，静心品茗。',notes:'免费，素斋¥20，上午11:30开饭'},{n:'天龙八部影视城',lng:100.1700,lat:25.6950,t:'15:00',cat:'culture',dur:90,cost:52,desc:'大理国皇宫复刻——穿古装拍照、看实景武术表演，圆一个武侠梦。',notes:'¥52，天龙八部迷必去'},{n:'古城床单厂艺术区',lng:100.1620,lat:25.6830,t:'18:00',cat:'night',dur:90,cost:40,desc:'老床单厂改造的文艺空间——市集、展览、精酿、音乐，大理文艺灵魂所在地。',notes:'¥40/人，周末市集更好逛'}]},{day:4,label:'DAY 4 · 周边秘境',pois:[{n:'沙溪古镇',lng:99.8550,lat:26.3150,t:'08:00',cat:'culture',dur:240,cost:0,desc:'茶马古道上唯一幸存的古集市——玉津桥、古戏台、寺登街，时光在此凝固。',notes:'免费，大理古城拼车约2小时'},{n:'沙溪土菜馆',lng:99.8540,lat:26.3140,t:'13:00',cat:'food',dur:45,cost:40,desc:'本地白族家常菜——火腿炒野生菌、酸辣鱼、老奶洋芋，原汁原味的乡野味道。',notes:'¥40/人'},{n:'洱海公园看日落',lng:100.1850,lat:25.6100,t:'18:00',cat:'scenic',dur:60,cost:0,desc:'大理最后的高光时刻——洱海公园制高点看苍山洱海日落，为旅程画上完美句号。',notes:'免费，大理站附近'}]}]}
+};
 }
 
-function focusPoi(idx){
-  const prev=activePoiIdx;activePoiIdx=idx;
-  document.querySelectorAll('.poi-card').forEach(c=>c.classList.remove('active'));
-  const card=document.getElementById('poiCard'+idx);
-  if(card){card.classList.add('active');card.scrollIntoView({behavior:'smooth',block:'center'});}
-  const p=tripData.dayPlan[currentDay].pois[idx];
-  if(map&&amapReady){map.setZoomAndCenter(15,[p.lng,p.lat]);if(markers[idx])markers[idx].openInfoWindow();}
+var tripData;
+var map=null,currentDay=0,markers=[],polyline=null,activePoiIdx=-1,amapReady=false;
+var driving,walking;
+function getParam(name){const u=new URLSearchParams(window.location.search);return u.get(name);}
+function resolveCityKey(input){
+  if(!input)return null;
+  const raw=decodeURIComponent(String(input)).trim().toLowerCase();
+  const alias={chengdu:'chengdu','成都':'chengdu','天府':'chengdu',xian:'xian','xi-an':'xian','西安':'xian','长安':'xian',beijing:'beijing','北京':'beijing','故宫':'beijing','长城':'beijing',chongqing:'chongqing','重庆':'chongqing','山城':'chongqing',hangzhou:'hangzhou','杭州':'hangzhou','西湖':'hangzhou','江南':'hangzhou',jiangnan:'hangzhou',dali:'dali','大理':'dali','云南':'dali',yunnan:'dali','洱海':'dali'};
+  if(allTrips[raw])return raw;
+  for(const k in alias){if(raw.indexOf(k)>=0)return alias[k];}
+  return null;
 }
-
-function renderBannerBadges(){
-  let allPois=0;tripData.dayPlan.forEach(d=>allPois+=d.pois.length);
-  document.getElementById('bannerBadges').innerHTML=
-    '<div class="glass-badge"><div class="val">'+tripData.days+'</div><div class="lbl">Days</div></div>'+
-    '<div class="glass-badge"><div class="val">'+allPois+'</div><div class="lbl">Spots</div></div>'+
-    '<div class="glass-badge"><div class="val">¥'+(tripData.totalBudget/1000).toFixed(1)+'k</div><div class="lbl">Budget</div></div>';
+function normalizeTrip(raw,fallbackId){
+  const t=JSON.parse(JSON.stringify(raw));
+  t.id=t.id||fallbackId||resolveCityKey(t.city)||'custom';
+  t.city=t.city||'自定义';
+  t.name=t.name||t.city+'行程';
+  t.dayPlan=t.dayPlan||[];
+  t.days=t.days||t.dayPlan.length||1;
+  t.totalBudget=t.totalBudget||t.dayPlan.reduce((s,d)=>s+d.pois.reduce((ss,p)=>ss+(p.cost||0),0),0);
+  t.center=t.center||((t.dayPlan[0]&&t.dayPlan[0].pois[0])?[t.dayPlan[0].pois[0].lng,t.dayPlan[0].pois[0].lat]:[104.0668,30.5728]);
+  t.zoom=t.zoom||12;
+  t.sub=t.sub||'已保存行程 · 可继续查看地图、时间轴与预算';
+  return t;
 }
-
-function renderDayTabs(){
-  document.getElementById('dayTabs').innerHTML=tripData.dayPlan.map((d,i)=>
-    '<button class="day-tab'+(i===currentDay?' active':'')+'" onclick="switchDay('+i+')">'+d.label+'</button>').join('');
+function loadInitialTrip(){
+  const tripIdx=getParam('trip');
+  if(tripIdx!==null){
+    const trips=JSON.parse(localStorage.getItem('tq_trips')||'[]');
+    const saved=trips[Number(tripIdx)];
+    if(saved)return normalizeTrip(saved,saved.id);
+  }
+  const key=resolveCityKey(getParam('city'))||resolveCityKey(getParam('route'))||resolveCityKey(getParam('q'))||'chengdu';
+  return normalizeTrip(allTrips[key],key);
 }
-
+function selectCity(key){
+  if(!allTrips[key])key='chengdu';
+  tripData=normalizeTrip(allTrips[key],key);
+  currentDay=0;activePoiIdx=-1;
+  document.getElementById('bannerTitle').textContent='探索'+tripData.city+' · '+tripData.name.replace(tripData.city,'');
+  document.getElementById('bannerSub').textContent=tripData.sub;
+  document.querySelectorAll('.city-chip').forEach(c=>c.classList.remove('active'));
+  const chip=document.getElementById('chip_'+key);if(chip)chip.classList.add('active');
+  renderAll();
+  if(map&&amapReady){map.setZoomAndCenter(tripData.zoom,tripData.center);renderMap();}
+  window.history.replaceState({},'','?city='+key);
+}
+function renderCityChips(){
+  document.getElementById('cityChips').innerHTML=Object.keys(allTrips).map(k=>'<span class="city-chip'+(tripData&&tripData.id===k?' active':'')+'" id="chip_'+k+'" onclick="selectCity(\''+k+'\')">'+allTrips[k].city+'</span>').join('');
+}
+function renderAll(){renderBannerBadges();renderDayTabs();renderTimeline();renderMap();updateTransportBar();}
+function haversine(lng1,lat1,lng2,lat2){const R=6371,dLat=(lat2-lat1)*Math.PI/180,dLng=(lng2-lng1)*Math.PI/180;const a=Math.sin(dLat/2)**2+Math.cos(lat1*Math.PI/180)*Math.cos(lat2*Math.PI/180)*Math.sin(dLng/2)**2;return R*2*Math.atan2(Math.sqrt(a),Math.sqrt(1-a));}
+function focusPoi(idx){activePoiIdx=idx;document.querySelectorAll('.poi-card').forEach(c=>c.classList.remove('active'));const card=document.getElementById('poiCard'+idx);if(card){card.classList.add('active');card.scrollIntoView({behavior:'smooth',block:'center'});}const p=tripData.dayPlan[currentDay].pois[idx];if(map&&amapReady){map.setZoomAndCenter(15,[p.lng,p.lat]);if(markers[idx])markers[idx].openInfoWindow();}}
+function renderBannerBadges(){let allPois=0;tripData.dayPlan.forEach(d=>allPois+=d.pois.length);document.getElementById('bannerBadges').innerHTML='<div class="glass-badge"><div class="val">'+tripData.days+'</div><div class="lbl">Days</div></div><div class="glass-badge"><div class="val">'+allPois+'</div><div class="lbl">Spots</div></div><div class="glass-badge"><div class="val">¥'+(tripData.totalBudget/1000).toFixed(1)+'k</div><div class="lbl">Budget</div></div>';}
+function renderDayTabs(){document.getElementById('dayTabs').innerHTML=tripData.dayPlan.map((d,i)=>'<button class="day-tab'+(i===currentDay?' active':'')+'" onclick="switchDay('+i+')">'+d.label+'</button>').join('');}
 function switchDay(idx){currentDay=idx;activePoiIdx=-1;renderDayTabs();renderTimeline();renderMap();updateTransportBar();document.getElementById('timelinePanel').scrollTop=0;}
-
-function renderTimeline(){
-  const plan=tripData.dayPlan[currentDay];let html='';
-  plan.pois.forEach((p,i)=>{
-    const cat=catMap[p.cat]||catMap.scenic;
-    html+='<div class="poi-card" onclick="focusPoi('+i+')" id="poiCard'+i+'">';
-    html+='<div class="time-dot"><div class="dot dot-'+cat.c+'">'+(i+1)+'</div><div class="dot-line"></div></div>';
-    html+='<div class="card-body"><div class="card-header"><span class="card-title">'+cat.e+' '+p.n+'</span><span class="tag tag-'+cat.c+'">'+cat.n+'</span></div>';
-    html+='<div class="card-time-row"><span>⏰ '+p.t+'</span><span>·</span><span>⏱️ '+p.dur+'分钟</span></div>';
-    html+='<div class="card-desc">'+p.desc+'</div>';
-    html+='<div class="card-meta"><span class="card-cost">💰 ¥'+p.cost+'</span><span class="card-duration">📝 '+p.notes+'</span></div>';
-    html+='<div class="card-transport" id="transport'+i+'">'+calcTransport(i,plan.pois)+'</div>';
-    html+='</div></div>';
-  });
-  document.getElementById('timelinePanel').innerHTML=html;
-  if(amapReady)tryFetchAllTransports(plan.pois);
-}
-
-function calcTransport(i,pois){
-  if(i>=pois.length-1)return '<span>🏁 行程终点</span>';
-  const from=pois[i],to=pois[i+1];
-  const km=haversine(from.lng,from.lat,to.lng,to.lat);
-  if(km<0.3)return '<span>🚶 步行可达</span> 约<strong>'+Math.round(km*1000)+'m</strong>';
-  if(km<3)return '<span>🚕 短途</span> 约<strong>'+km.toFixed(1)+'km</strong> · <strong>'+(Math.round(km*3)+5)+'</strong>分钟';
-  return '<span>🚗 驾车</span> 约<strong>'+km.toFixed(1)+'km</strong> · <strong>'+Math.round(km*3)+'</strong>分钟';
-}
-
-function tryFetchAllTransports(pois){
-  if(!driving)return;
-  for(let i=0;i<pois.length-1;i++){
-    const from=pois[i],to=pois[i+1];
-    driving.search([from.lng,from.lat],[to.lng,to.lat],{strategy:0},(function(idx){return function(status,result){
-      const el=document.getElementById('transport'+idx);if(!el)return;
-      if(status==='complete'&&result.routes&&result.routes.length){
-        const r=result.routes[0];
-        el.innerHTML='<span>🚗 高德驾车</span> <strong>'+Math.round(r.distance/1000)+'km</strong> · <strong>'+Math.round(r.time/60)+'</strong>分钟 <span style="color:var(--text3)">'+((r.policy||'').slice(0,20))+'</span>';
-      }
-    }})(i));
-  }
-}
-
-function renderMap(){
-  if(!map||!amapReady)return;
-  markers.forEach(m=>m.setMap(null));markers=[];if(polyline){polyline.setMap(null);polyline=null;}
-  const plan=tripData.dayPlan[currentDay];
-  const dayColors=['#0284c7','#7C3AED','#059669'];
-  const color=dayColors[currentDay%3];
-  const hexMap={scenic:'#3B82F6',food:'#F59E0B',culture:'#8B5CF6',shop:'#EC4899',night:'#10B981'};
-  const bounds=[];
-
-  plan.pois.forEach((p,i)=>{
-    const hex=hexMap[p.cat]||'#3B82F6';
-    const m=new AMap.Marker({position:[p.lng,p.lat],
-      content:'<div style="background:'+hex+';color:#fff;width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;border:3px solid #fff;box-shadow:0 2px 8px rgba(0,0,0,.25);">'+(i+1)+'</div>',
-      offset:new AMap.Pixel(-14,-14),zIndex:100-i});
-    m.setMap(map);markers.push(m);bounds.push([p.lng,p.lat]);
-    const iw=new AMap.InfoWindow({content:'<div style="padding:8px 14px;font-size:13px;font-weight:600">'+p.n+'</div><div style="padding:0 14px 8px;font-size:11px;color:#666">'+p.t+'</div>',offset:new AMap.Pixel(0,-36)});
-    m.on('mouseover',function(){iw.open(map,this.getPosition());});
-    m.on('mouseout',function(){iw.close();});
-    m.openInfoWindow=function(){iw.open(map,this.getPosition());};
-    m.on('click',function(idx){return function(){focusPoi(idx);}}(i));
-  });
-
-  if(plan.pois.length>1){
-    polyline=new AMap.Polyline({path:plan.pois.map(p=>[p.lng,p.lat]),strokeColor:color,strokeWeight:3.5,strokeOpacity:.75,strokeStyle:'solid',lineJoin:'round',showDir:true});
-    polyline.setMap(map);
-  }
-  if(bounds.length){
-    const b=new AMap.Bounds(bounds);
-    if(b.getNorthEast().toString()!==b.getSouthWest().toString())map.setBounds(b,false,[80,40,200,40]);
-  }
-}
-
-function updateTransportBar(){
-  const plan=tripData.dayPlan[currentDay];
-  let totalCost=0,totalDur=0,totalKm=0;
-  plan.pois.forEach(p=>{totalCost+=p.cost;totalDur+=p.dur;});
-  for(let i=0;i<plan.pois.length-1;i++)totalKm+=haversine(plan.pois[i].lng,plan.pois[i].lat,plan.pois[i+1].lng,plan.pois[i+1].lat);
-  document.getElementById('transportBar').innerHTML=
-    '<div class="stat">📌 <strong>'+plan.pois.length+'</strong> 个打卡点</div>'+
-    '<div class="stat">⏱️ 游览 <strong>'+Math.round(totalDur/60)+'</strong> 小时</div>'+
-    '<div class="stat">📏 行程 <strong>'+totalKm.toFixed(0)+'</strong> km</div>'+
-    '<div class="stat">💰 预估 <strong>¥'+totalCost+'</strong></div>';
-}
-
+function renderTimeline(){const plan=tripData.dayPlan[currentDay];let html='';plan.pois.forEach((p,i)=>{const cat=catMap[p.cat]||catMap.scenic;html+='<div class="poi-card" onclick="focusPoi('+i+')" id="poiCard'+i+'"><div class="time-dot"><div class="dot dot-'+cat.c+'">'+(i+1)+'</div><div class="dot-line"></div></div><div class="card-body"><div class="card-header"><span class="card-title">'+cat.e+' '+p.n+'</span><span class="tag tag-'+cat.c+'">'+cat.n+'</span></div><div class="card-time-row"><span>⏰ '+p.t+'</span><span>·</span><span>⏱️ '+p.dur+'分钟</span></div><div class="card-desc">'+p.desc+'</div><div class="card-meta"><span class="card-cost">💰 ¥'+p.cost+'</span><span>📝 '+p.notes+'</span></div><div class="card-transport" id="transport'+i+'">'+calcTransport(i,plan.pois)+'</div></div></div>';});document.getElementById('timelinePanel').innerHTML=html;if(amapReady)tryFetchTransports(plan.pois);}
+function calcTransport(i,pois){if(i>=pois.length-1)return'<span>🏁 行程终点</span>';const from=pois[i],to=pois[i+1];const km=haversine(from.lng,from.lat,to.lng,to.lat);if(km<0.3)return'<span>🚶 步行</span> 约<strong>'+Math.round(km*1000)+'m</strong>';if(km<3)return'<span>🚕 短途</span> 约<strong>'+km.toFixed(1)+'km</strong> · <strong>'+(Math.round(km*3)+5)+'</strong>分钟';return'<span>🚗 驾车</span> 约<strong>'+km.toFixed(1)+'km</strong> · <strong>'+Math.round(km*3)+'</strong>分钟';}
+function tryFetchTransports(pois){if(!driving)return;for(let i=0;i<pois.length-1;i++){const from=pois[i],to=pois[i+1];driving.search([from.lng,from.lat],[to.lng,to.lat],{strategy:0},(function(idx){return function(status,result){const el=document.getElementById('transport'+idx);if(!el)return;if(status==='complete'&&result.routes&&result.routes.length){const r=result.routes[0];el.innerHTML='<span>🚗 高德驾车</span> <strong>'+Math.round(r.distance/1000)+'km</strong> · <strong>'+Math.round(r.time/60)+'</strong>分钟 <span style="color:var(--text3)">'+((r.policy||'').slice(0,20))+'</span>';}}})(i));}}
+function renderMap(){if(!map||!amapReady)return;markers.forEach(m=>m.setMap(null));markers=[];if(polyline){polyline.setMap(null);polyline=null;}const plan=tripData.dayPlan[currentDay];const dayColors=['#0284c7','#7C3AED','#059669','#DC2626','#EA580C'];const color=dayColors[currentDay%5];const hexMap={scenic:'#3B82F6',food:'#F59E0B',culture:'#8B5CF6',shop:'#EC4899',night:'#10B981'};const bounds=[];plan.pois.forEach((p,i)=>{const hex=hexMap[p.cat]||'#3B82F6';const m=new AMap.Marker({position:[p.lng,p.lat],content:'<div style="background:'+hex+';color:#fff;width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;border:3px solid #fff;box-shadow:0 2px 8px rgba(0,0,0,.25);">'+(i+1)+'</div>',offset:new AMap.Pixel(-14,-14),zIndex:100-i});m.setMap(map);markers.push(m);bounds.push([p.lng,p.lat]);const iw=new AMap.InfoWindow({content:'<div style="padding:8px 14px;font-size:13px;font-weight:600">'+p.n+'</div><div style="padding:0 14px 8px;font-size:11px;color:#666">'+p.t+'</div>',offset:new AMap.Pixel(0,-36)});m.on('mouseover',function(){iw.open(map,this.getPosition());});m.on('mouseout',function(){iw.close();});m.openInfoWindow=function(){iw.open(map,this.getPosition());};m.on('click',function(idx){return function(){focusPoi(idx);}}(i));});if(plan.pois.length>1){polyline=new AMap.Polyline({path:plan.pois.map(p=>[p.lng,p.lat]),strokeColor:color,strokeWeight:3.5,strokeOpacity:.75,strokeStyle:'solid',lineJoin:'round',showDir:true});polyline.setMap(map);}if(bounds.length){const b=new AMap.Bounds(bounds);if(b.getNorthEast().toString()!==b.getSouthWest().toString())map.setBounds(b,false,[80,40,200,40]);}}
+function updateTransportBar(){const plan=tripData.dayPlan[currentDay];let totalCost=0,totalDur=0,totalKm=0;plan.pois.forEach(p=>{totalCost+=p.cost;totalDur+=p.dur;});for(let i=0;i<plan.pois.length-1;i++)totalKm+=haversine(plan.pois[i].lng,plan.pois[i].lat,plan.pois[i+1].lng,plan.pois[i+1].lat);document.getElementById('transportBar').innerHTML='<div class="stat">📌 <strong>'+plan.pois.length+'</strong> 个打卡点</div><div class="stat">⏱️ 游览 <strong>'+Math.round(totalDur/60)+'</strong> 小时</div><div class="stat">📏 行程 <strong>'+totalKm.toFixed(0)+'</strong> km</div><div class="stat">💰 预估 <strong>¥'+totalCost+'</strong></div>';}
 function showToast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(function(){t.classList.remove('show');},2200);}
-function saveTrip(){let trips=JSON.parse(localStorage.getItem('tq_trips')||'[]');trips.unshift(tripData);localStorage.setItem('tq_trips',JSON.stringify(trips));showToast('✓ 行程已保存，前往「我的行程」查看');}
+function saveTrip(){let trips=JSON.parse(localStorage.getItem('tq_trips')||'[]');trips.unshift(tripData);localStorage.setItem('tq_trips',JSON.stringify(trips));showToast('✓ 行程已保存！');}
 
-document.getElementById('themeBtn').addEventListener('click',function(){
-  const html=document.documentElement,cur=html.getAttribute('data-theme'),next=cur==='dark'?'light':'dark';
-  html.setAttribute('data-theme',next);document.getElementById('themeBtn').textContent=next==='dark'?'☀️':'🌓';
-  if(map&&amapReady)map.setMapStyle(next==='dark'?'amap://styles/dark':'amap://styles/light');
-  localStorage.setItem('tq_theme',next);
-});
+document.getElementById('themeBtn').addEventListener('click',function(){const h=document.documentElement,c=h.getAttribute('data-theme'),n=c==='dark'?'light':'dark';h.setAttribute('data-theme',n);document.getElementById('themeBtn').textContent=n==='dark'?'☀️':'🌓';if(map&&amapReady)map.setMapStyle(n==='dark'?'amap://styles/dark':'amap://styles/light');localStorage.setItem('tq_theme',n);});
 (function(){const t=localStorage.getItem('tq_theme');if(t){document.documentElement.setAttribute('data-theme',t);document.getElementById('themeBtn').textContent=t==='dark'?'☀️':'🌓';}})();
 
-renderBannerBadges();renderDayTabs();renderTimeline();updateTransportBar();
+initTripData();
+tripData=loadInitialTrip();
+document.getElementById('bannerTitle').textContent='探索'+tripData.city+' · '+tripData.name.replace(tripData.city,'');
+document.getElementById('bannerSub').textContent=tripData.sub;
+renderCityChips();renderBannerBadges();renderDayTabs();renderTimeline();updateTransportBar();
 
-window.initMap=function(){
-  amapReady=true;const overlay=document.getElementById('mapOverlay');
-  if(overlay)overlay.classList.add('ready');
-  map=new AMap.Map('mapContainer',{center:tripData.center,zoom:tripData.zoom,mapStyle:'amap://styles/light',viewMode:'3D',resizeEnable:true});
-  map.addControl(new AMap.ToolBar({position:{top:'12px',right:'12px'}}));
-  map.addControl(new AMap.Scale({position:{bottom:'34px',left:'12px'}}));
-  driving=new AMap.Driving({map:null,panel:null});
-  walking=new AMap.Walking({map:null,panel:null});
-  renderMap();tryFetchAllTransports(tripData.dayPlan[currentDay].pois);
-  const t=localStorage.getItem('tq_theme');if(t==='dark')map.setMapStyle('amap://styles/dark');
-};
-
-setTimeout(function(){
-  if(!amapReady){
-    document.getElementById('mapMsgTitle').textContent='地图加载超时';
-    document.getElementById('mapMsgDesc').textContent='请检查网络连接或高德API Key配置';
-  }
-},12000);
+window.initMap=function(){amapReady=true;const overlay=document.getElementById('mapOverlay');if(overlay)overlay.classList.add('ready');map=new AMap.Map('mapContainer',{center:tripData.center,zoom:tripData.zoom,mapStyle:'amap://styles/light',viewMode:'3D',resizeEnable:true});map.addControl(new AMap.ToolBar({position:{top:'12px',right:'12px'}}));map.addControl(new AMap.Scale({position:{bottom:'34px',left:'12px'}}));driving=new AMap.Driving({map:null,panel:null});walking=new AMap.Walking({map:null,panel:null});renderMap();tryFetchTransports(tripData.dayPlan[currentDay].pois);const t=localStorage.getItem('tq_theme');if(t==='dark')map.setMapStyle('amap://styles/dark');};
+setTimeout(function(){if(!amapReady){document.getElementById('mapMsgTitle').textContent='地图加载超时';document.getElementById('mapMsgDesc').textContent='请检查网络或API Key';}},12000);
 </script>
-<script>
-window._AMapSecurityConfig={securityJsCode:'4b919753bb76bf1f15a7b189d9e15ed8'};
-</script>
+<script>window._AMapSecurityConfig={securityJsCode:'4b919753bb76bf1f15a7b189d9e15ed8'};</script>
 <script async src="https://webapi.amap.com/maps?v=2.0&key=4afb8b97169fca14cd25a5b5b81fd00e&plugin=AMap.Driving,AMap.Walking,AMap.Transfer,AMap.PlaceSearch,AMap.AutoComplete,AMap.Geocoder,AMap.ToolBar,AMap.Scale&callback=initMap"></script>
-
 </body>
 </html>

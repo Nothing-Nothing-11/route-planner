@@ -68,7 +68,7 @@ a{color:inherit;text-decoration:none}
 </style>
 </head>
 <body>
-<nav class="nav"><a href="index.html" class="nav-logo">📍 <span>TrailQuest</span></a><div class="nav-links"><a href="index.html">首页</a><a href="planner.html">行程规划</a><a href="routes.html" class="active">热门路线</a><a href="explore.html">周边探索</a><a href="dashboard.html">仪表盘</a><a href="my-trips.html">我的行程</a></div><div class="nav-actions"><button class="nav-btn" id="themeBtn">🌓</button></div></nav>
+<nav class="nav"><a href="index.html" class="nav-logo">📍 <span>TrailQuest</span></a><div class="nav-links"><a href="index.html">首页</a><a href="planner.html">行程规划</a><a href="routes.html" class="active">热门路线</a><a href="explore.html">周边探索</a><a href="qa.html">智能问答</a><a href="dashboard.html">仪表盘</a><a href="my-trips.html">我的行程</a></div><div class="nav-actions"><button class="nav-btn" id="themeBtn">🌓</button></div></nav>
 <div class="banner"><h1>🔥 热门旅游路线</h1></div>
 <div class="filters"><button class="filter-btn active" onclick="filterRoutes('all',this)">全部</button><button class="filter-btn" onclick="filterRoutes('文化',this)">🏛️ 文化古迹</button><button class="filter-btn" onclick="filterRoutes('自然',this)">🏔️ 自然风光</button><button class="filter-btn" onclick="filterRoutes('美食',this)">🍜 美食之旅</button><button class="filter-btn" onclick="filterRoutes('都市',this)">🌆 都市体验</button><select onchange="sortRoutes(this.value)"><option value="default">默认排序</option><option value="days-asc">天数 ↑</option><option value="budget-asc">预算 ↑</option><option value="budget-desc">预算 ↓</option></select></div>
 <div class="content"><div class="route-count" id="routeCount"></div><div class="route-grid" id="routeGrid"></div></div>
@@ -78,14 +78,10 @@ a{color:inherit;text-decoration:none}
 const allRoutes=[
   {id:'chengdu',city:'成都',name:'天府3日经典',days:3,budget:3500,theme:'文化·美食·自然·夜生活',desc:'武侯祠寻三国遗风，大熊猫基地看国宝，宽窄巷子品盖碗茶，九眼桥锦江夜游——成都的安逸与热辣。',highlights:['武侯祠','大熊猫基地','川剧变脸','火锅','九眼桥'],tags:['文化','美食','自然','都市'],bg:'bg-chengdu'},
   {id:'xian',city:'西安',name:'古都4日探秘',days:4,budget:4200,theme:'历史·古迹·美食',desc:'兵马俑震撼千年，华清池温泉水滑，回民街烟火缭绕，古城墙上骑车看落日——十三朝古都的厚重与鲜活。',highlights:['兵马俑','华清池','大雁塔','回民街','城墙'],tags:['文化','历史','美食'],bg:'bg-xian'},
-  {id:'yunnan',city:'云南',name:'7日环线之旅',days:7,budget:6800,theme:'昆明·大理·丽江·香格里拉',desc:'从春城到风花雪月，从古城到雪山圣境，一路向西，遇见彩云之南最美的风景与最淳朴的民族风情。',highlights:['洱海','丽江古城','玉龙雪山','香格里拉','滇池'],tags:['自然','民俗','文化'],bg:'bg-yunnan'},
-  {id:'jiangnan',city:'江南',name:'5日水乡漫游',days:5,budget:5500,theme:'苏州·杭州·乌镇·周庄',desc:'小桥流水人家，园林曲径通幽。苏州评弹声声慢，西湖断桥残雪美，乌镇枕水而眠——最中国的诗画江南。',highlights:['西湖','拙政园','乌镇','雷峰塔','灵隐寺'],tags:['水乡','园林','文化'],bg:'bg-jiangnan'},
+  {id:'dali',city:'大理',name:'风花雪月4日',days:4,budget:3800,theme:'苍山·洱海·古城·白族扎染',desc:'苍山洱海风花雪月，大理古城慢生活，喜洲古镇麦田与周城扎染体验，把自然、民俗、美食与夜生活串成一条轻松路线。',highlights:['洱海','大理古城','喜洲古镇','苍山','周城扎染'],tags:['自然','民俗','文化'],bg:'bg-yunnan'},
+  {id:'hangzhou',city:'杭州',name:'人间天堂3日',days:3,budget:3000,theme:'西湖·灵隐寺·龙井·宋城',desc:'西湖十景、灵隐禅意、龙井茶园和钱江灯光秀串联起杭州的江南审美，适合第一次到杭州的文化休闲路线。',highlights:['西湖','灵隐寺','龙井村','宋城','钱江新城'],tags:['水乡','园林','文化'],bg:'bg-jiangnan'},
   {id:'beijing',city:'北京',name:'皇城3日精华',days:3,budget:3800,theme:'故宫·长城·胡同·烤鸭',desc:'故宫红墙金瓦，八达岭长城蜿蜒如龙，南锣鼓巷寻老北京味道，全聚德烤鸭皮酥肉嫩——帝都穿越古今。',highlights:['故宫','长城','颐和园','烤鸭','798'],tags:['文化','历史','都市'],bg:'bg-beijing'},
   {id:'chongqing',city:'重庆',name:'魔幻山城3日',days:3,budget:2800,theme:'洪崖洞·轻轨·火锅·夜景',desc:'李子坝轻轨穿楼而过，洪崖洞千与千寻现实版，长江索道横跨两岸——8D魔幻城市的无穷魅力。',highlights:['洪崖洞','长江索道','磁器口','火锅','南山夜景'],tags:['都市','美食','自然'],bg:'bg-chongqing'},
-  {id:'guangzhou',city:'广州',name:'羊城4日美食之旅',days:4,budget:3200,theme:'早茶·沙面·珠江·长隆',desc:'点都德一盅两件，沙面岛欧陆风情，珠江夜游看小蛮腰，长隆野生动物世界——食在广州，玩在广州。',highlights:['广州塔','沙面','早茶','长隆','珠江夜游'],tags:['美食','都市','文化'],bg:'bg-guangzhou'},
-  {id:'xizang',city:'西藏',name:'圣境8日朝圣',days:8,budget:8800,theme:'拉萨·纳木错·珠峰·羊湖',desc:'布达拉宫巍峨庄严，纳木错圣湖如蓝宝石，羊卓雍措天鹅之湖——世界屋脊的心灵震撼之旅。',highlights:['布达拉宫','纳木错','珠峰大本营','羊卓雍措','大昭寺'],tags:['自然','文化','宗教'],bg:'bg-xizang'},
-  {id:'dongbei',city:'东北',name:'冰雪6日童话',days:6,budget:5000,theme:'哈尔滨·雪乡·长白山·延吉',desc:'冰雪大世界梦幻城堡，雪乡蘑菇雪屋，长白山天池圣境，延吉烤肉+冷面——北国冬日极致浪漫。',highlights:['冰雪大世界','雪乡','长白山天池','延吉美食','中央大街'],tags:['自然','美食','都市'],bg:'bg-dongbei'},
-  {id:'guilin',city:'桂林',name:'山水4日甲天下',days:4,budget:3200,theme:'漓江·阳朔·龙脊梯田',desc:'漓江竹筏漂流入画，阳朔西街异国风情，龙脊梯田层层叠叠——教科书级的中国山水。',highlights:['漓江','阳朔','龙脊梯田','象鼻山','十里画廊'],tags:['自然','民俗','美食'],bg:'bg-guilin'},
 ];
 let activeFilter='all',activeSort='default';
 function renderRoutes(){
@@ -100,7 +96,7 @@ function renderRoutes(){
 }
 function filterRoutes(tag,btn){activeFilter=tag;document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));btn.classList.add('active');renderRoutes();}
 function sortRoutes(v){activeSort=v;renderRoutes();}
-function useRoute(id){window.location.href='planner.html?route='+id;}
+function useRoute(id){window.location.href='planner.html?city='+encodeURIComponent(id);}
 function toggleFav(id,btn){let favs=JSON.parse(localStorage.getItem('tq_favs')||'[]');if(favs.includes(id)){favs=favs.filter(x=>x!==id);btn.textContent='♡ 收藏';btn.classList.remove('faved');showToast('已取消收藏');}else{favs.push(id);btn.textContent='♥ 已收藏';btn.classList.add('faved');showToast('已加入收藏');}localStorage.setItem('tq_favs',JSON.stringify(favs));}
 function showToast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(function(){t.classList.remove('show');},2200);}
 document.getElementById('themeBtn').addEventListener('click',function(){const h=document.documentElement,c=h.getAttribute('data-theme'),n=c==='dark'?'light':'dark';h.setAttribute('data-theme',n);document.getElementById('themeBtn').textContent=n==='dark'?'☀️':'🌓';localStorage.setItem('tq_theme',n);});

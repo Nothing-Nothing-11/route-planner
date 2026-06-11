@@ -105,6 +105,7 @@ a{color:inherit;text-decoration:none}
     <a href="planner.html">行程规划</a>
     <a href="routes.html">热门路线</a>
     <a href="explore.html">周边探索</a>
+    <a href="qa.html">智能问答</a>
     <a href="dashboard.html">仪表盘</a>
     <a href="my-trips.html">我的行程</a>
   </div>
@@ -127,8 +128,8 @@ a{color:inherit;text-decoration:none}
       <button onclick="goSearch()">🔍 开始规划</button>
     </div>
     <div class="hero-tags">
-      <span onclick="goQuick('成都')">成都</span><span onclick="goQuick('西安')">西安</span><span onclick="goQuick('北京')">北京</span>
-      <span onclick="goQuick('杭州')">杭州</span><span onclick="goQuick('重庆')">重庆</span><span onclick="goQuick('大理')">大理</span>
+      <span onclick="goQuick('chengdu')">成都</span><span onclick="goQuick('xian')">西安</span><span onclick="goQuick('beijing')">北京</span>
+      <span onclick="goQuick('hangzhou')">杭州</span><span onclick="goQuick('chongqing')">重庆</span><span onclick="goQuick('dali')">大理</span>
     </div>
   </div>
 </div>
@@ -164,17 +165,17 @@ a{color:inherit;text-decoration:none}
 const routesList=[
   {id:'chengdu',city:'成都',name:'天府3日经典游',days:3,budget:3500,theme:'文化·美食·自然·夜生活',bg:'bg-chengdu',tags:'文化·美食'},
   {id:'xian',city:'西安',name:'古都4日探秘',days:4,budget:4200,theme:'兵马俑·华清池·回民街·城墙',bg:'bg-xian',tags:'历史·古迹'},
-  {id:'yunnan',city:'云南',name:'7日环线之旅',days:7,budget:6800,theme:'昆明·大理·丽江·香格里拉',bg:'bg-yunnan',tags:'自然·民俗'},
-  {id:'jiangnan',city:'江南',name:'5日水乡漫游',days:5,budget:5500,theme:'苏州·杭州·乌镇·周庄',bg:'bg-jiangnan',tags:'园林·水乡'},
+  {id:'dali',city:'大理',name:'风花雪月4日',days:4,budget:3800,theme:'苍山·洱海·古城·白族扎染',bg:'bg-yunnan',tags:'自然·民俗'},
+  {id:'hangzhou',city:'杭州',name:'人间天堂3日',days:3,budget:3000,theme:'西湖·灵隐寺·龙井·宋城',bg:'bg-jiangnan',tags:'园林·水乡'},
   {id:'beijing',city:'北京',name:'皇城3日精华',days:3,budget:3800,theme:'故宫·长城·胡同·烤鸭',bg:'bg-beijing',tags:'历史·古迹'},
   {id:'chongqing',city:'重庆',name:'魔幻山城3日',days:3,budget:2800,theme:'洪崖洞·轻轨·火锅·夜景',bg:'bg-chongqing',tags:'都市·美食'},
 ];
 document.getElementById('routeGrid').innerHTML=routesList.map(r=>
-  '<a href="planner.html" class="route-card"><div class="rc-img '+r.bg+'"><div class="rc-img-inner"><span class="rc-card-badge">'+r.tags+'</span><div class="rc-card-city">'+r.city+'</div></div></div><div class="rc-body"><div class="rc-name">'+r.name+'</div><div class="rc-info">'+r.theme+'</div><div class="rc-meta"><span>📅 '+r.days+' 天</span><span>💰 ¥'+r.budget.toLocaleString()+'</span></div></div></a>'
+  '<a href="planner.html?city='+r.id+'" class="route-card"><div class="rc-img '+r.bg+'"><div class="rc-img-inner"><span class="rc-card-badge">'+r.tags+'</span><div class="rc-card-city">'+r.city+'</div></div></div><div class="rc-body"><div class="rc-name">'+r.name+'</div><div class="rc-info">'+r.theme+'</div><div class="rc-meta"><span>📅 '+r.days+' 天</span><span>💰 ¥'+r.budget.toLocaleString()+'</span></div></div></a>'
 ).join('');
 
 function goSearch(){const q=document.getElementById('heroSearch').value.trim();if(q){window.location.href='planner.html?q='+encodeURIComponent(q);}else{showToast('请输入目的地');}}
-function goQuick(q){window.location.href='planner.html?q='+encodeURIComponent(q);}
+function goQuick(cityKey){window.location.href='planner.html?city='+encodeURIComponent(cityKey);}
 function showToast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(function(){t.classList.remove('show');},2200);}
 
 document.getElementById('themeBtn').addEventListener('click',function(){
