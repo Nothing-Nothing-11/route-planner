@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>热门路线 · TrailQuest</title>
+<style>
+:root{--bg:#fff;--surface:#f8fafc;--surface2:#f1f5f9;--border:#e2e8f0;--text:#0f172a;--text2:#475569;--text3:#94a3b8;--accent:#0284c7;--scenic:#3B82F6;--food:#F59E0B;--culture:#8B5CF6;--shop:#EC4899;--night:#10B981;--shadow:0 1px 3px rgba(0,0,0,.08);--shadow-lg:0 8px 30px rgba(0,0,0,.12);--radius:12px;--radius-sm:8px;--nav-h:56px}
+[data-theme="dark"]{--bg:#0f172a;--surface:#1e293b;--surface2:#334155;--border:#334155;--text:#f1f5f9;--text2:#94a3b8;--text3:#64748b;--shadow:0 1px 3px rgba(0,0,0,.3);--shadow-lg:0 8px 30px rgba(0,0,0,.4)}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei","Helvetica Neue",sans-serif;background:var(--bg);color:var(--text);line-height:1.6;min-height:100vh;display:flex;flex-direction:column}
+a{color:inherit;text-decoration:none}
+.nav{position:sticky;top:0;z-index:1000;height:var(--nav-h);background:var(--bg);border-bottom:1px solid var(--border);display:flex;align-items:center;padding:0 24px;gap:32px;backdrop-filter:blur(16px)}
+.nav-logo{font-size:18px;font-weight:700;display:flex;align-items:center;gap:8px}
+.nav-logo span{color:var(--accent)}
+.nav-links{display:flex;gap:4px;flex:1}
+.nav-links a{padding:8px 16px;border-radius:var(--radius-sm);font-size:14px;font-weight:500;color:var(--text2);transition:all .2s}
+.nav-links a:hover{background:var(--surface2);color:var(--text)}
+.nav-links a.active{background:var(--accent);color:#fff}
+.nav-actions{display:flex;gap:8px;align-items:center}
+.nav-btn{width:36px;height:36px;border-radius:50%;border:1px solid var(--border);background:var(--surface);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:16px;transition:all .2s;color:var(--text)}
+.nav-btn:hover{background:var(--surface2)}
+
+.banner{position:relative;height:160px;display:flex;align-items:center;justify-content:center;overflow:hidden}
+.banner::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 80% 60% at 20% 30%,rgba(56,189,248,.35),transparent),radial-gradient(ellipse 60% 70% at 70% 20%,rgba(99,102,241,.25),transparent),linear-gradient(135deg,#0c4a6e,#0369a1,#0284c7);z-index:0}
+.banner h1{position:relative;z-index:1;font-size:32px;font-weight:700;color:#fff}
+
+.filters{padding:16px 48px;display:flex;gap:8px;flex-wrap:wrap;align-items:center;border-bottom:1px solid var(--border);background:var(--surface)}
+.filter-label{font-size:13px;color:var(--text3);margin-right:8px}
+.filter-btn{padding:6px 16px;border-radius:20px;border:1.5px solid var(--border);background:var(--bg);font-size:13px;cursor:pointer;color:var(--text2);transition:all .2s}
+.filter-btn:hover{border-color:var(--accent);color:var(--accent)}
+.filter-btn.active{background:var(--accent);color:#fff;border-color:var(--accent)}
+.filters select{padding:6px 12px;border-radius:20px;border:1.5px solid var(--border);font-size:13px;background:var(--bg);color:var(--text);outline:none;cursor:pointer}
+
+.content{padding:32px 48px;flex:1}
+.route-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:24px}
+.route-count{font-size:14px;color:var(--text3);margin-bottom:20px}
+
+.route-card{background:var(--bg);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;cursor:pointer;transition:all .2s}
+.route-card:hover{box-shadow:var(--shadow-lg);transform:translateY(-3px)}
+.rc-img{height:180px;position:relative;overflow:hidden}
+.rc-img-inner{width:100%;height:100%;position:relative}
+.rc-city{position:absolute;bottom:0;left:0;right:0;padding:40px 20px 16px;background:linear-gradient(transparent,rgba(0,0,0,.7));color:#fff;font-size:24px;font-weight:700;z-index:1}
+.rc-img-tag{position:absolute;top:12px;right:12px;padding:4px 12px;border-radius:12px;font-size:11px;font-weight:600;background:rgba(255,255,255,.2);backdrop-filter:blur(8px);color:#fff;z-index:1}
+.rc-img-badge{position:absolute;top:12px;left:12px;padding:4px 10px;border-radius:10px;font-size:11px;font-weight:700;background:rgba(255,255,255,.9);color:#0f172a;z-index:1}
+.rc-body{padding:20px}
+.rc-title{font-size:17px;font-weight:600;margin-bottom:6px}
+.rc-theme{font-size:13px;color:var(--accent);margin-bottom:10px}
+.rc-desc{font-size:13px;color:var(--text2);line-height:1.6;margin-bottom:12px}
+.rc-highlights{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:14px}
+.rc-highlights span{padding:3px 10px;border-radius:8px;font-size:11px;font-weight:500}
+.rc-meta{display:flex;gap:20px;font-size:12px;color:var(--text3);padding-top:12px;border-top:1px solid var(--border)}
+.rc-meta span{display:flex;align-items:center;gap:4px}
+.rc-actions{display:flex;gap:8px;margin-top:12px}
+.rc-actions button{flex:1;padding:10px;border-radius:var(--radius-sm);font-size:13px;font-weight:600;cursor:pointer;transition:all .2s}
+.btn-use{background:var(--accent);color:#fff;border:none}
+.btn-use:hover{background:#0369a1}
+.btn-fav{background:var(--surface);color:var(--text2);border:1.5px solid var(--border)}
+.btn-fav:hover{background:var(--surface2)}
+.btn-fav.faved{color:#ef4444;border-color:#ef4444}
+
+.bg-chengdu{background:linear-gradient(135deg,#0369a1,#0ea5e9)}
+.bg-xian{background:linear-gradient(135deg,#92400e,#d97706)}
+.bg-yunnan{background:linear-gradient(135deg,#065f46,#10b981)}
+.bg-jiangnan{background:linear-gradient(135deg,#1e40af,#60a5fa)}
+.bg-beijing{background:linear-gradient(135deg,#991b1b,#ef4444)}
+.bg-chongqing{background:linear-gradient(135deg,#4c1d95,#a855f7)}
+.bg-guangzhou{background:linear-gradient(135deg,#155e75,#06b6d4)}
+.bg-xizang{background:linear-gradient(135deg,#1e3a5f,#6366f1)}
+.bg-dongbei{background:linear-gradient(135deg,#0f172a,#3b82f6)}
+.bg-guilin{background:linear-gradient(135deg,#14532d,#22c55e)}
+
+.tag-scenic{background:rgba(59,130,246,.12);color:var(--scenic)}
+.tag-food{background:rgba(245,158,11,.12);color:var(--food)}
+.tag-culture{background:rgba(139,92,246,.12);color:var(--culture)}
+.tag-night{background:rgba(16,185,129,.12);color:var(--night)}
+
+.toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:var(--text);color:var(--bg);padding:10px 24px;border-radius:24px;font-size:13px;font-weight:500;z-index:9999;opacity:0;transition:opacity .3s;pointer-events:none}
+.toast.show{opacity:1}
+.footer{padding:24px 48px;border-top:1px solid var(--border);text-align:center;font-size:13px;color:var(--text3)}
+@media(max-width:900px){.nav-links{display:none}.content{padding:20px 16px}.filters{padding:12px 16px}.route-grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <a href="index.html" class="nav-logo">📍 <span>TrailQuest</span></a>
+  <div class="nav-links">
+    <a href="index.html">首页</a>
+    <a href="planner.html">行程规划</a>
+    <a href="routes.html" class="active">热门路线</a>
+    <a href="explore.html">周边探索</a>
+    <a href="dashboard.html">仪表盘</a>
+    <a href="my-trips.html">我的行程</a>
+  </div>
+  <div class="nav-actions">
+    <button class="nav-btn" id="themeBtn">🌓</button>
+  </div>
+</nav>
+
+<div class="banner"><h1>🔥 热门旅游路线</h1></div>
+
+<div class="filters">
+  <span class="filter-label">筛选：</span>
+  <button class="filter-btn active" onclick="filterRoutes('all',this)">全部</button>
+  <button class="filter-btn" onclick="filterRoutes('文化',this)">🏛️ 文化古迹</button>
+  <button class="filter-btn" onclick="filterRoutes('自然',this)">🏔️ 自然风光</button>
+  <button class="filter-btn" onclick="filterRoutes('美食',this)">🍜 美食之旅</button>
+  <button class="filter-btn" onclick="filterRoutes('都市',this)">🌆 都市体验</button>
+  <select onchange="sortRoutes(this.value)"><option value="default">默认排序</option><option value="days-asc">天数从少到多</option><option value="budget-asc">预算从低到高</option><option value="budget-desc">预算从高到低</option></select>
+</div>
+
+<div class="content">
+  <div class="route-count" id="routeCount"></div>
+  <div class="route-grid" id="routeGrid"></div>
+</div>
+
+<div class="footer">&copy; 2026 TrailQuest</div>
+<div class="toast" id="toast"></div>
+
+<script>
+const allRoutes=[
+  {id:'chengdu',city:'成都',name:'天府3日经典',days:3,budget:3500,theme:'文化·美食·自然·夜生活',desc:'武侯祠寻三国遗风，大熊猫基地看国宝，宽窄巷子品盖碗茶，九眼桥夜游锦江——成都的安逸与热辣都在这里。',highlights:['武侯祠','大熊猫','川剧变脸','火锅','九眼桥'],tags:['文化','美食','自然','都市'],bg:'bg-chengdu'},
+  {id:'xian',city:'西安',name:'古都4日探秘',days:4,budget:4200,theme:'历史·古迹·美食',desc:'兵马俑震撼千年，华清池温泉水滑，回民街烟火缭绕，古城墙上骑车看落日——十三朝古都的厚重与鲜活。',highlights:['兵马俑','华清池','大雁塔','回民街','城墙'],tags:['文化','历史','美食'],bg:'bg-xian'},
+  {id:'yunnan',city:'云南',name:'7日环线之旅',days:7,budget:6800,theme:'昆明·大理·丽江·香格里拉',desc:'从春城到风花雪月，从古城到雪山圣境，一路向西，遇见彩云之南最美的风景与最淳朴的民族风情。',highlights:['洱海','丽江古城','玉龙雪山','香格里拉','滇池'],tags:['自然','民俗','文化'],bg:'bg-yunnan'},
+  {id:'jiangnan',city:'江南',name:'5日水乡漫游',days:5,budget:5500,theme:'苏州·杭州·乌镇·周庄·南浔',desc:'小桥流水人家，园林曲径通幽。苏州评弹声声慢，西湖断桥残雪美，乌镇枕水而眠——最中国的诗画江南。',highlights:['西湖','拙政园','乌镇','雷峰塔','灵隐寺'],tags:['水乡','园林','文化'],bg:'bg-jiangnan'},
+  {id:'beijing',city:'北京',name:'皇城3日精华',days:3,budget:3800,theme:'故宫·长城·胡同·烤鸭',desc:'故宫红墙金瓦，八达岭长城蜿蜒如龙，南锣鼓巷寻老北京味道，全聚德烤鸭皮酥肉嫩——帝都三日穿越古今。',highlights:['故宫','长城','颐和园','烤鸭','798艺术区'],tags:['文化','历史','都市'],bg:'bg-beijing'},
+  {id:'chongqing',city:'重庆',name:'魔幻山城3日',days:3,budget:2800,theme:'洪崖洞·轻轨·火锅·夜景',desc:'李子坝轻轨穿楼而过，洪崖洞千与千寻现实版，长江索道横跨两岸，南山一棵树看百万夜景——8D魔幻城市。',highlights:['洪崖洞','长江索道','磁器口','火锅','南山'],tags:['都市','美食','自然'],bg:'bg-chongqing'},
+  {id:'guangzhou',city:'广州',name:'羊城4日美食之旅',days:4,budget:3200,theme:'早茶·沙面·珠江·长隆',desc:'点都德一盅两件，沙面岛欧陆风情，珠江夜游看小蛮腰，长隆野生动物世界——食在广州，玩在广州。',highlights:['广州塔','沙面','早茶','长隆','珠江夜游'],tags:['美食','都市','文化'],bg:'bg-guangzhou'},
+  {id:'xizang',city:'西藏',name:'圣境8日朝圣',days:8,budget:8800,theme:'拉萨·纳木错·珠峰·羊卓雍措',desc:'布达拉宫巍峨庄严，大昭寺转经声声，纳木错圣湖如蓝宝石，羊卓雍措天鹅之湖——世界屋脊的心灵之旅。',highlights:['布达拉宫','纳木错','珠峰大本营','羊卓雍措','大昭寺'],tags:['自然','文化','宗教'],bg:'bg-xizang'},
+  {id:'dongbei',city:'东北',name:'冰雪6日童话',days:6,budget:5000,theme:'哈尔滨·雪乡·长白山·延吉',desc:'冰雪大世界梦幻城堡，雪乡木屋蘑菇雪，长白山天池神秘圣洁，延吉烤肉+冷面——北国冬日极致浪漫。',highlights:['冰雪大世界','雪乡','长白山天池','延吉美食','中央大街'],tags:['自然','美食','都市'],bg:'bg-dongbei'},
+  {id:'guilin',city:'桂林',name:'山水4日甲天下',days:4,budget:3200,theme:'漓江·阳朔·龙脊梯田·十里画廊',desc:'漓江竹筏漂流入画，阳朔西街异国风情，龙脊梯田层层叠叠，象鼻山桂林城徽——教科书级的中国山水。',highlights:['漓江','阳朔','龙脊梯田','象鼻山','十里画廊'],tags:['自然','民俗','美食'],bg:'bg-guilin'},
+];
+
+let activeFilter='all', activeSort='default';
+
+function renderRoutes(){
+  let filtered=activeFilter==='all'?allRoutes:allRoutes.filter(r=>r.tags.includes(activeFilter));
+  if(activeSort==='days-asc') filtered.sort((a,b)=>a.days-b.days);
+  else if(activeSort==='budget-asc') filtered.sort((a,b)=>a.budget-b.budget);
+  else if(activeSort==='budget-desc') filtered.sort((a,b)=>b.budget-a.budget);
+
+  const favs=JSON.parse(localStorage.getItem('tq_favs')||'[]');
+  document.getElementById('routeCount').textContent='共找到 '+filtered.length+' 条路线';
+  document.getElementById('routeGrid').innerHTML=filtered.map(r=>{
+    const faved=favs.includes(r.id);
+    return '<div class="route-card">'+
+      '<div class="rc-img '+r.bg+'"><div class="rc-img-inner">'+
+      '<span class="rc-img-badge">'+r.days+'天</span>'+
+      '<span class="rc-img-tag">'+r.tags.slice(0,2).join('·')+'</span>'+
+      '<div class="rc-city">'+r.city+'</div></div></div>'+
+      '<div class="rc-body"><div class="rc-title">'+r.name+'</div>'+
+      '<div class="rc-theme">'+r.theme+'</div>'+
+      '<div class="rc-desc">'+r.desc+'</div>'+
+      '<div class="rc-highlights">'+r.highlights.map(h=>'<span class="tag-scenic">'+h+'</span>').join('')+'</div>'+
+      '<div class="rc-meta"><span>📅 '+r.days+'天</span><span>💰 ¥'+r.budget.toLocaleString()+'</span></div>'+
+      '<div class="rc-actions"><button class="btn-use" onclick="useRoute(\''+r.id+'\')">✈️ 一键套用</button>'+
+      '<button class="btn-fav'+(faved?' faved':'')+'" onclick="toggleFav(\''+r.id+'\',this)">'+(faved?'♥ 已收藏':'♡ 收藏')+'</button></div></div></div>';
+  }).join('');
+}
+
+function filterRoutes(tag,btn){
+  activeFilter=tag;
+  document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  renderRoutes();
+}
+function sortRoutes(val){activeSort=val;renderRoutes();}
+function useRoute(id){window.location.href='planner.html?route='+id;}
+function toggleFav(id,btn){
+  let favs=JSON.parse(localStorage.getItem('tq_favs')||'[]');
+  if(favs.includes(id)){favs=favs.filter(f=>f!==id);btn.textContent='♡ 收藏';btn.classList.remove('faved');showToast('已取消收藏');}
+  else{favs.push(id);btn.textContent='♥ 已收藏';btn.classList.add('faved');showToast('已加入收藏');}
+  localStorage.setItem('tq_favs',JSON.stringify(favs));
+}
+function showToast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(function(){t.classList.remove('show');},2000);}
+
+document.getElementById('themeBtn').addEventListener('click',function(){
+  const html=document.documentElement;
+  const cur=html.getAttribute('data-theme');
+  html.setAttribute('data-theme',cur==='dark'?'light':'dark');
+  localStorage.setItem('tq_theme',cur==='dark'?'light':'dark');
+});
+(function(){const t=localStorage.getItem('tq_theme');if(t)document.documentElement.setAttribute('data-theme',t);})();
+
+renderRoutes();
+</script>
+</body>
+</html>

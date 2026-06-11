@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>行程仪表盘 · TrailQuest</title>
+<style>
+:root{--bg:#fff;--surface:#f8fafc;--surface2:#f1f5f9;--border:#e2e8f0;--text:#0f172a;--text2:#475569;--text3:#94a3b8;--accent:#0284c7;--scenic:#3B82F6;--food:#F59E0B;--culture:#8B5CF6;--shop:#EC4899;--night:#10B981;--shadow:0 1px 3px rgba(0,0,0,.08);--shadow-lg:0 8px 30px rgba(0,0,0,.12);--radius:12px;--radius-sm:8px;--nav-h:56px}
+[data-theme="dark"]{--bg:#0f172a;--surface:#1e293b;--surface2:#334155;--border:#334155;--text:#f1f5f9;--text2:#94a3b8;--text3:#64748b;--shadow:0 1px 3px rgba(0,0,0,.3);--shadow-lg:0 8px 30px rgba(0,0,0,.4)}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei","Helvetica Neue",sans-serif;background:var(--bg);color:var(--text);line-height:1.6;min-height:100vh;display:flex;flex-direction:column}
+a{color:inherit;text-decoration:none}
+.nav{position:sticky;top:0;z-index:1000;height:var(--nav-h);background:var(--bg);border-bottom:1px solid var(--border);display:flex;align-items:center;padding:0 24px;gap:32px;backdrop-filter:blur(16px)}
+.nav-logo{font-size:18px;font-weight:700;display:flex;align-items:center;gap:8px}
+.nav-logo span{color:var(--accent)}
+.nav-links{display:flex;gap:4px;flex:1}
+.nav-links a{padding:8px 16px;border-radius:var(--radius-sm);font-size:14px;font-weight:500;color:var(--text2);transition:all .2s}
+.nav-links a:hover{background:var(--surface2);color:var(--text)}
+.nav-links a.active{background:var(--accent);color:#fff}
+.nav-actions{display:flex;gap:8px;align-items:center}
+.nav-btn{width:36px;height:36px;border-radius:50%;border:1px solid var(--border);background:var(--surface);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:16px;transition:all .2s;color:var(--text)}
+.nav-btn:hover{background:var(--surface2)}
+
+.banner{position:relative;height:140px;display:flex;align-items:center;justify-content:center;overflow:hidden}
+.banner::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 80% 60% at 20% 30%,rgba(56,189,248,.35),transparent),radial-gradient(ellipse 60% 70% at 70% 20%,rgba(99,102,241,.25),transparent),linear-gradient(135deg,#0c4a6e,#0369a1,#0284c7);z-index:0}
+.banner h1{position:relative;z-index:1;font-size:28px;font-weight:700;color:#fff}
+
+.content{padding:32px 48px;flex:1;max-width:1200px;margin:0 auto;width:100%}
+
+.stat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px;margin-bottom:32px}
+.stat-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:20px}
+.stat-card .stat-label{font-size:12px;color:var(--text3);text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px}
+.stat-card .stat-val{font-size:32px;font-weight:700;color:var(--text);line-height:1}
+.stat-card .stat-sub{font-size:12px;color:var(--text2);margin-top:4px}
+
+.chart-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(360px,1fr));gap:24px;margin-bottom:32px}
+.chart-card{background:var(--bg);border:1px solid var(--border);border-radius:var(--radius);padding:24px}
+.chart-card h3{font-size:16px;font-weight:600;margin-bottom:16px}
+.chart-bar-group{margin-bottom:14px}
+.chart-bar-label{display:flex;justify-content:space-between;font-size:13px;margin-bottom:4px}
+.chart-bar-label .val{font-weight:600}
+.chart-bar-track{height:8px;background:var(--surface2);border-radius:4px;overflow:hidden}
+.chart-bar-fill{height:100%;border-radius:4px;transition:width .8s ease}
+.cb-scenic{background:var(--scenic)} .cb-food{background:var(--food)}
+.cb-culture{background:var(--culture)} .cb-shop{background:var(--shop)}
+.cb-night{background:var(--night)}
+
+.pie-legend{display:flex;gap:16px;flex-wrap:wrap;margin-top:16px}
+.pie-legend-item{display:flex;align-items:center;gap:6px;font-size:12px;color:var(--text2)}
+.pie-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0}
+.pd-scenic{background:var(--scenic)} .pd-food{background:var(--food)}
+.pd-culture{background:var(--culture)} .pd-shop{background:var(--shop)}
+.pd-night{background:var(--night)}
+
+.trip-list{display:flex;flex-direction:column;gap:12px}
+.trip-row{display:flex;align-items:center;gap:16px;padding:14px;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-sm);transition:all .2s}
+.trip-row:hover{border-color:var(--accent)}
+.trip-row .day-badge{width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;color:#fff;flex-shrink:0;background:var(--accent)}
+.trip-row .trip-info{flex:1;min-width:0}
+.trip-row .trip-name{font-size:14px;font-weight:600}
+.trip-row .trip-theme{font-size:12px;color:var(--text3)}
+.trip-row .trip-budget{font-size:14px;font-weight:700;color:var(--food)}
+
+.footer{padding:24px 48px;border-top:1px solid var(--border);text-align:center;font-size:13px;color:var(--text3)}
+
+@media(max-width:900px){
+  .nav-links{display:none}
+  .content{padding:20px 16px}
+  .stat-grid{grid-template-columns:repeat(2,1fr)}
+  .chart-grid{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <a href="index.html" class="nav-logo">📍 <span>TrailQuest</span></a>
+  <div class="nav-links">
+    <a href="index.html">首页</a>
+    <a href="planner.html">行程规划</a>
+    <a href="routes.html">热门路线</a>
+    <a href="explore.html">周边探索</a>
+    <a href="dashboard.html" class="active">仪表盘</a>
+    <a href="my-trips.html">我的行程</a>
+  </div>
+  <div class="nav-actions">
+    <button class="nav-btn" id="themeBtn">🌓</button>
+  </div>
+</nav>
+
+<div class="banner"><h1>📊 行程仪表盘</h1></div>
+
+<div class="content" id="dashContent">
+  <div style="text-align:center;padding:60px 0;color:var(--text3)">
+    <div style="font-size:48px;margin-bottom:16px">📊</div>
+    <div style="font-size:16px;font-weight:600;color:var(--text2);margin-bottom:8px">暂无行程数据</div>
+    <div style="font-size:13px">去规划一条行程，这里将展示详细的统计分析</div>
+  </div>
+</div>
+
+<div class="footer">&copy; 2026 TrailQuest</div>
+
+<script>
+(function buildDashboard(){
+  const saved=JSON.parse(localStorage.getItem('tq_trips')||'[]');
+  if(!saved.length) return;
+
+  const latest=saved[saved.length-1];
+  const allPois=[];let totalCost=0,totalDur=0;
+  latest.dayPlan.forEach(d=>{d.pois.forEach(p=>{allPois.push(p);totalCost+=p.cost;totalDur+=p.dur;});});
+
+  const catCount={scenic:0,food:0,culture:0,shop:0,night:0};
+  const catCost={scenic:0,food:0,culture:0,shop:0,night:0};
+  allPois.forEach(p=>{catCount[p.cat]=(catCount[p.cat]||0)+1;catCost[p.cat]=(catCost[p.cat]||0)+p.cost;});
+
+  document.getElementById('dashContent').innerHTML=
+    '<div class="stat-grid">'+
+    '<div class="stat-card"><div class="stat-label">总天数</div><div class="stat-val">'+latest.days+'</div><div class="stat-sub">'+latest.dayPlan.map(d=>d.label.split('·')[1]||'').join(' / ')+'</div></div>'+
+    '<div class="stat-card"><div class="stat-label">打卡点数</div><div class="stat-val">'+allPois.length+'</div><div class="stat-sub">日均 '+(allPois.length/latest.days).toFixed(1)+' 个</div></div>'+
+    '<div class="stat-card"><div class="stat-label">总预算</div><div class="stat-val" style="color:var(--food)">¥'+latest.totalBudget.toLocaleString()+'</div><div class="stat-sub">人均 ¥'+(latest.totalBudget).toLocaleString()+'</div></div>'+
+    '<div class="stat-card"><div class="stat-label">预计总时长</div><div class="stat-val" style="color:var(--accent)">'+(totalDur/60).toFixed(0)+'h</div><div class="stat-sub">日均 '+(totalDur/60/latest.days).toFixed(1)+' 小时</div></div>'+
+    '</div>'+
+    '<div class="chart-grid">'+
+    '<div class="chart-card"><h3>POI 分类分布</h3>'+
+    Object.entries(catCount).filter(e=>e[1]>0).sort((a,b)=>b[1]-a[1]).map(e=>{
+      const pct=Math.round(e[1]/allPois.length*100);
+      return '<div class="chart-bar-group"><div class="chart-bar-label"><span>'+e[0]+'</span><span class="val">'+e[1]+' ('+pct+'%)</span></div><div class="chart-bar-track"><div class="chart-bar-fill cb-'+e[0]+'" style="width:'+pct+'%"></div></div></div>';
+    }).join('')+
+    '<div class="pie-legend">'+Object.entries(catCount).filter(e=>e[1]>0).map(e=>'<div class="pie-legend-item"><div class="pie-dot pd-'+e[0]+'"></div>'+e[0]+' · '+e[1]+'个</div>').join('')+'</div></div>'+
+    '<div class="chart-card"><h3>预算构成分析</h3>'+
+    Object.entries(catCost).filter(e=>e[1]>0).sort((a,b)=>b[1]-a[1]).map(e=>{
+      const pct=Math.round(e[1]/totalCost*100);
+      return '<div class="chart-bar-group"><div class="chart-bar-label"><span>'+e[0]+'</span><span class="val">¥'+e[1]+' ('+pct+'%)</span></div><div class="chart-bar-track"><div class="chart-bar-fill cb-'+e[0]+'" style="width:'+pct+'%"></div></div></div>';
+    }).join('')+'<div style="margin-top:12px;padding-top:12px;border-top:1px solid var(--border);display:flex;justify-content:space-between;font-size:13px"><span>合计</span><span style="font-weight:700;color:var(--food)">¥'+totalCost.toLocaleString()+'</span></div></div>'+
+    '</div>'+
+    '<div class="chart-card"><h3>每日安排概览</h3><div class="trip-list">'+
+    latest.dayPlan.map(d=>'<div class="trip-row"><div class="day-badge">'+d.day+'</div><div class="trip-info"><div class="trip-name">'+d.label+'</div><div class="trip-theme">'+d.pois.length+' 个打卡点</div></div><div class="trip-budget">¥'+d.pois.reduce((s,p)=>s+p.cost,0)+'</div></div>').join('')+'</div></div>';
+})();
+
+document.getElementById('themeBtn').addEventListener('click',function(){
+  const html=document.documentElement;
+  const cur=html.getAttribute('data-theme');
+  html.setAttribute('data-theme',cur==='dark'?'light':'dark');
+  localStorage.setItem('tq_theme',cur==='dark'?'light':'dark');
+});
+(function(){const t=localStorage.getItem('tq_theme');if(t)document.documentElement.setAttribute('data-theme',t);})();
+</script>
+</body>
+</html>

@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>周边探索 · TrailQuest</title>
+<style>
+:root{--bg:#fff;--surface:#f8fafc;--surface2:#f1f5f9;--border:#e2e8f0;--text:#0f172a;--text2:#475569;--text3:#94a3b8;--accent:#0284c7;--scenic:#3B82F6;--food:#F59E0B;--culture:#8B5CF6;--shop:#EC4899;--night:#10B981;--shadow:0 1px 3px rgba(0,0,0,.08);--shadow-lg:0 8px 30px rgba(0,0,0,.12);--radius:12px;--radius-sm:8px;--nav-h:56px}
+[data-theme="dark"]{--bg:#0f172a;--surface:#1e293b;--surface2:#334155;--border:#334155;--text:#f1f5f9;--text2:#94a3b8;--text3:#64748b;--shadow:0 1px 3px rgba(0,0,0,.3);--shadow-lg:0 8px 30px rgba(0,0,0,.4)}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei","Helvetica Neue",sans-serif;background:var(--bg);color:var(--text);line-height:1.6;min-height:100vh;display:flex;flex-direction:column}
+a{color:inherit;text-decoration:none}
+.nav{position:sticky;top:0;z-index:1000;height:var(--nav-h);background:var(--bg);border-bottom:1px solid var(--border);display:flex;align-items:center;padding:0 24px;gap:32px;backdrop-filter:blur(16px)}
+.nav-logo{font-size:18px;font-weight:700;display:flex;align-items:center;gap:8px}
+.nav-logo span{color:var(--accent)}
+.nav-links{display:flex;gap:4px;flex:1}
+.nav-links a{padding:8px 16px;border-radius:var(--radius-sm);font-size:14px;font-weight:500;color:var(--text2);transition:all .2s}
+.nav-links a:hover{background:var(--surface2);color:var(--text)}
+.nav-links a.active{background:var(--accent);color:#fff}
+.nav-actions{display:flex;gap:8px;align-items:center}
+.nav-btn{width:36px;height:36px;border-radius:50%;border:1px solid var(--border);background:var(--surface);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:16px;transition:all .2s;color:var(--text)}
+.nav-btn:hover{background:var(--surface2)}
+
+.topbar{padding:16px 24px;background:var(--surface);border-bottom:1px solid var(--border);display:flex;gap:12px;flex-wrap:wrap;align-items:center}
+.topbar input{padding:10px 16px;border-radius:24px;border:1.5px solid var(--border);font-size:14px;background:var(--bg);color:var(--text);outline:none;min-width:240px;flex:1;max-width:400px}
+.topbar input:focus{border-color:var(--accent);box-shadow:0 0 0 3px rgba(2,132,199,.1)}
+.topbar select{padding:10px 16px;border-radius:24px;border:1.5px solid var(--border);font-size:14px;background:var(--bg);color:var(--text);outline:none;cursor:pointer}
+.topbar select:focus{border-color:var(--accent)}
+.topbar button{padding:10px 24px;border-radius:24px;border:none;background:var(--accent);color:#fff;font-size:14px;font-weight:600;cursor:pointer;transition:all .2s}
+.topbar button:hover{background:#0369a1}
+
+.main-content{display:flex;flex:1;overflow:hidden}
+.map-panel{width:60%;position:relative;min-height:500px}
+#mapContainer{width:100%;height:100%}
+.map-loading{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:var(--surface);z-index:10}
+.map-loading .spinner{width:40px;height:40px;border:3px solid var(--border);border-top-color:var(--accent);border-radius:50%;animation:spin .8s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.result-panel{width:40%;min-width:340px;overflow-y:auto;padding:16px;background:var(--surface);border-left:1px solid var(--border)}
+.result-header{font-size:14px;font-weight:600;margin-bottom:12px;padding-bottom:8px;border-bottom:1px solid var(--border);color:var(--text2)}
+.result-card{background:var(--bg);border:1px solid var(--border);border-radius:var(--radius-sm);padding:14px;margin-bottom:10px;cursor:pointer;transition:all .2s;display:flex;gap:12px;align-items:flex-start}
+.result-card:hover{border-color:var(--accent);box-shadow:var(--shadow)}
+.result-num{width:28px;height:28px;border-radius:50%;background:var(--accent);color:#fff;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;flex-shrink:0}
+.result-info{flex:1;min-width:0}
+.result-name{font-size:14px;font-weight:600;margin-bottom:2px}
+.result-addr{font-size:12px;color:var(--text3);margin-bottom:4px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.result-meta{display:flex;gap:12px;font-size:11px;color:var(--text2);flex-wrap:wrap}
+.result-meta span{display:flex;align-items:center;gap:3px}
+
+.radius-tags{padding:8px 24px;display:flex;gap:8px;align-items:center;background:var(--surface)}
+.radius-tag{padding:4px 14px;border-radius:16px;font-size:12px;border:1.5px solid var(--border);cursor:pointer;color:var(--text2);transition:all .2s;background:var(--bg)}
+.radius-tag:hover{border-color:var(--accent);color:var(--accent)}
+.radius-tag.active{background:var(--accent);color:#fff;border-color:var(--accent)}
+
+.toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:var(--text);color:var(--bg);padding:10px 24px;border-radius:24px;font-size:13px;font-weight:500;z-index:9999;opacity:0;transition:opacity .3s;pointer-events:none}
+.toast.show{opacity:1}
+
+@media(max-width:900px){
+  .nav-links{display:none}
+  .main-content{flex-direction:column}
+  .map-panel{width:100%;height:45vh}
+  .result-panel{width:100%;min-width:unset;border-left:none;border-top:1px solid var(--border)}
+  .topbar{gap:8px}
+  .topbar input{max-width:100%}
+}
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <a href="index.html" class="nav-logo">📍 <span>TrailQuest</span></a>
+  <div class="nav-links">
+    <a href="index.html">首页</a>
+    <a href="planner.html">行程规划</a>
+    <a href="routes.html">热门路线</a>
+    <a href="explore.html" class="active">周边探索</a>
+    <a href="dashboard.html">仪表盘</a>
+    <a href="my-trips.html">我的行程</a>
+  </div>
+  <div class="nav-actions">
+    <button class="nav-btn" id="themeBtn">🌓</button>
+  </div>
+</nav>
+
+<div class="topbar">
+  <input type="text" id="poiSearch" placeholder="搜索任意地点，查看周边..." onkeydown="if(event.key==='Enter')searchPoi()">
+  <select id="poiType">
+    <option value="050000|060000|080000|100000">全部类型</option>
+    <option value="050000">🍜 餐饮美食</option>
+    <option value="060000">🛒 购物商场</option>
+    <option value="080000">🏨 酒店住宿</option>
+    <option value="110000|140000">🏔️ 风景名胜</option>
+    <option value="150000|160000">🚗 交通设施</option>
+    <option value="070000">🎬 休闲娱乐</option>
+  </select>
+  <button onclick="searchPoi()">🔍 探索周边</button>
+</div>
+
+<div class="radius-tags">
+  <span class="radius-tag active" onclick="setRadius(1,this)">1km</span>
+  <span class="radius-tag" onclick="setRadius(3,this)">3km</span>
+  <span class="radius-tag" onclick="setRadius(5,this)">5km</span>
+  <span class="radius-tag" onclick="setRadius(10,this)">10km</span>
+</div>
+
+<div class="main-content">
+  <div class="map-panel">
+    <div class="map-loading" id="mapLoading"><div class="spinner"></div></div>
+    <div id="mapContainer"></div>
+  </div>
+  <div class="result-panel" id="resultPanel">
+    <div class="result-header">搜索结果</div>
+    <div id="resultList" style="color:var(--text3);font-size:13px;text-align:center;padding:40px 0">🔍 输入地点开始探索周边</div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+window._AMapSecurityConfig={securityJsCode:'4b919753bb76bf1f15a7b189d9e15ed8'};
+</script>
+<script src="https://webapi.amap.com/v2/maps?v=2.0&key=4afb8b97169fca14cd25a5b5b81fd00e&plugin=AMap.PlaceSearch,AMap.AutoComplete,AMap.Geocoder,AMap.ToolBar,AMap.Scale&callback=initMap"></script>
+
+<script>
+let map, placeSearch, geocoder, autoComplete, currentRadius=5;
+let searchMarkers=[];
+
+function initMap(){
+  document.getElementById('mapLoading').style.display='none';
+  map=new AMap.Map('mapContainer',{center:[104.0668,30.5728],zoom:13,mapStyle:'amap://styles/light',viewMode:'3D'});
+  map.addControl(new AMap.ToolBar({position:{top:'10px',right:'10px'}}));
+  map.addControl(new AMap.Scale({position:{bottom:'30px',left:'10px'}}));
+  placeSearch=new AMap.PlaceSearch({pageSize:30,pageIndex:1,city:'全国'});
+  geocoder=new AMap.Geocoder();
+}
+
+function setRadius(r,el){
+  currentRadius=r;
+  document.querySelectorAll('.radius-tag').forEach(t=>t.classList.remove('active'));
+  el.classList.add('active');
+  if(document.getElementById('poiSearch').value.trim()) searchPoi();
+}
+
+function searchPoi(){
+  const kw=document.getElementById('poiSearch').value.trim();
+  if(!kw){showToast('请输入地点名称');return;}
+  const type=document.getElementById('poiType').value;
+
+  geocoder.getLocation(kw,function(status,result){
+    if(status==='complete'&&result.geocodes.length){
+      const loc=result.geocodes[0].location;
+      map.setZoomAndCenter(15,[loc.lng,loc.lat]);
+      const marker=new AMap.Marker({position:[loc.lng,loc.lat],
+        content:'<div style="background:#ef4444;color:#fff;width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;border:3px solid #fff;box-shadow:0 2px 8px rgba(239,68,68,.4);animation:pulse 1.5s infinite;">📍</div>',
+        offset:new AMap.Pixel(-16,-16),zIndex:200});
+      marker.setMap(map);
+
+      placeSearch.setCity(result.geocodes[0].citycode||'成都');
+      placeSearch.searchNearBy(kw,[loc.lng,loc.lat],currentRadius*1000,function(status,result){
+        clearMarkers();marker.setMap(map);searchMarkers.push(marker);
+        if(status==='complete'&&result.poiInfo){
+          const pois=result.poiInfo.pois;
+          document.getElementById('resultList').innerHTML=pois.length?pois.map((p,i)=>{
+            const dist=p.distance?Math.round(p.distance):'?';
+            return '<div class="result-card" onclick="focusResult('+p.location.lng+','+p.location.lat+',\''+p.name.replace(/'/g,"\\'")+'\')">'+
+              '<div class="result-num">'+(i+1)+'</div>'+
+              '<div class="result-info"><div class="result-name">'+(p.type.includes('餐饮')?'🍜 ':'📍 ')+p.name+'</div>'+
+              '<div class="result-addr">'+p.address+'</div>'+
+              '<div class="result-meta"><span>📏 '+dist+'m</span>'+(p.tel?'<span>📞 '+p.tel+'</span>':'')+'<span>⭐ '+(p.biz_ext?.rating||'4.0')+'</span></div></div></div>';
+          }).join(''):'<div style="color:var(--text3);text-align:center;padding:40px 0">未找到结果，试试换个关键词</div>';
+
+          const colors=['#3B82F6','#F59E0B','#8B5CF6','#EC4899','#10B981','#EF4444','#6366F1','#14B8A6'];
+          if(pois.length) map.setFitView(null,false,[60,60,300,60]);
+          pois.forEach((p,i)=>{
+            const m=new AMap.Marker({position:[p.location.lng,p.location.lat],
+              content:'<div style="background:'+colors[i%colors.length]+';color:#fff;width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;border:2px solid #fff;box-shadow:0 1px 4px rgba(0,0,0,.15);">'+(i+1)+'</div>',
+              offset:new AMap.Pixel(-12,-12),zIndex:100-i});
+            m.setMap(map);searchMarkers.push(m);
+            m.on('click',function(idx){return function(){map.setZoomAndCenter(16,[pois[idx].location.lng,pois[idx].location.lat]);}}(i));
+          });
+        }else{document.getElementById('resultList').innerHTML='<div style="color:var(--text3);text-align:center;padding:40px 0">未找到结果</div>';}
+      });
+    }else{showToast('未找到该地点，请换个关键词');}
+  });
+}
+
+function focusResult(lng,lat,name){
+  map.setZoomAndCenter(17,[lng,lat]);
+  const info=new AMap.InfoWindow({content:'<div style="padding:6px 12px;font-size:13px;font-weight:600">'+name+'</div>',offset:new AMap.Pixel(0,-30)});
+  info.open(map,[lng,lat]);
+  setTimeout(function(){info.close();},3000);
+}
+
+function clearMarkers(){searchMarkers.forEach(m=>m.setMap(null));searchMarkers=[];}
+function showToast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(function(){t.classList.remove('show');},2000);}
+
+document.getElementById('themeBtn').addEventListener('click',function(){
+  const html=document.documentElement;
+  const cur=html.getAttribute('data-theme');
+  html.setAttribute('data-theme',cur==='dark'?'light':'dark');
+  if(map) map.setMapStyle(cur==='dark'?'amap://styles/light':'amap://styles/dark');
+  localStorage.setItem('tq_theme',cur==='dark'?'light':'dark');
+});
+(function(){const t=localStorage.getItem('tq_theme');if(t)document.documentElement.setAttribute('data-theme',t);})();
+</script>
+</body>
+</html>
