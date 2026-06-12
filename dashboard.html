@@ -5,74 +5,133 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>仪表盘 · TrailQuest</title>
 <style>
-:root{--bg:#fff;--surface:#f8fafc;--surface2:#f1f5f9;--border:#e2e8f0;--text:#0f172a;--text2:#475569;--text3:#94a3b8;--accent:#0284c7;--accent-glow:rgba(2,132,199,.2);--scenic:#3B82F6;--food:#F59E0B;--culture:#8B5CF6;--shop:#EC4899;--night:#10B981;--shadow:0 1px 3px rgba(0,0,0,.08);--shadow-lg:0 10px 25px rgba(0,0,0,.08);--radius:12px;--radius-sm:8px;--nav-h:60px;--transition:200ms cubic-bezier(.4,0,.2,1)}
-[data-theme="dark"]{--bg:#0b1120;--surface:#111827;--surface2:#1e293b;--border:#1e293b;--text:#f1f5f9;--text2:#94a3b8;--text3:#64748b;--accent-glow:rgba(2,132,199,.25);--shadow:0 1px 3px rgba(0,0,0,.3);--shadow-lg:0 10px 25px rgba(0,0,0,.4)}
-*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
-html{scroll-behavior:smooth;-webkit-font-smoothing:antialiased}
-body{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei","Helvetica Neue",sans-serif;background:var(--bg);color:var(--text);line-height:1.6;min-height:100vh;display:flex;flex-direction:column;transition:background var(--transition),color var(--transition)}
-a{color:inherit;text-decoration:none}
-.nav{position:sticky;top:0;z-index:100;height:var(--nav-h);background:var(--bg);border-bottom:1px solid var(--border);display:flex;align-items:center;padding:0 28px;gap:32px;transition:background var(--transition),border-color var(--transition);backdrop-filter:blur(16px)}
-.nav-logo{font-size:18px;font-weight:700;display:flex;align-items:center;gap:8px;letter-spacing:-.3px}
-.nav-logo span{background:linear-gradient(135deg,var(--accent),#0ea5e9);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
-.nav-links{display:flex;gap:2px;flex:1}
-.nav-links a{padding:8px 16px;border-radius:var(--radius-sm);font-size:13.5px;font-weight:500;color:var(--text2);transition:all var(--transition)}
-.nav-links a:hover,.nav-links a:focus-visible{background:var(--surface2);color:var(--text);outline:none}
-.nav-links a.active{background:var(--accent);color:#fff;box-shadow:0 2px 8px var(--accent-glow)}
-.nav-actions{display:flex;gap:8px;align-items:center}
-.nav-btn{width:38px;height:38px;border-radius:50%;border:1px solid var(--border);background:var(--surface);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:16px;transition:all var(--transition);color:var(--text)}
-.nav-btn:hover{background:var(--surface2);border-color:var(--text3);transform:scale(1.05)}
+:root{--bg:#fffaf3;--surface:#fff;--surface2:#fff3df;--border:#f2dfc4;--text:#23201d;--text2:#6f6254;--text3:#a89682;--accent:#ff7a1a;--accent2:#16a085;--accent-glow:rgba(255,122,26,.22);--scenic:#e67e22;--food:#c0392b;--culture:#8e44ad;--shop:#2c3e50;--night:#16a085;--shadow:0 8px 24px rgba(80,48,20,.08);--shadow-lg:0 18px 46px rgba(80,48,20,.14);--radius:18px;--radius-sm:12px;--nav-h:62px;--transition:180ms ease}
+[data-theme="dark"]{--bg:#17120e;--surface:#211a14;--surface2:#2d2118;--border:#443326;--text:#fff7ed;--text2:#d7c5b3;--text3:#967d67;--accent-glow:rgba(255,122,26,.28);--shadow:0 8px 24px rgba(0,0,0,.28);--shadow-lg:0 18px 46px rgba(0,0,0,.38)}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}body{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",Arial,sans-serif;background:var(--bg);color:var(--text);line-height:1.6;min-height:100vh}a{text-decoration:none;color:inherit}
+.nav{position:sticky;top:0;z-index:20;height:var(--nav-h);display:flex;align-items:center;gap:28px;padding:0 28px;background:rgba(255,250,243,.88);backdrop-filter:blur(18px);border-bottom:1px solid var(--border)}
+[data-theme="dark"] .nav{background:rgba(23,18,14,.88)}
+.nav-logo{font-size:19px;font-weight:850;letter-spacing:-.5px}.nav-logo span{color:var(--accent)}
+.nav-links{display:flex;gap:4px;flex:1}
+.nav-links a{padding:8px 14px;border-radius:999px;font-size:13px;font-weight:650;color:var(--text2);transition:all var(--transition)}
+.nav-links a:hover,.nav-links a.active{background:var(--surface2);color:var(--accent)}
+.nav-btn{width:38px;height:38px;border-radius:50%;border:1px solid var(--border);background:var(--surface);cursor:pointer}
+
 .banner{position:relative;height:140px;display:flex;align-items:center;justify-content:center;overflow:hidden}
-.banner::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,#0c4a6e,#0369a1,#0284c7);z-index:0}
-.banner::after{content:'';position:absolute;width:40vw;height:40vw;border-radius:50%;background:radial-gradient(circle,rgba(14,165,233,.2),transparent 60%);top:-10%;left:-5%;z-index:0}
-.banner h1{position:relative;z-index:1;font-size:28px;font-weight:700;color:#fff;letter-spacing:-.5px}
-.content{padding:32px 28px;flex:1;max-width:1100px;margin:0 auto;width:100%}
-.dash-controls{display:flex;gap:12px;align-items:end;justify-content:space-between;margin-bottom:18px;padding:16px;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);flex-wrap:wrap}.dash-controls .control-title{font-size:15px;font-weight:700}.dash-controls .control-sub{font-size:12px;color:var(--text3);margin-top:2px}.dash-controls select{min-width:260px;height:42px;border-radius:14px;border:1.5px solid var(--border);background:var(--bg);color:var(--text);padding:0 14px;font-size:13px}.scope-tabs{display:flex;gap:8px;flex-wrap:wrap}.scope-tab{height:38px;border-radius:999px;border:1.5px solid var(--border);background:var(--bg);color:var(--text2);padding:0 15px;font-size:13px;font-weight:700;cursor:pointer}.scope-tab.active{background:var(--accent);border-color:var(--accent);color:#fff;box-shadow:0 4px 12px var(--accent-glow)}
-.stat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:16px;margin-bottom:32px;animation:fadeUp .5s ease-out}
-@keyframes fadeUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
-.stat-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:20px;transition:all var(--transition)}
-.stat-card:hover{border-color:var(--accent);box-shadow:var(--shadow)}
-.stat-card .slabel{font-size:11px;color:var(--text3);font-weight:600;letter-spacing:.5px;margin-bottom:8px}
-.stat-card .sval{font-size:34px;font-weight:800;color:var(--text);line-height:1;letter-spacing:-1px}
-.stat-card .ssub{font-size:12px;color:var(--text2);margin-top:6px}
-.chart-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(380px,1fr));gap:24px;margin-bottom:32px}
-.chart-card{background:var(--bg);border:1px solid var(--border);border-radius:var(--radius);padding:24px;transition:all var(--transition)}
-.chart-card h3{font-size:15px;font-weight:600;margin-bottom:20px;letter-spacing:-.2px}
-.chart-bar-group{margin-bottom:16px}.chart-bar-label{display:flex;justify-content:space-between;font-size:13px;margin-bottom:6px}.chart-bar-label .val{font-weight:600}
-.chart-bar-track{height:10px;background:var(--surface2);border-radius:5px;overflow:hidden}
-.chart-bar-fill{height:100%;border-radius:5px;transition:width 1s cubic-bezier(.4,0,.2,1)}
+.banner::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,#ff7a1a,#ffb347,#16a085);z-index:0}
+.banner::after{content:'';position:absolute;width:40vw;height:40vw;border-radius:50%;background:radial-gradient(circle,rgba(255,255,255,.18),transparent 60%);top:-10%;left:-5%;z-index:0}
+.banner h1{position:relative;z-index:1;font-size:28px;font-weight:900;color:#fff;letter-spacing:-.5px}
+.content{max-width:1100px;margin:0 auto;padding:28px 24px 40px}
+
+.source-bar{padding:10px 18px;background:var(--surface2);border-radius:var(--radius);font-size:12px;color:var(--text3);margin-bottom:24px;display:flex;align-items:center;gap:6px}.source-bar strong{color:var(--accent)}
+.tab-row{display:flex;gap:4px;margin-bottom:18px;background:var(--surface2);border-radius:999px;padding:4px;width:fit-content}
+.tab-btn{padding:9px 20px;border-radius:999px;border:none;background:transparent;color:var(--text2);font-size:14px;font-weight:750;cursor:pointer;transition:all var(--transition)}.tab-btn.active{background:var(--surface);color:var(--accent);box-shadow:0 2px 6px rgba(0,0,0,.06)}
+.tab-btn select{height:34px;border-radius:999px;border:1.5px solid var(--border);background:var(--surface);padding:0 12px;font-size:13px;outline:none;margin-left:4px}
+
+.stat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px;margin-bottom:28px}
+.stat-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:20px;transition:all var(--transition)}.stat-card:hover{border-color:var(--accent);box-shadow:var(--shadow)}
+.stat-card .slabel{font-size:11px;color:var(--text3);font-weight:600;letter-spacing:.5px;margin-bottom:6px}.stat-card .sval{font-size:36px;font-weight:900;color:var(--text);line-height:1;letter-spacing:-1px}.stat-card .ssub{font-size:12px;color:var(--text2);margin-top:6px}
+
+.chart-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(360px,1fr));gap:20px;margin-bottom:28px}
+.chart-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:22px}.chart-card h3{font-size:14px;font-weight:800;margin-bottom:16px}
+.chart-bar-group{margin-bottom:14px}.chart-bar-label{display:flex;justify-content:space-between;font-size:13px;margin-bottom:5px}.chart-bar-label .val{font-weight:700}
+.chart-bar-track{height:8px;background:var(--surface2);border-radius:4px;overflow:hidden}.chart-bar-fill{height:100%;border-radius:4px;transition:width .6s ease}
 .cb-scenic{background:var(--scenic)}.cb-food{background:var(--food)}.cb-culture{background:var(--culture)}.cb-shop{background:var(--shop)}.cb-night{background:var(--night)}
-.pie-legend{display:flex;gap:14px;flex-wrap:wrap;margin-top:14px}.pie-legend-item{display:flex;align-items:center;gap:5px;font-size:12px;color:var(--text2)}
-.pie-dot{width:10px;height:10px;border-radius:50%}.pd-scenic{background:var(--scenic)}.pd-food{background:var(--food)}.pd-culture{background:var(--culture)}.pd-shop{background:var(--shop)}.pd-night{background:var(--night)}
-.trip-row{display:flex;align-items:center;gap:16px;padding:14px;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-sm);margin-bottom:8px;transition:all var(--transition)}
-.trip-row:hover{border-color:var(--accent)}.trip-row .day-badge{width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;color:#fff;background:var(--accent);flex-shrink:0}
-.trip-row .trip-name{font-size:14px;font-weight:600;flex:1}.trip-row .trip-pois{font-size:12px;color:var(--text3)}.trip-row .trip-cost{font-size:14px;font-weight:700;color:var(--food)}
-.empty-state{text-align:center;padding:80px 20px;animation:fadeUp .5s ease-out}
-.empty-state .empty-icon{font-size:56px;margin-bottom:16px;opacity:.6}
-.empty-state h3{font-size:18px;font-weight:600;margin-bottom:8px}
-.empty-state p{font-size:14px;color:var(--text3);margin-bottom:20px}
-.empty-state button{padding:10px 26px;border-radius:22px;border:none;background:var(--accent);color:#fff;font-size:14px;font-weight:600;cursor:pointer;transition:all var(--transition)}
-.empty-state button:hover{transform:translateY(-1px);box-shadow:0 4px 12px var(--accent-glow)}
-.footer{padding:24px 28px;border-top:1px solid var(--border);text-align:center;font-size:12px;color:var(--text3);transition:border-color var(--transition)}
-@media(max-width:900px){.nav{height:auto;min-height:var(--nav-h);padding:10px 16px;gap:12px;flex-wrap:wrap}.nav-actions{margin-left:auto}.nav-links{display:flex;overflow-x:auto;order:3;width:100%;padding-bottom:6px}.nav-links a{white-space:nowrap}.content{padding:20px 16px}.chart-grid{grid-template-columns:1fr}.stat-grid{grid-template-columns:repeat(2,1fr)}}
+
+.trip-list{display:flex;flex-direction:column;gap:10px}
+.trip-item{display:flex;align-items:center;gap:14px;padding:14px 18px;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-sm);transition:all var(--transition)}.trip-item:hover{border-color:var(--accent);box-shadow:var(--shadow)}
+.trip-item .ti-rank{width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:800;color:#fff;flex-shrink:0}.tr-1{background:var(--accent)}.tr-2{background:var(--accent2)}.tr-3{background:#8b5cf6}.tr-n{background:var(--text3)}
+.ti-info{flex:1;min-width:0}.ti-name{font-size:14px;font-weight:750}.ti-meta{font-size:11px;color:var(--text3);margin-top:2px}.ti-stats{display:flex;gap:16px;font-size:12px;color:var(--text2);font-weight:600}.ti-stats span{display:flex;align-items:center;gap:3px}
+
+.empty-state{text-align:center;padding:80px 20px}.empty-icon{font-size:56px;margin-bottom:14px;opacity:.5}.empty-state h3{font-size:18px;font-weight:700;margin-bottom:6px}.empty-state p{font-size:14px;color:var(--text3);margin-bottom:20px}.empty-state button{padding:10px 26px;border-radius:999px;border:none;background:var(--accent);color:#fff;font-size:14px;font-weight:700;cursor:pointer}
+
+.footer{text-align:center;padding:24px;color:var(--text3);font-size:12px;border-top:1px solid var(--border)}
+.toast{position:fixed;left:50%;bottom:28px;transform:translateX(-50%) translateY(18px);opacity:0;background:var(--text);color:var(--bg);padding:11px 22px;border-radius:999px;font-size:13px;font-weight:800;transition:all .25s;z-index:50}.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+button:focus-visible,a:focus-visible,select:focus-visible{outline:3px solid var(--accent-glow);outline-offset:2px}
+@keyframes fadeUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+@media(max-width:900px){.nav{height:auto;min-height:var(--nav-h);padding:10px 16px;flex-wrap:wrap}.nav-links{order:3;width:100%;overflow-x:auto}.nav-links a{white-space:nowrap}.content{padding:20px 16px}.chart-grid{grid-template-columns:1fr}.stat-grid{grid-template-columns:repeat(2,1fr)}}
 </style>
 </head>
 <body>
-<nav class="nav"><a href="index.html" class="nav-logo">📍 <span>TrailQuest</span></a><div class="nav-links"><a href="index.html">首页</a><a href="planner.html">行程规划</a><a href="routes.html">热门路线</a><a href="explore.html">周边探索</a><a href="qa.html">智能问答</a><a href="dashboard.html" class="active">仪表盘</a><a href="my-trips.html">我的行程</a></div><div class="nav-actions"><button class="nav-btn" id="themeBtn">🌓</button></div></nav>
+<nav class="nav"><a href="index.html" class="nav-logo">Trail<span>Quest</span></a><div class="nav-links"><a href="index.html">首页</a><a href="planner.html">行程规划</a><a href="routes.html">热门路线</a><a href="dashboard.html" class="active">仪表盘</a><a href="my-trips.html">我的行程</a></div><button class="nav-btn" id="themeBtn">🌓</button></nav>
 <div class="banner"><h1>📊 行程仪表盘</h1></div>
-<div class="content" id="dashContent"></div><div class="footer">&copy; 2026 TrailQuest</div>
-
+<div class="content" id="content"></div>
+<div class="footer">&copy; 2026 TrailQuest</div>
+<div class="toast" id="toast"></div>
 <script>
-let dashboardScope='all',selectedTripIndex=0;
 const catLabels={scenic:'景点',food:'美食',culture:'文化',shop:'购物',night:'夜生活'};
-function getTrips(){let trips=[];try{trips=JSON.parse(localStorage.getItem('tq_trips')||'[]')||[];}catch(e){}if(trips.length)return trips;return [{id:'demo',city:'成都',name:'成都3日深度游',days:3,totalBudget:3500,savedAt:'2026-06-11T00:00:00.000Z',dayPlan:[{day:1,label:'DAY 1 · 蜀汉文脉',pois:[{cat:'culture',cost:60,dur:120},{cat:'shop',cost:0,dur:90},{cat:'food',cost:80,dur:60}]},{day:2,label:'DAY 2 · 熊猫都市',pois:[{cat:'scenic',cost:55,dur:180},{cat:'food',cost:50,dur:45},{cat:'night',cost:120,dur:120}]},{day:3,label:'DAY 3 · 都江堰自然',pois:[{cat:'scenic',cost:80,dur:180},{cat:'culture',cost:78,dur:120},{cat:'food',cost:90,dur:60}]}]}];}
-function statsFor(trips){const s={tripCount:trips.length,days:0,pois:[],budget:0,poiCost:0,dur:0,counts:{scenic:0,food:0,culture:0,shop:0,night:0},costs:{scenic:0,food:0,culture:0,shop:0,night:0},daysRows:[],tripRows:[]};trips.forEach((t,ti)=>{const plan=t.dayPlan||[],days=t.days||plan.length||1;s.days+=days;s.budget+=Number(t.totalBudget)||0;let tripPois=0,tripCost=0;plan.forEach(d=>{let dayCost=0;(d.pois||[]).forEach(p=>{const cat=p.cat||'scenic',cost=Number(p.cost)||0,dur=Number(p.dur)||0;s.pois.push(p);s.counts[cat]=(s.counts[cat]||0)+1;s.costs[cat]=(s.costs[cat]||0)+cost;s.poiCost+=cost;s.dur+=dur;dayCost+=cost;tripCost+=cost;tripPois++;});s.daysRows.push({day:d.day||1,label:d.label||('DAY '+(d.day||1)),pois:(d.pois||[]).length,cost:dayCost});});s.tripRows.push({name:t.name||t.city||'未命名行程',city:t.city||'自定义',days:days,pois:tripPois,budget:Number(t.totalBudget)||tripCost,savedAt:t.savedAt||'',index:ti});});if(!s.budget)s.budget=s.poiCost;return s;}
-function setScope(scope){dashboardScope=scope;buildDashboard();}
-function barHtml(obj,total,mode){return Object.entries(obj).filter(e=>e[1]>0).sort((a,b)=>b[1]-a[1]).map(e=>{const pct=total?Math.max(4,Math.round(e[1]/total*100)):0,label=catLabels[e[0]]||e[0],val=mode==='cost'?'¥'+e[1].toLocaleString():e[1]+' 个';return '<div class="chart-bar-group"><div class="chart-bar-label"><span>'+label+'</span><span class="val">'+val+' ('+pct+'%)</span></div><div class="chart-bar-track"><div class="chart-bar-fill cb-'+e[0]+'" style="width:'+pct+'%"></div></div></div>';}).join('')||'<div style="color:var(--text3);font-size:13px">暂无数据</div>';}
-function controlsHtml(trips){return '<div class="dash-controls"><div><div class="control-title">统计范围</div><div class="control-sub">可查看单次行程，也可汇总所有已保存行程</div></div><div class="scope-tabs"><button class="scope-tab '+(dashboardScope==='all'?'active':'')+'" data-scope="all" onclick="setScope(\'all\')">全部行程汇总</button><button class="scope-tab '+(dashboardScope==='single'?'active':'')+'" data-scope="single" onclick="setScope(\'single\')">单次行程统计</button></div><select onchange="selectedTripIndex=Number(this.value);dashboardScope=\'single\';buildDashboard();">'+trips.map((t,i)=>'<option value="'+i+'" '+(i===selectedTripIndex?'selected':'')+'>'+((t.name||t.city||'未命名行程')+' · '+(t.days||((t.dayPlan||[]).length)||1)+'天')+'</option>').join('')+'</select></div>';}
-function buildDashboard(){const trips=getTrips();if(selectedTripIndex>=trips.length)selectedTripIndex=0;const active=dashboardScope==='single'?[trips[selectedTripIndex]]:trips,s=statsFor(active),title=dashboardScope==='single'?(active[0].name||active[0].city||'单次行程'):'全部 '+s.tripCount+' 次行程';document.getElementById('dashContent').innerHTML=controlsHtml(trips)+'<div class="stat-grid"><div class="stat-card"><div class="slabel">统计对象</div><div class="sval" style="font-size:24px;line-height:1.2">'+title+'</div><div class="ssub">'+(dashboardScope==='single'?'单次行程明细':'所有保存行程合计')+'</div></div><div class="stat-card"><div class="slabel">总天数</div><div class="sval">'+s.days+'</div><div class="ssub">覆盖 '+s.tripCount+' 次规划</div></div><div class="stat-card"><div class="slabel">打卡点</div><div class="sval">'+s.pois.length+'</div><div class="ssub">日均 '+(s.days?(s.pois.length/s.days).toFixed(1):'0')+' 个</div></div><div class="stat-card"><div class="slabel">预算</div><div class="sval" style="color:var(--food)">¥'+s.budget.toLocaleString()+'</div><div class="ssub">单次均值 ¥'+Math.round(s.budget/s.tripCount).toLocaleString()+'</div></div><div class="stat-card"><div class="slabel">游览时长</div><div class="sval" style="color:var(--accent)">'+Math.round(s.dur/60)+'h</div><div class="ssub">按 POI 停留时间估算</div></div></div><div class="chart-grid"><div class="chart-card"><h3>POI 分类分布</h3>'+barHtml(s.counts,s.pois.length,'count')+'</div><div class="chart-card"><h3>预算构成</h3>'+barHtml(s.costs,s.poiCost,'cost')+'<div style="margin-top:14px;padding-top:14px;border-top:1px solid var(--border);display:flex;justify-content:space-between;font-size:14px"><span>POI 消费合计</span><span style="font-weight:700;color:var(--food)">¥'+s.poiCost.toLocaleString()+'</span></div></div></div><div class="chart-card"><h3>'+(dashboardScope==='single'?'每日安排':'行程列表')+'</h3>'+(dashboardScope==='single'?s.daysRows.map(d=>'<div class="trip-row"><div class="day-badge">'+d.day+'</div><div class="trip-name">'+d.label+'</div><div class="trip-pois">'+d.pois+' 个打卡点</div><div class="trip-cost">¥'+d.cost+'</div></div>').join(''):s.tripRows.map(r=>'<div class="trip-row"><div class="day-badge">'+r.days+'</div><div class="trip-name">'+r.name+'<div style="font-size:11px;color:var(--text3);font-weight:400">'+r.city+' · '+(r.savedAt?r.savedAt.slice(0,10):'未记录保存时间')+'</div></div><div class="trip-pois">'+r.pois+' 个点</div><div class="trip-cost">¥'+r.budget.toLocaleString()+'</div></div>').join(''))+'</div>';}
-buildDashboard();
-document.getElementById('themeBtn').addEventListener('click',function(){const h=document.documentElement,c=h.getAttribute('data-theme'),n=c==='dark'?'light':'dark';h.setAttribute('data-theme',n);document.getElementById('themeBtn').textContent=n==='dark'?'☀️':'🌓';localStorage.setItem('tq_theme',n);});
+let view='all',selIdx=0;
+
+function getTrips(){
+  let trips=[];
+  try{trips=JSON.parse(localStorage.getItem('tq_trips')||'[]')||[];}catch(e){trips=[];}
+  // Merge with dashboard memory for completeness
+  try{
+    const mem=JSON.parse(localStorage.getItem('tq_dashboard_memory')||'[]')||[];
+    const existingIds=new Set(trips.map(t=>t.id+'_'+t.name));
+    mem.forEach(m=>{if(!existingIds.has(m.id+'_'+m.name))trips.push(m);});
+  }catch(e){}
+  return trips;
+}
+
+function statsFor(trips){
+  const s={tripCount:0,days:0,pois:[],budget:0,poiCost:0,dur:0,counts:{scenic:0,food:0,culture:0,shop:0,night:0},costs:{scenic:0,food:0,culture:0,shop:0,night:0},tripRows:[]};
+  trips.forEach((t,ti)=>{
+    if(!t||!t.dayPlan)return;
+    s.tripCount++;
+    const plan=t.dayPlan||[],days=t.days||plan.length||1;
+    s.days+=days;s.budget+=Number(t.totalBudget)||0;
+    let tripPois=0,tripCost=0,tripDur=0;
+    plan.forEach(d=>{(d.pois||[]).forEach(p=>{
+      const cat=p.cat||'scenic',cost=Number(p.cost)||0,dur=Number(p.dur)||0;
+      s.pois.push(p);s.counts[cat]=(s.counts[cat]||0)+1;
+      s.costs[cat]=(s.costs[cat]||0)+cost;s.poiCost+=cost;s.dur+=dur;
+      tripCost+=cost;tripPois++;tripDur+=dur;
+    });});
+    s.tripRows.push({name:t.name||t.city||'未命名',city:t.city||'自定义',days:days,pois:tripPois,budget:Number(t.totalBudget)||tripCost,dur:tripDur,savedAt:t.savedAt||'',index:ti});
+  });
+  if(!s.budget)s.budget=s.poiCost;
+  return s;
+}
+
+function barHtml(obj,total,mode){
+  return Object.entries(obj).filter(e=>e[1]>0).sort((a,b)=>b[1]-a[1]).map(e=>{
+    const pct=total?Math.max(3,Math.round(e[1]/total*100)):0,label=catLabels[e[0]]||e[0],val=mode==='cost'?'¥'+e[1].toLocaleString():e[1]+' 个';
+    return '<div class="chart-bar-group"><div class="chart-bar-label"><span>'+label+'</span><span class="val">'+val+' ('+pct+'%)</span></div><div class="chart-bar-track"><div class="chart-bar-fill cb-'+e[0]+'" style="width:'+pct+'%"></div></div></div>';
+  }).join('')||'<div style="color:var(--text3);font-size:13px">暂无数据</div>';
+}
+
+function build(){
+  const trips=getTrips();
+  if(!trips.length){
+    document.getElementById('content').innerHTML='<div class="empty-state"><div class="empty-icon">📊</div><h3>还没有行程数据</h3><p>仪表盘数据来自"我的行程"中保存的规划记录</p><button onclick="location.href=\'my-trips.html\'">📋 前往我的行程</button><button onclick="location.href=\'planner.html\'" style="margin-left:8px;background:var(--surface);color:var(--accent);border:2px solid var(--accent)">✈️ 开始规划</button></div>';
+    return;
+  }
+  if(view==='single'&&selIdx>=trips.length)selIdx=0;
+  const active=view==='single'?[trips[selIdx]]:trips.filter(t=>t&&t.dayPlan);
+  const s=statsFor(active);
+  const title=view==='single'?(active[0].name||active[0].city||'单次行程'):'全部 '+s.tripCount+' 次行程';
+  const selHtml=view==='single'?'<select onchange="selIdx=Number(this.value);build()">'+trips.map((t,i)=>'<option value="'+i+'" '+(i===selIdx?'selected':'')+'>'+(t.name||t.city)+' · '+(t.days||'')+'天</option>').join('')+'</select>':'';
+  document.getElementById('content').innerHTML=
+    '<div class="source-bar">📋 数据来源：<strong>我的行程</strong> · 共保存 '+trips.length+' 条行程记录 <a href="my-trips.html" style="margin-left:auto;color:var(--accent);font-weight:700">查看全部 →</a></div>'+
+    '<div class="tab-row"><button class="tab-btn '+(view==='all'?'active':'')+'" onclick="view=\'all\';build()">全部行程汇总</button><button class="tab-btn '+(view==='single'?'active':'')+'" onclick="view=\'single\';build()">单次统计</button>'+selHtml+'</div>'+
+    '<div class="stat-grid" style="animation:fadeUp .4s ease">'+
+      '<div class="stat-card"><div class="slabel">统计范围</div><div class="sval" style="font-size:22px">'+title+'</div><div class="ssub">'+(view==='single'?'单次行程明细':'所有已保存行程汇总')+'</div></div>'+
+      '<div class="stat-card"><div class="slabel">总天数</div><div class="sval">'+s.days+'</div><div class="ssub">共 '+s.tripCount+' 次规划</div></div>'+
+      '<div class="stat-card"><div class="slabel">打卡点</div><div class="sval">'+s.pois.length+'</div><div class="ssub">日均 '+(s.days?(s.pois.length/s.days).toFixed(1):'0')+' 个</div></div>'+
+      '<div class="stat-card"><div class="slabel">总预算</div><div class="sval" style="color:var(--food)">¥'+s.budget.toLocaleString()+'</div><div class="ssub">单次约 ¥'+Math.round(s.budget/Math.max(s.tripCount,1)).toLocaleString()+'</div></div>'+
+      '<div class="stat-card"><div class="slabel">游览时长</div><div class="sval" style="color:var(--accent)">'+Math.round(s.dur/60)+'h</div><div class="ssub">按 POI 停留估算</div></div>'+
+    '</div>'+
+    '<div class="chart-grid">'+
+      '<div class="chart-card"><h3>POI 分类分布（'+s.pois.length+' 个打卡点）</h3>'+barHtml(s.counts,s.pois.length,'count')+'</div>'+
+      '<div class="chart-card"><h3>预算构成（合计 ¥'+s.poiCost.toLocaleString()+'）</h3>'+barHtml(s.costs,s.poiCost,'cost')+'</div>'+
+    '</div>'+
+    '<div class="chart-card"><h3>行程列表</h3><div class="trip-list">'+s.tripRows.map((r,i)=>'<div class="trip-item"><div class="ti-rank tr-'+(i<3?i+1:'n')+'">'+(i+1)+'</div><div class="ti-info"><div class="ti-name">'+r.name+'</div><div class="ti-meta">'+r.city+' · '+r.days+'天 · '+(r.savedAt?r.savedAt.slice(0,10):'')+'</div></div><div class="ti-stats"><span>📍 '+r.pois+'</span><span>⏱ '+Math.round(r.dur/60)+'h</span><span>💰 ¥'+r.budget.toLocaleString()+'</span></div></div>').join('')+'</div></div>';
+}
+
+build();
+document.getElementById('themeBtn').addEventListener('click',function(){const h=document.documentElement,n=h.getAttribute('data-theme')==='dark'?'light':'dark';h.setAttribute('data-theme',n);document.getElementById('themeBtn').textContent=n==='dark'?'☀️':'🌓';localStorage.setItem('tq_theme',n);});
 (function(){const t=localStorage.getItem('tq_theme');if(t){document.documentElement.setAttribute('data-theme',t);document.getElementById('themeBtn').textContent=t==='dark'?'☀️':'🌓';}})();
 </script>
+<script>if("serviceWorker"in navigator)navigator.serviceWorker.register("sw.js")</script>
 </body>
 </html>

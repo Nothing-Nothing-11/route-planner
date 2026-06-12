@@ -5,25 +5,24 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>我的行程 · TrailQuest</title>
 <style>
-:root{--bg:#fff;--surface:#f8fafc;--surface2:#f1f5f9;--border:#e2e8f0;--text:#0f172a;--text2:#475569;--text3:#94a3b8;--accent:#0284c7;--accent-glow:rgba(2,132,199,.2);--danger:#dc2626;--shadow:0 1px 3px rgba(0,0,0,.08);--shadow-lg:0 10px 25px rgba(0,0,0,.08);--shadow-xl:0 20px 50px rgba(0,0,0,.1);--radius:12px;--radius-lg:16px;--radius-sm:8px;--nav-h:60px;--transition:200ms cubic-bezier(.4,0,.2,1)}
-[data-theme="dark"]{--bg:#0b1120;--surface:#111827;--surface2:#1e293b;--border:#1e293b;--text:#f1f5f9;--text2:#94a3b8;--text3:#64748b;--accent-glow:rgba(2,132,199,.25);--shadow:0 1px 3px rgba(0,0,0,.3);--shadow-lg:0 10px 25px rgba(0,0,0,.4);--shadow-xl:0 20px 50px rgba(0,0,0,.5)}
+:root{--bg:#fffaf3;--surface:#fff;--surface2:#fff3df;--border:#f2dfc4;--text:#23201d;--text2:#6f6254;--text3:#a89682;--accent:#ff7a1a;--accent2:#16a085;--accent-glow:rgba(255,122,26,.22);--scenic:#e67e22;--food:#c0392b;--culture:#8e44ad;--shop:#2c3e50;--night:#16a085;--shadow:0 8px 24px rgba(80,48,20,.08);--shadow-lg:0 18px 46px rgba(80,48,20,.14);--radius:16px;--radius-lg:18px;--radius-sm:10px;--nav-h:62px;--transition:180ms ease}
+[data-theme="dark"]{--bg:#17120e;--surface:#211a14;--surface2:#2d2118;--border:#443326;--text:#fff7ed;--text2:#d7c5b3;--text3:#967d67;--accent-glow:rgba(255,122,26,.28);--shadow:0 8px 24px rgba(0,0,0,.28);--shadow-lg:0 18px 46px rgba(0,0,0,.38)}
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
 html{scroll-behavior:smooth;-webkit-font-smoothing:antialiased}
 body{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei","Helvetica Neue",sans-serif;background:var(--bg);color:var(--text);line-height:1.6;min-height:100vh;display:flex;flex-direction:column;transition:background var(--transition),color var(--transition)}
 a{color:inherit;text-decoration:none}
-.nav{position:sticky;top:0;z-index:100;height:var(--nav-h);background:var(--bg);border-bottom:1px solid var(--border);display:flex;align-items:center;padding:0 28px;gap:32px;transition:background var(--transition),border-color var(--transition);backdrop-filter:blur(16px)}
-.nav-logo{font-size:18px;font-weight:700;display:flex;align-items:center;gap:8px;letter-spacing:-.3px}
-.nav-logo span{background:linear-gradient(135deg,var(--accent),#0ea5e9);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
-.nav-links{display:flex;gap:2px;flex:1}
-.nav-links a{padding:8px 16px;border-radius:var(--radius-sm);font-size:13.5px;font-weight:500;color:var(--text2);transition:all var(--transition)}
-.nav-links a:hover,.nav-links a:focus-visible{background:var(--surface2);color:var(--text);outline:none}
+.nav{position:sticky;top:0;z-index:100;height:var(--nav-h);background:rgba(255,250,243,.88);backdrop-filter:blur(18px);border-bottom:1px solid var(--border);display:flex;align-items:center;padding:0 28px;gap:28px}[data-theme="dark"] .nav{background:rgba(23,18,14,.88)}
+.nav-logo{font-size:19px;font-weight:850;display:flex;align-items:center;gap:8px;letter-spacing:-.5px}.nav-logo span{color:var(--accent)}
+.nav-links{display:flex;gap:4px;flex:1}
+.nav-links a{padding:8px 14px;border-radius:999px;font-size:13px;font-weight:650;color:var(--text2);transition:all var(--transition)}
+.nav-links a:hover,.nav-links a:focus-visible{background:var(--surface2);color:var(--accent);outline:none}
 .nav-links a.active{background:var(--accent);color:#fff;box-shadow:0 2px 8px var(--accent-glow)}
 .nav-actions{display:flex;gap:8px;align-items:center}
 .nav-btn{width:38px;height:38px;border-radius:50%;border:1px solid var(--border);background:var(--surface);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:16px;transition:all var(--transition);color:var(--text)}
 .nav-btn:hover{background:var(--surface2);border-color:var(--text3);transform:scale(1.05)}
 .banner{position:relative;height:140px;display:flex;align-items:center;justify-content:center;overflow:hidden}
-.banner::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,#0c4a6e,#0369a1,#0284c7);z-index:0}
-.banner::after{content:'';position:absolute;width:40vw;height:40vw;border-radius:50%;background:radial-gradient(circle,rgba(14,165,233,.2),transparent 60%);top:-5%;right:-5%;z-index:0}
+.banner::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,#ff7a1a,#ffb347,#16a085);z-index:0}
+.banner::after{content:'';position:absolute;width:40vw;height:40vw;border-radius:50%;background:radial-gradient(circle,rgba(255,255,255,.18),transparent 60%);top:-5%;right:-5%;z-index:0}
 .banner h1{position:relative;z-index:1;font-size:28px;font-weight:700;color:#fff;letter-spacing:-.5px}
 .content{padding:32px 28px;flex:1;max-width:900px;margin:0 auto;width:100%}
 .stats-bar{padding:0 0 20px;display:flex;gap:24px;font-size:13px;color:var(--text3);font-weight:500}
@@ -69,8 +68,8 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
 </style>
 </head>
 <body>
-<nav class="nav"><a href="index.html" class="nav-logo">📍 <span>TrailQuest</span></a><div class="nav-links"><a href="index.html">首页</a><a href="planner.html">行程规划</a><a href="routes.html">热门路线</a><a href="explore.html">周边探索</a><a href="qa.html">智能问答</a><a href="dashboard.html">仪表盘</a><a href="my-trips.html" class="active">我的行程</a></div><div class="nav-actions"><button class="nav-btn" id="themeBtn">🌓</button></div></nav>
-<div class="banner"><h1>💾 我的行程</h1></div>
+<nav class="nav"><a href="index.html" class="nav-logo">📍 <span>TrailQuest</span></a><div class="nav-links"><a href="index.html">首页</a><a href="planner.html">行程规划</a><a href="routes.html">热门路线</a><a href="dashboard.html">仪表盘</a><a href="my-trips.html" class="active">我的行程</a></div><div class="nav-actions"><button class="nav-btn" id="themeBtn">🌓</button></div></nav>
+<div class="banner"><h1>💾 我的行程</h1><div style="display:flex;gap:8px;align-items:center;position:relative;z-index:1;margin-top:10px"><input type="text" id="tripSearch" placeholder="搜索行程..." autocomplete="off" oninput="buildPage()" style="padding:6px 14px;border-radius:999px;border:1px solid rgba(255,255,255,.3);background:rgba(255,255,255,.15);color:#fff;font-size:13px;width:180px;outline:none"><select id="tripSort" onchange="buildPage()" style="padding:6px 10px;border-radius:999px;border:1px solid rgba(255,255,255,.3);background:rgba(255,255,255,.15);color:#fff;font-size:13px;outline:none"><option value="newest">最新</option><option value="oldest">最早</option><option value="budget-desc">预算高→低</option><option value="budget-asc">预算低→高</option><option value="days-desc">天数多→少</option></select></div></div>
 <div class="content" id="contentArea"></div>
 <div class="footer">&copy; 2026 TrailQuest</div>
 
@@ -81,10 +80,11 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
 let deleteTarget=null;
 function buildPage(){
   const trips=JSON.parse(localStorage.getItem('tq_trips')||'[]'),area=document.getElementById('contentArea');
-  if(!trips.length){area.innerHTML='<div class="empty-state"><div class="empty-icon">📋</div><h3>还没有保存行程</h3><p>去规划并保存一条行程，它就会出现在这里</p><button onclick="location.href=\'planner.html\'">✈️ 开始规划行程</button></div>';return;}
-  const totalPois=trips.reduce((s,t)=>s+t.dayPlan.reduce((ss,d)=>ss+d.pois.length,0),0);
-  const totalBudget=trips.reduce((s,t)=>s+t.totalBudget,0);
-  area.innerHTML='<div class="stats-bar"><span>共 <strong>'+trips.length+'</strong> 条行程</span><span><strong>'+totalPois+'</strong> 个打卡点</span><span>总预算 <strong>¥'+totalBudget.toLocaleString()+'</strong></span></div><div class="trip-grid">'+trips.map((t,i)=>'<div class="trip-card" style="animation-delay:'+(i*0.08)+'s"><div class="tc-header"><div class="tc-title">'+t.name+'</div></div><div class="tc-city">📍 '+t.city+'</div><div class="tc-summary">'+t.dayPlan.map(d=>'<span class="ds">'+d.label+' · '+d.pois.length+'个点</span>').join('')+'</div><div class="tc-meta"><span>📅 '+t.days+' 天</span><span>📍 '+t.dayPlan.reduce((s,d)=>s+d.pois.length,0)+' 个打卡点</span><span>💰 ¥'+t.totalBudget.toLocaleString()+'</span></div><div class="tc-actions"><button class="btn-view" onclick="location.href=\'planner.html?trip='+i+'\'">👁️ 查看详情</button><button class="btn-delete" onclick="confirmDelete('+i+')">🗑️ 删除</button></div></div>').join('')+'</div>';
+  const newBtn='<div class="stats-bar" style="justify-content:space-between;margin-bottom:16px"><span>'+trips.length+' 条行程</span><div style="display:flex;gap:8px"><a href="dashboard.html" style="padding:8px 16px;border-radius:999px;border:2px solid var(--accent);color:var(--accent);font-size:13px;font-weight:700">📊 仪表盘</a><button style="padding:8px 20px;border-radius:999px;border:none;background:var(--accent);color:#fff;font-size:13px;font-weight:700;cursor:pointer" onclick="location.href=\'planner.html\'">+ 新建行程</button></div></div>';
+  if(!trips.length){area.innerHTML=newBtn+'<div class="empty-state"><div class="empty-icon">📋</div><h3>还没有保存行程</h3><p>点击上方按钮或前往规划页创建行程</p><button onclick="location.href=\'planner.html\'">✈️ 开始规划行程</button></div>';return;}
+  const totalPois=trips.reduce((s,t)=>s+(t.dayPlan?t.dayPlan.reduce((ss,d)=>ss+(d.pois?d.pois.length:0),0):0),0);
+  const totalBudget=trips.reduce((s,t)=>s+(Number(t.totalBudget)||0),0);
+  area.innerHTML=newBtn+'<div class="trip-grid">'+trips.map((t,i)=>'<div class="trip-card" style="animation-delay:'+(i*0.08)+'s"><div class="tc-header"><div class="tc-title">'+(t.name||'未命名行程')+'</div></div><div class="tc-city">📍 '+(t.city||'自定义')+'</div><div class="tc-summary">'+(t.dayPlan?t.dayPlan.map(d=>'<span class="ds">'+(d.label||'DAY')+' · '+(d.pois?d.pois.length:0)+'个点</span>').join(''):'')+'</div><div class="tc-meta"><span>📅 '+(t.days||(t.dayPlan?t.dayPlan.length:1))+' 天</span><span>📍 '+(t.dayPlan?t.dayPlan.reduce((s,d)=>s+(d.pois?d.pois.length:0),0):0)+' 个打卡点</span><span>💰 ¥'+(Number(t.totalBudget)||0).toLocaleString()+'</span></div><div class="tc-actions"><button class="btn-view" onclick="location.href=\'planner.html?trip='+i+'\'">👁️ 查看详情</button><button class="btn-delete" onclick="confirmDelete('+i+')">🗑️ 删除</button></div></div>').join('')+'</div>';
 }
 function confirmDelete(idx){deleteTarget=idx;document.getElementById('deleteModal').classList.add('show');}
 function closeModal(){document.getElementById('deleteModal').classList.remove('show');deleteTarget=null;}
@@ -95,5 +95,6 @@ document.getElementById('themeBtn').addEventListener('click',function(){const h=
 (function(){const t=localStorage.getItem('tq_theme');if(t){document.documentElement.setAttribute('data-theme',t);document.getElementById('themeBtn').textContent=t==='dark'?'☀️':'🌓';}})();
 buildPage();
 </script>
+<script>if("serviceWorker"in navigator)navigator.serviceWorker.register("sw.js")</script>
 </body>
 </html>
