@@ -16,7 +16,7 @@ a{color:inherit;text-decoration:none}
 .nav-logo span{background:linear-gradient(135deg,var(--accent),#0ea5e9);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
 .nav-links{display:flex;gap:2px;flex:1}
 .nav-links a{padding:8px 16px;border-radius:var(--radius-sm);font-size:13.5px;font-weight:500;color:var(--text2);transition:all var(--transition)}
-.nav-links a:hover{background:var(--surface2);color:var(--text)}
+.nav-links a:hover,.nav-links a:focus-visible{background:var(--surface2);color:var(--text);outline:none}
 .nav-links a.active{background:var(--accent);color:#fff;box-shadow:0 2px 8px var(--accent-glow)}
 .nav-actions{display:flex;gap:8px;align-items:center}
 .nav-btn{width:38px;height:38px;border-radius:50%;border:1px solid var(--border);background:var(--surface);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:16px;transition:all var(--transition);color:var(--text)}
@@ -61,9 +61,10 @@ a{color:inherit;text-decoration:none}
 
 .toast{position:fixed;bottom:32px;left:50%;transform:translateX(-50%) translateY(20px);background:var(--text);color:var(--bg);padding:12px 28px;border-radius:24px;font-size:13px;font-weight:600;z-index:9999;opacity:0;transition:all .3s cubic-bezier(.4,0,.2,1);pointer-events:none;box-shadow:var(--shadow-xl)}
 .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:3px solid var(--accent-glow);outline-offset:2px}
 
 @media(max-width:900px){
-  .nav{padding:0 16px;gap:16px}.nav-links{display:none}
+  .nav{height:auto;min-height:var(--nav-h);padding:10px 16px;gap:12px;flex-wrap:wrap}.nav-actions{margin-left:auto}.nav-links{display:flex;overflow-x:auto;order:3;width:100%;padding-bottom:6px}.nav-links a{white-space:nowrap}
   .main-content{flex-direction:column;height:auto}.map-panel{height:45vh}
   .result-panel{width:100%;min-width:unset;border-left:none;border-top:1px solid var(--border);max-height:45vh}
   .search-bar{gap:8px}.search-bar input{max-width:100%}
@@ -120,7 +121,12 @@ window._AMapSecurityConfig={securityJsCode:'4b919753bb76bf1f15a7b189d9e15ed8'};
 <script async src="https://webapi.amap.com/maps?v=2.0&key=4afb8b97169fca14cd25a5b5b81fd00e&plugin=AMap.PlaceSearch,AMap.Geocoder,AMap.ToolBar,AMap.Scale&callback=initMap"></script>
 
 <script>
-let map,placeSearch,geocoder,currentRadius=5,searchMarkers=[],amapReady=false;
+let map,placeSearch,geocoder,currentRadius=1,searchMarkers=[],amapReady=false;
+const fallbackPois={成都:[['天府广场','城市中心广场','景点',104.0668,30.6570],['人民公园','盖碗茶与市井生活','文化',104.0555,30.6604],['宽窄巷子','老成都街巷体验','文化',104.0518,30.6675],['武侯祠','三国文化景区','文化',104.0468,30.6458],['锦里古街','小吃与伴手礼街区','购物',104.0482,30.6469],['太古里','开放式商业街区','购物',104.0835,30.6546],['九眼桥','夜生活与酒吧街','夜生活',104.0896,30.6435]],西安:[['钟楼','古城中心地标','文化',108.9428,34.2615],['回民街','西安小吃街','美食',108.9413,34.2631],['古城墙','骑行与城墙景观','景点',108.9364,34.2556],['大雁塔','唐代佛塔与广场','文化',108.9606,34.2194],['兵马俑','秦文化博物馆','文化',109.2733,34.3853]],北京:[['故宫','皇家宫殿建筑群','文化',116.3972,39.9075],['景山公园','俯瞰中轴线','景点',116.3967,39.9225],['南锣鼓巷','胡同街区','购物',116.403,39.937],['三里屯','都市夜生活','夜生活',116.454,39.933]],重庆:[['解放碑','城市地标商圈','购物',106.5778,29.5583],['洪崖洞','吊脚楼夜景','景点',106.5835,29.563],['李子坝','轻轨穿楼观景台','景点',106.54,29.548],['观音桥九街','酒吧与夜生活','夜生活',106.53,29.575]],杭州:[['西湖','湖区漫游','景点',120.149,30.258],['清河坊','南宋老街','购物',120.172,30.241],['灵隐寺','禅宗寺庙','文化',120.101,30.244],['龙井村','茶园体验','景点',120.116,30.222]],大理:[['大理古城','白族古城街区','文化',100.165,25.686],['洱海','环湖骑行','景点',100.185,25.74],['喜洲古镇','白族民居与麦田','文化',100.106,25.858],['双廊古镇','海景餐厅与日落','美食',100.195,25.936]]};
+const fallbackCenters={成都:[104.0668,30.6570],西安:[108.9428,34.2615],北京:[116.3972,39.9075],重庆:[106.5778,29.5583],杭州:[120.1551,30.2741],大理:[100.165,25.686]};
+function guessCity(q){for(const c in fallbackPois){if(q.indexOf(c)>=0)return c;}return '成都';}
+function haversine(lng1,lat1,lng2,lat2){const R=6371,dLat=(lat2-lat1)*Math.PI/180,dLng=(lng2-lng1)*Math.PI/180;const a=Math.sin(dLat/2)**2+Math.cos(lat1*Math.PI/180)*Math.cos(lat2*Math.PI/180)*Math.sin(dLng/2)**2;return R*2*Math.atan2(Math.sqrt(a),Math.sqrt(1-a));}
+function renderFallbackResults(keyword,center){const city=guessCity(keyword);const origin=center||fallbackCenters[city];const typeText=document.getElementById('poiType').selectedOptions[0].textContent.replace(/[🔍🍜🛒🏨🏔️🚗🎬]/g,'').trim();let pois=fallbackPois[city].map(p=>({raw:p,dist:haversine(origin[0],origin[1],p[3],p[4])})).filter(x=>x.dist<=currentRadius);if(typeText&&typeText!=='全部类型'){pois=pois.filter(x=>typeText.indexOf(x.raw[2])>=0||x.raw[2].indexOf(typeText.slice(0,2))>=0);}if(!pois.length){document.getElementById('resultList').innerHTML='<div style="color:var(--text3);font-size:13px;text-align:center;padding:36px 12px">当前 '+currentRadius+'km 内暂无本地备选结果，请扩大半径或更换类型。</div>';showToast(currentRadius+'km 内暂无结果');return;}document.getElementById('resultList').innerHTML='<div style="font-size:12px;color:var(--text3);margin-bottom:12px;line-height:1.6">高德地图未返回结果，已启用 '+city+' 本地推荐；当前半径 '+currentRadius+'km，已按距离筛选。</div>'+pois.map((item,i)=>{const p=item.raw;return '<div class="result-card" onclick="focusResult('+p[3]+','+p[4]+',\''+p[0]+'\')"><div class="result-num">'+(i+1)+'</div><div class="result-info"><div class="result-name">📍 '+p[0]+'</div><div class="result-addr">'+p[1]+'</div><div class="result-meta"><span>'+p[2]+'</span><span>📏 '+Math.round(item.dist*1000)+'m</span><span>本地推荐</span></div></div></div>';}).join('');showToast('已按 '+currentRadius+'km 半径筛选结果');}
 
 function initMap(){
   amapReady=true;document.getElementById('mapOverlay').style.opacity='0';
@@ -138,7 +144,7 @@ function setRadius(r,el){currentRadius=r;document.querySelectorAll('.radius-tag'
 function searchPoi(){
   const kw=document.getElementById('poiSearch').value.trim(),type=document.getElementById('poiType').value;
   if(!kw){showToast('请输入地点名称');return;}
-  if(!amapReady){showToast('地图尚未就绪，请稍候');return;}
+  if(!amapReady||!geocoder||!placeSearch){renderFallbackResults(kw);return;}
   geocoder.getLocation(kw,function(status,result){
     if(status==='complete'&&result.geocodes.length){
       const loc=result.geocodes[0].location;
@@ -148,20 +154,22 @@ function searchPoi(){
         content:'<div style="background:#ef4444;color:#fff;width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;border:3px solid #fff;box-shadow:0 3px 12px rgba(239,68,68,.4)">📍</div>',
         offset:new AMap.Pixel(-16,-16),zIndex:500});
       centerMarker.setMap(map);searchMarkers.push(centerMarker);
-      placeSearch.setCity(result.geocodes[0].citycode||'成都');
-      placeSearch.searchNearBy(kw,[loc.lng,loc.lat],currentRadius*1000,function(status,result){
+      placeSearch.setCity(result.geocodes[0].citycode||'全国');
+      placeSearch.setType(type);
+      const searchWord=document.getElementById('poiType').selectedOptions[0].textContent.replace(/[🔍🍜🛒🏨🏔️🚗🎬]/g,'').trim()||'景点 美食';
+      placeSearch.searchNearBy(searchWord,[loc.lng,loc.lat],currentRadius*1000,function(status,result){
         if(status==='complete'&&result.poiInfo&&result.poiInfo.pois.length){
           const pois=result.poiInfo.pois;const colors=['#3B82F6','#F59E0B','#8B5CF6','#EC4899','#10B981','#EF4444','#6366F1','#14B8A6'];
           map.setFitView(null,false,[340,60,60,60]);
           document.getElementById('resultList').innerHTML=pois.map((p,i)=>'<div class="result-card" onclick="focusResult('+p.location.lng+','+p.location.lat+',\''+p.name.replace(/'/g,'\\\'')+'\')"  style="animation-delay:'+(i*0.03)+'s"><div class="result-num">'+(i+1)+'</div><div class="result-info"><div class="result-name">'+(p.type.includes('餐饮')?'🍜 ':'📍 ')+p.name+'</div><div class="result-addr">'+p.address+'</div><div class="result-meta"><span>📏 '+(p.distance?Math.round(p.distance):'?' )+'m</span>'+(p.biz_ext&&p.biz_ext.rating?'<span>⭐ '+p.biz_ext.rating+'</span>':'')+'</div></div></div>').join('');
           pois.forEach((p,i)=>{const m=new AMap.Marker({position:[p.location.lng,p.location.lat],content:'<div style="background:'+colors[i%colors.length]+';color:#fff;width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;border:2px solid #fff;box-shadow:0 1px 4px rgba(0,0,0,.2)">'+(i+1)+'</div>',offset:new AMap.Pixel(-12,-12),zIndex:100-i});m.setMap(map);searchMarkers.push(m);m.on('click',function(idx){return function(){map.setZoomAndCenter(16,[pois[idx].location.lng,pois[idx].location.lat]);}}(i));});
-        }else{document.getElementById('resultList').innerHTML='<div style="text-align:center;padding:30px 0;color:var(--text3)">未找到结果，换个关键词试试</div>';}
+        }else{renderFallbackResults(kw,[loc.lng,loc.lat]);}
       });
-    }else{showToast('未找到该地点');}
+    }else{renderFallbackResults(kw);}
   });
 }
 
-function focusResult(lng,lat,name){map.setZoomAndCenter(17,[lng,lat]);showToast('已定位到 '+name);}
+function focusResult(lng,lat,name){if(map&&amapReady){map.setZoomAndCenter(17,[lng,lat]);}showToast('已定位到 '+name);}
 function clearMarkers(){searchMarkers.forEach(m=>m.setMap(null));searchMarkers=[];}
 function showToast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(function(){t.classList.remove('show');},2200);}
 

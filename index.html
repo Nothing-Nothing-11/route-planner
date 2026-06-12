@@ -17,7 +17,7 @@ a{color:inherit;text-decoration:none}
 .nav-logo span{background:linear-gradient(135deg,var(--accent),#0ea5e9);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
 .nav-links{display:flex;gap:2px;flex:1}
 .nav-links a{padding:8px 16px;border-radius:var(--radius-sm);font-size:13.5px;font-weight:500;color:var(--text2);transition:all var(--transition)}
-.nav-links a:hover{background:var(--surface2);color:var(--text)}
+.nav-links a:hover,.nav-links a:focus-visible{background:var(--surface2);color:var(--text);outline:none}
 .nav-links a.active{background:var(--accent);color:#fff;box-shadow:0 2px 8px var(--accent-glow)}
 .nav-actions{display:flex;gap:8px;align-items:center}
 .nav-btn{width:38px;height:38px;border-radius:50%;border:1px solid var(--border);background:var(--surface);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:16px;transition:all var(--transition);color:var(--text)}
@@ -86,9 +86,10 @@ a{color:inherit;text-decoration:none}
 .footer{padding:28px 56px;border-top:1px solid var(--border);text-align:center;font-size:12px;color:var(--text3);margin-top:auto;transition:border-color var(--transition)}
 .toast{position:fixed;bottom:32px;left:50%;transform:translateX(-50%) translateY(20px);background:var(--text);color:var(--bg);padding:12px 28px;border-radius:24px;font-size:13px;font-weight:600;z-index:9999;opacity:0;transition:all .3s cubic-bezier(.4,0,.2,1);pointer-events:none;box-shadow:var(--shadow-xl)}
 .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:3px solid var(--accent-glow);outline-offset:2px}
 
 @media(max-width:960px){
-  .nav{padding:0 16px;gap:16px}.nav-links{display:none}
+  .nav{height:auto;min-height:var(--nav-h);padding:10px 16px;gap:12px;flex-wrap:wrap}.nav-actions{margin-left:auto}.nav-links{display:flex;overflow-x:auto;order:3;width:100%;padding-bottom:6px}.nav-links a{white-space:nowrap}
   .hero{padding:60px 24px 80px}.hero h1{font-size:34px}.hero p{font-size:16px}
   .hero-search{flex-direction:column;gap:10px}.hero-search button{width:100%}
   .quick-actions,.section{padding-left:24px;padding-right:24px}
@@ -149,12 +150,12 @@ a{color:inherit;text-decoration:none}
 <div class="section">
   <div class="section-header"><div class="section-title">✨ 为什么选择 TrailQuest</div><div class="section-sub">不只是行程规划工具，更是你的全能旅行助手</div></div>
   <div class="feature-grid">
-    <div class="feature-card"><h4>🗺️ 高德地图全驱动</h4><p>精准路线导航、实时路况、公交换乘、驾车步行骑行全覆盖</p></div>
-    <div class="feature-card"><h4>🎨 智能行程设计</h4><p>按地理位置自动排序POI减少绕路，分段规划交通耗时</p></div>
-    <div class="feature-card"><h4>📊 预算精细管理</h4><p>门票·餐饮·住宿·交通·购物分项预算，实时可视化</p></div>
-    <div class="feature-card"><h4>🌤️ 天气实时联动</h4><p>出行前查看目的地天气，智能推荐出行装备清单</p></div>
-    <div class="feature-card"><h4>🔍 周边雷达探索</h4><p>以任意POI为中心搜索周边美食、酒店、停车场</p></div>
-    <div class="feature-card"><h4>💾 本地持久化</h4><p>行程自动保存本地，收藏路线永不丢失</p></div>
+    <div class="feature-card"><h4>🗺️ 高德地图联动</h4><p>行程页按 POI 顺序打点连线，地图失败时仍保留完整时间轴和交通估算</p></div>
+    <div class="feature-card"><h4>🧭 多城市路线库</h4><p>成都、西安、北京、重庆、杭州、大理均有可打开的完整日程数据</p></div>
+    <div class="feature-card"><h4>📊 预算与分类统计</h4><p>保存行程后可在仪表盘查看天数、POI 数、预算和分类占比</p></div>
+    <div class="feature-card"><h4>🤖 智能问答可降级</h4><p>FAQ 本地秒回优先，外部模型 API 配置失败也会给出本地建议</p></div>
+    <div class="feature-card"><h4>🔍 周边探索降级可用</h4><p>高德 POI 可用时实时搜索，不可用时返回内置城市推荐结果</p></div>
+    <div class="feature-card"><h4>💾 本地持久化闭环</h4><p>路线收藏、行程保存、我的行程恢复均使用浏览器本地存储完成</p></div>
   </div>
 </div>
 

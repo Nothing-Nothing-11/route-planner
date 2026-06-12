@@ -16,7 +16,7 @@ a{color:inherit;text-decoration:none}
 .nav-logo span{background:linear-gradient(135deg,var(--accent),#0ea5e9);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
 .nav-links{display:flex;gap:2px;flex:1}
 .nav-links a{padding:8px 16px;border-radius:var(--radius-sm);font-size:13.5px;font-weight:500;color:var(--text2);transition:all var(--transition)}
-.nav-links a:hover{background:var(--surface2);color:var(--text)}
+.nav-links a:hover,.nav-links a:focus-visible{background:var(--surface2);color:var(--text);outline:none}
 .nav-links a.active{background:var(--accent);color:#fff;box-shadow:0 2px 8px var(--accent-glow)}
 .nav-actions{display:flex;gap:8px;align-items:center}
 .nav-save{padding:7px 18px;border-radius:20px;border:none;background:var(--accent);color:#fff;font-size:13px;font-weight:600;cursor:pointer;transition:all var(--transition)}
@@ -86,11 +86,15 @@ a{color:inherit;text-decoration:none}
 .transport-bar{padding:12px 28px;background:var(--bg);border-top:1px solid var(--border);display:flex;align-items:center;gap:24px;font-size:13px;color:var(--text2)}.transport-bar .stat{display:flex;align-items:center;gap:6px;white-space:nowrap;font-weight:500}.transport-bar .stat strong{color:var(--accent);font-weight:700}
 .toast{position:fixed;bottom:32px;left:50%;transform:translateX(-50%) translateY(20px);background:var(--text);color:var(--bg);padding:12px 28px;border-radius:24px;font-size:13px;font-weight:600;z-index:9999;opacity:0;transition:all .3s cubic-bezier(.4,0,.2,1);pointer-events:none;box-shadow:var(--shadow-xl)}
 .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:3px solid var(--accent-glow);outline-offset:2px}
+.custom-planner{padding:14px 28px;background:linear-gradient(180deg,var(--bg),var(--surface));border-bottom:1px solid var(--border);display:grid;grid-template-columns:minmax(180px,1.2fr) 110px minmax(180px,1fr) 130px auto;gap:10px;align-items:end}
+.custom-field{display:flex;flex-direction:column;gap:5px;min-width:0}.custom-field label{font-size:11px;font-weight:700;color:var(--text3);letter-spacing:.4px}.custom-field input,.custom-field select{height:42px;border-radius:14px;border:1.5px solid var(--border);background:var(--bg);color:var(--text);padding:0 14px;font-size:13px;transition:all var(--transition)}.custom-field input:focus,.custom-field select:focus{border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-glow);outline:none}.custom-submit{height:42px;border:none;border-radius:14px;background:linear-gradient(135deg,var(--accent),#0ea5e9);color:#fff;font-size:13px;font-weight:700;cursor:pointer;padding:0 20px;box-shadow:0 8px 20px var(--accent-glow);transition:all var(--transition)}.custom-submit:hover{transform:translateY(-1px);box-shadow:0 12px 24px var(--accent-glow)}.custom-hint{grid-column:1/-1;font-size:12px;color:var(--text3);line-height:1.5}.custom-hint strong{color:var(--accent)}
 
 @media(max-width:960px){
-  .nav{padding:0 16px;gap:16px}.nav-links{display:none}
+  .nav{height:auto;min-height:var(--nav-h);padding:10px 16px;gap:12px;flex-wrap:wrap}.nav-actions{margin-left:auto}.nav-links{display:flex;overflow-x:auto;order:3;width:100%;padding-bottom:6px}.nav-links a{white-space:nowrap}
   .banner{height:auto;padding:24px 20px;flex-direction:column;text-align:center;gap:16px}.banner-left h1{font-size:24px}.banner-right{gap:8px}.glass-badge{padding:10px 16px;min-width:85px}.glass-badge .val{font-size:20px}
   .day-tabs{padding:10px 16px}.day-tab{padding:8px 18px;font-size:13px}
+  .custom-planner{grid-template-columns:1fr 1fr;padding:14px 16px}.custom-field:first-child,.custom-field:nth-child(3),.custom-submit,.custom-hint{grid-column:1/-1}
   .main-content{flex-direction:column;height:auto}.timeline-panel{width:100%;min-width:unset;height:50vh;border-right:none;border-bottom:1px solid var(--border);padding:16px}.map-panel{height:50vh}
 }
 </style>
@@ -119,6 +123,14 @@ a{color:inherit;text-decoration:none}
   <div class="banner-right" id="bannerBadges"></div>
 </div>
 
+<form class="custom-planner" id="customPlanner" onsubmit="event.preventDefault();generateCustomTrip();">
+  <div class="custom-field"><label for="customDest">自定义目的地</label><input id="customDest" type="text" placeholder="例如：苏州、广州、青海湖、川西小环线"></div>
+  <div class="custom-field"><label for="customDays">天数</label><select id="customDays"><option value="1">1 天</option><option value="2">2 天</option><option value="3" selected>3 天</option><option value="4">4 天</option><option value="5">5 天</option></select></div>
+  <div class="custom-field"><label for="customPrefs">偏好</label><input id="customPrefs" type="text" placeholder="历史文化、美食、自然、购物、夜生活"></div>
+  <div class="custom-field"><label for="customBudget">预算/人</label><input id="customBudget" type="number" min="300" step="100" value="3000"></div>
+  <button class="custom-submit" type="submit">生成行程</button>
+  <div class="custom-hint">支持任意城市、区域或路线关键词。已有完整数据的城市会打开精选路线，其他目的地会生成可保存、可统计、可地图查看的自定义路线；高德可用时自动定位中心点。</div>
+</form>
 <div class="day-tabs" id="dayTabs"></div>
 <div class="main-content">
   <div class="timeline-panel" id="timelinePanel"></div>
@@ -158,14 +170,38 @@ function resolveCityKey(input){
   for(const k in alias){if(raw.indexOf(k)>=0)return alias[k];}
   return null;
 }
+function hashText(text){let h=0;for(let i=0;i<text.length;i++)h=(h*31+text.charCodeAt(i))>>>0;return h;}
+function estimateCenter(destination){const known=[['苏州',120.5853,31.2989],['广州',113.2644,23.1291],['上海',121.4737,31.2304],['深圳',114.0579,22.5431],['南京',118.7969,32.0603],['武汉',114.3055,30.5928],['长沙',112.9388,28.2282],['青海湖',100.2421,36.8965],['川西',101.9638,30.0507],['厦门',118.0894,24.4798],['桂林',110.2900,25.2736]];for(const k of known){if(destination.indexOf(k[0])>=0)return [k[1],k[2]];}const h=hashText(destination);return [100+(h%2400)/100,22+((h>>8)%1800)/100];}
+function pickCats(prefs){const text=(prefs||'').toLowerCase();const cats=[];if(/自然|山|水|湖|海|风景|景点/.test(text))cats.push('scenic');if(/美食|吃|餐|小吃|夜宵/.test(text))cats.push('food');if(/历史|文化|博物|古|寺|艺术/.test(text))cats.push('culture');if(/购物|商业|市集|街区/.test(text))cats.push('shop');if(/夜|酒吧|live|音乐/.test(text))cats.push('night');return cats.length?cats:['culture','food','scenic','shop','night'];}
+function makePoiName(destination,cat,idx){const names={scenic:['核心景观带','城市观景点','自然漫游区','慢行风景线'],food:['本地风味餐厅','特色小吃街','人气晚餐店','咖啡甜品站'],culture:['历史文化地标','博物馆/展陈空间','老街与城市记忆','非遗体验点'],shop:['生活方式街区','文创市集','商圈补给站','伴手礼集合店'],night:['夜景观赏点','音乐酒馆街','夜市漫游线','城市灯光秀']};return destination+' · '+names[cat][idx%names[cat].length];}
+function buildCustomTrip(opts){
+  const destination=(opts.destination||'自定义目的地').trim();
+  const days=Math.max(1,Math.min(5,Number(opts.days)||3));
+  const budget=Math.max(300,Number(opts.budget)||3000);
+  const prefs=opts.prefs||'历史文化、美食、自然、夜生活';
+  const center=opts.center||estimateCenter(destination);
+  const cats=pickCats(prefs);const dayPlan=[];const perDay=Math.max(260,Math.round(budget/days));
+  for(let d=0;d<days;d++){
+    const pois=[];const count=d===0?5:4;
+    for(let i=0;i<count;i++){
+      const cat=cats[(d+i)%cats.length];const angle=(d*70+i*55)*Math.PI/180;const dist=.012+i*.006+d*.003;
+      const lng=Number((center[0]+Math.cos(angle)*dist).toFixed(6));const lat=Number((center[1]+Math.sin(angle)*dist).toFixed(6));
+      const cost=cat==='food'?Math.round(perDay*.22):cat==='night'?Math.round(perDay*.18):cat==='scenic'||cat==='culture'?Math.round(perDay*.14):Math.round(perDay*.08);
+      pois.push({n:makePoiName(destination,cat,i),lng:lng,lat:lat,t:['08:30','10:30','12:30','15:00','19:30'][i]||'16:30',cat:cat,dur:cat==='food'?60:cat==='night'?100:120,cost:cost,desc:'根据“'+prefs+'”偏好生成的 '+destination+' 自定义行程点，可保存后在我的行程和仪表盘继续查看。',notes:i===0?'建议先核对开放时间':'可按体力和天气微调'});
+    }
+    dayPlan.push({day:d+1,label:'DAY '+(d+1)+' · '+(d===0?'初见'+destination:d===days-1?'收束与返程':'深度探索'),pois:pois});
+  }
+  return normalizeTrip({id:'custom-'+hashText(destination+'-'+Date.now()),city:destination,name:destination+days+'日自定义行程',center:center,zoom:12,sub:'自定义生成 · '+prefs+' · 预算约 ¥'+budget+'/人',totalBudget:dayPlan.reduce((s,d)=>s+d.pois.reduce((ss,p)=>ss+p.cost,0),0),days:days,dayPlan:dayPlan,custom:true},'custom');
+}
 function normalizeTrip(raw,fallbackId){
-  const t=JSON.parse(JSON.stringify(raw));
+  const t=JSON.parse(JSON.stringify(raw||{}));
   t.id=t.id||fallbackId||resolveCityKey(t.city)||'custom';
   t.city=t.city||'自定义';
   t.name=t.name||t.city+'行程';
   t.dayPlan=t.dayPlan||[];
+  t.dayPlan.forEach(function(d,idx){d.day=d.day||idx+1;d.label=d.label||('DAY '+(idx+1));d.pois=d.pois||[];});
   t.days=t.days||t.dayPlan.length||1;
-  t.totalBudget=t.totalBudget||t.dayPlan.reduce((s,d)=>s+d.pois.reduce((ss,p)=>ss+(p.cost||0),0),0);
+  t.totalBudget=t.totalBudget||t.dayPlan.reduce((s,d)=>s+d.pois.reduce((ss,p)=>ss+(Number(p.cost)||0),0),0);
   t.center=t.center||((t.dayPlan[0]&&t.dayPlan[0].pois[0])?[t.dayPlan[0].pois[0].lng,t.dayPlan[0].pois[0].lat]:[104.0668,30.5728]);
   t.zoom=t.zoom||12;
   t.sub=t.sub||'已保存行程 · 可继续查看地图、时间轴与预算';
@@ -178,25 +214,34 @@ function loadInitialTrip(){
     const saved=trips[Number(tripIdx)];
     if(saved)return normalizeTrip(saved,saved.id);
   }
-  const key=resolveCityKey(getParam('city'))||resolveCityKey(getParam('route'))||resolveCityKey(getParam('q'))||'chengdu';
-  return normalizeTrip(allTrips[key],key);
+  const rawInput=getParam('city')||getParam('route')||getParam('q');
+  const key=resolveCityKey(rawInput);
+  if(key)return normalizeTrip(allTrips[key],key);
+  if(rawInput)return buildCustomTrip({destination:decodeURIComponent(rawInput),days:3,prefs:'历史文化、美食、自然、夜生活',budget:3000});
+  return normalizeTrip(allTrips.chengdu,'chengdu');
 }
 function selectCity(key){
   if(!allTrips[key])key='chengdu';
   tripData=normalizeTrip(allTrips[key],key);
   currentDay=0;activePoiIdx=-1;
-  document.getElementById('bannerTitle').textContent='探索'+tripData.city+' · '+tripData.name.replace(tripData.city,'');
-  document.getElementById('bannerSub').textContent=tripData.sub;
+  updateTripHeader();
   document.querySelectorAll('.city-chip').forEach(c=>c.classList.remove('active'));
   const chip=document.getElementById('chip_'+key);if(chip)chip.classList.add('active');
   renderAll();
   if(map&&amapReady){map.setZoomAndCenter(tripData.zoom,tripData.center);renderMap();}
   window.history.replaceState({},'','?city='+key);
 }
+function updateTripHeader(){document.getElementById('bannerTitle').textContent='探索'+tripData.city+' · '+tripData.name.replace(tripData.city,'');document.getElementById('bannerSub').textContent=tripData.sub;}
 function renderCityChips(){
   document.getElementById('cityChips').innerHTML=Object.keys(allTrips).map(k=>'<span class="city-chip'+(tripData&&tripData.id===k?' active':'')+'" id="chip_'+k+'" onclick="selectCity(\''+k+'\')">'+allTrips[k].city+'</span>').join('');
 }
-function renderAll(){renderBannerBadges();renderDayTabs();renderTimeline();renderMap();updateTransportBar();}
+function renderAll(){updateTripHeader();renderCityChips();renderBannerBadges();renderDayTabs();renderTimeline();renderMap();updateTransportBar();}
+function generateCustomTrip(){
+  const destination=document.getElementById('customDest').value.trim();if(!destination){showToast('请输入自定义目的地');return;}
+  const opts={destination:destination,days:document.getElementById('customDays').value,prefs:document.getElementById('customPrefs').value||'历史文化、美食、自然、夜生活',budget:document.getElementById('customBudget').value};
+  const apply=function(center){if(center)opts.center=center;tripData=buildCustomTrip(opts);currentDay=0;activePoiIdx=-1;renderAll();if(map&&amapReady){map.setZoomAndCenter(tripData.zoom,tripData.center);renderMap();}window.history.replaceState({},'','?q='+encodeURIComponent(destination));showToast('已生成 '+destination+' 自定义行程');};
+  if(amapReady&&window.AMap){const geocoder=new AMap.Geocoder();geocoder.getLocation(destination,function(status,result){if(status==='complete'&&result.geocodes&&result.geocodes.length){const loc=result.geocodes[0].location;apply([loc.lng,loc.lat]);}else apply(null);});}else apply(null);
+}
 function haversine(lng1,lat1,lng2,lat2){const R=6371,dLat=(lat2-lat1)*Math.PI/180,dLng=(lng2-lng1)*Math.PI/180;const a=Math.sin(dLat/2)**2+Math.cos(lat1*Math.PI/180)*Math.cos(lat2*Math.PI/180)*Math.sin(dLng/2)**2;return R*2*Math.atan2(Math.sqrt(a),Math.sqrt(1-a));}
 function focusPoi(idx){activePoiIdx=idx;document.querySelectorAll('.poi-card').forEach(c=>c.classList.remove('active'));const card=document.getElementById('poiCard'+idx);if(card){card.classList.add('active');card.scrollIntoView({behavior:'smooth',block:'center'});}const p=tripData.dayPlan[currentDay].pois[idx];if(map&&amapReady){map.setZoomAndCenter(15,[p.lng,p.lat]);if(markers[idx])markers[idx].openInfoWindow();}}
 function renderBannerBadges(){let allPois=0;tripData.dayPlan.forEach(d=>allPois+=d.pois.length);document.getElementById('bannerBadges').innerHTML='<div class="glass-badge"><div class="val">'+tripData.days+'</div><div class="lbl">Days</div></div><div class="glass-badge"><div class="val">'+allPois+'</div><div class="lbl">Spots</div></div><div class="glass-badge"><div class="val">¥'+(tripData.totalBudget/1000).toFixed(1)+'k</div><div class="lbl">Budget</div></div>';}
@@ -208,16 +253,15 @@ function tryFetchTransports(pois){if(!driving)return;for(let i=0;i<pois.length-1
 function renderMap(){if(!map||!amapReady)return;markers.forEach(m=>m.setMap(null));markers=[];if(polyline){polyline.setMap(null);polyline=null;}const plan=tripData.dayPlan[currentDay];const dayColors=['#0284c7','#7C3AED','#059669','#DC2626','#EA580C'];const color=dayColors[currentDay%5];const hexMap={scenic:'#3B82F6',food:'#F59E0B',culture:'#8B5CF6',shop:'#EC4899',night:'#10B981'};const bounds=[];plan.pois.forEach((p,i)=>{const hex=hexMap[p.cat]||'#3B82F6';const m=new AMap.Marker({position:[p.lng,p.lat],content:'<div style="background:'+hex+';color:#fff;width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;border:3px solid #fff;box-shadow:0 2px 8px rgba(0,0,0,.25);">'+(i+1)+'</div>',offset:new AMap.Pixel(-14,-14),zIndex:100-i});m.setMap(map);markers.push(m);bounds.push([p.lng,p.lat]);const iw=new AMap.InfoWindow({content:'<div style="padding:8px 14px;font-size:13px;font-weight:600">'+p.n+'</div><div style="padding:0 14px 8px;font-size:11px;color:#666">'+p.t+'</div>',offset:new AMap.Pixel(0,-36)});m.on('mouseover',function(){iw.open(map,this.getPosition());});m.on('mouseout',function(){iw.close();});m.openInfoWindow=function(){iw.open(map,this.getPosition());};m.on('click',function(idx){return function(){focusPoi(idx);}}(i));});if(plan.pois.length>1){polyline=new AMap.Polyline({path:plan.pois.map(p=>[p.lng,p.lat]),strokeColor:color,strokeWeight:3.5,strokeOpacity:.75,strokeStyle:'solid',lineJoin:'round',showDir:true});polyline.setMap(map);}if(bounds.length){const b=new AMap.Bounds(bounds);if(b.getNorthEast().toString()!==b.getSouthWest().toString())map.setBounds(b,false,[80,40,200,40]);}}
 function updateTransportBar(){const plan=tripData.dayPlan[currentDay];let totalCost=0,totalDur=0,totalKm=0;plan.pois.forEach(p=>{totalCost+=p.cost;totalDur+=p.dur;});for(let i=0;i<plan.pois.length-1;i++)totalKm+=haversine(plan.pois[i].lng,plan.pois[i].lat,plan.pois[i+1].lng,plan.pois[i+1].lat);document.getElementById('transportBar').innerHTML='<div class="stat">📌 <strong>'+plan.pois.length+'</strong> 个打卡点</div><div class="stat">⏱️ 游览 <strong>'+Math.round(totalDur/60)+'</strong> 小时</div><div class="stat">📏 行程 <strong>'+totalKm.toFixed(0)+'</strong> km</div><div class="stat">💰 预估 <strong>¥'+totalCost+'</strong></div>';}
 function showToast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(function(){t.classList.remove('show');},2200);}
-function saveTrip(){let trips=JSON.parse(localStorage.getItem('tq_trips')||'[]');trips.unshift(tripData);localStorage.setItem('tq_trips',JSON.stringify(trips));showToast('✓ 行程已保存！');}
+function saveTrip(){let trips=JSON.parse(localStorage.getItem('tq_trips')||'[]');const payload=JSON.parse(JSON.stringify(tripData));payload.savedAt=new Date().toISOString();trips=trips.filter(t=>!(t.id===payload.id&&t.name===payload.name));trips.unshift(payload);localStorage.setItem('tq_trips',JSON.stringify(trips));showToast('✓ 行程已保存，可在“我的行程”和“仪表盘”查看');}
 
 document.getElementById('themeBtn').addEventListener('click',function(){const h=document.documentElement,c=h.getAttribute('data-theme'),n=c==='dark'?'light':'dark';h.setAttribute('data-theme',n);document.getElementById('themeBtn').textContent=n==='dark'?'☀️':'🌓';if(map&&amapReady)map.setMapStyle(n==='dark'?'amap://styles/dark':'amap://styles/light');localStorage.setItem('tq_theme',n);});
 (function(){const t=localStorage.getItem('tq_theme');if(t){document.documentElement.setAttribute('data-theme',t);document.getElementById('themeBtn').textContent=t==='dark'?'☀️':'🌓';}})();
 
 initTripData();
 tripData=loadInitialTrip();
-document.getElementById('bannerTitle').textContent='探索'+tripData.city+' · '+tripData.name.replace(tripData.city,'');
-document.getElementById('bannerSub').textContent=tripData.sub;
-renderCityChips();renderBannerBadges();renderDayTabs();renderTimeline();updateTransportBar();
+const initialRaw=getParam('q')||getParam('city')||getParam('route');if(initialRaw&&!resolveCityKey(initialRaw)){document.getElementById('customDest').value=decodeURIComponent(initialRaw);}
+renderAll();
 
 window.initMap=function(){amapReady=true;const overlay=document.getElementById('mapOverlay');if(overlay)overlay.classList.add('ready');map=new AMap.Map('mapContainer',{center:tripData.center,zoom:tripData.zoom,mapStyle:'amap://styles/light',viewMode:'3D',resizeEnable:true});map.addControl(new AMap.ToolBar({position:{top:'12px',right:'12px'}}));map.addControl(new AMap.Scale({position:{bottom:'34px',left:'12px'}}));driving=new AMap.Driving({map:null,panel:null});walking=new AMap.Walking({map:null,panel:null});renderMap();tryFetchTransports(tripData.dayPlan[currentDay].pois);const t=localStorage.getItem('tq_theme');if(t==='dark')map.setMapStyle('amap://styles/dark');};
 setTimeout(function(){if(!amapReady){document.getElementById('mapMsgTitle').textContent='地图加载超时';document.getElementById('mapMsgDesc').textContent='请检查网络或API Key';}},12000);
